@@ -1,10 +1,12 @@
 {
   "name": "assassins",
   "version": "0.0.1",
-  "description": "assassins game by minh vu",
+  "description": "assassins party game by minh vu & michael asare",
   "dependencies": {
     "express": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "serve-favicon": "*",
+    "path": "*"
   },
   "scripts": {
     "start": "node index.js"
