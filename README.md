@@ -1,5 +1,6 @@
 # Assassins Party Game
 ### Developed by Minh Vu & Michael Asare
+Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whoever you are assigned.
 ## 1. Login & Character Cards
   - Character cards consist of a image and a nickname.
 ## 2. Lobby System
