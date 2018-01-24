@@ -21,20 +21,35 @@
 
 <body>
   <section id="section-a" class="grid">
-    <div class="content-wrap">
-      <form>
-        <label>Username</label>
-        <input type="text" class="form-control" id="usr">
+    <div class="content-wrap" style="margin-top: 2em">
+      <form id="loginForm">
+        <input type="text" class="form-control" id="usr" placeholder="Username">
+        <input type="text" class="form-control" id="pwd" placeholder="Password">
+        <button type="submit" class="btn" style="width: 50%">Submit</button>
       </form>
     </div>
-
-    <div class="content-wrap">
-      <form>
-        <label>Password</label>
-        <input type="password" class="form-control" id="pwd">
-      </form>
     </div>
   </section>
 </body>
+
+<!-- Functionality for buttons -->
+<script>
+  $(function() {
+    var socket = io();
+
+    // Submits the message to the server when the button is pressed.
+    $('loginForm').submit(function() {
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+  });
+</script>
+
+<!-- Footer -->
+<footer id="main-footer" class="grid">
+  <div>Assassins Party Game</div>
+  <div>Project by <a href="https://github.com/SirGoldenNugget/assassins" target="_blank">SirGoldenNugget</a></div>
+</footer>
 
 </html>
