@@ -24,7 +24,7 @@ p {
   padding: 1em 0;
 }
 
-input[type=text], select {
+.inputText {
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
