@@ -1,12 +1,14 @@
-1. Have a username and password stuff.
+# Assassins Party Game
+### Developed by Minh Vu & Michael Asare
+## 1. Login & Character Cards
   - Character cards consist of a image and a nickname.
-2. Have a lobby system.
+## 2. Lobby System
   - One person makes the lobby--he/she is deemed the lobby leader and has administrative rights to the lobby
   - This person may start the game once everyone joins.
   - Players may join the game with a randomly generated key.
   - Once the lobby is started no other players may join the lobby.
   - Lobby leaders have the ability to cancel a lobby and return everyone into a neutral state.
-3. The Game
+## 3. The Game
   - Once the game starts, everyone is assigned a random person from the lobby.
     - That person cannot be yourself.
   - Once assigned a person, the player is instructed to kill given player as defined by the lobby leader.
