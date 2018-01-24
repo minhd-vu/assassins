@@ -49,7 +49,7 @@ p {
 
 #showcase .bg-image {
   position: absolute;
-  /* background: #333 url("https://static.pexels.com/photos/248515/pexels-photo-248515.png"); */
+  background: #333 url("https://static.pexels.com/photos/248515/pexels-photo-248515.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
