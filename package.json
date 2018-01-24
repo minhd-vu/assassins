@@ -1,0 +1,12 @@
+{
+  "name": "assassins",
+  "version": "0.0.1",
+  "description": "assassins game by minh vu",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
