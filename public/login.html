@@ -34,15 +34,9 @@
 
 <!-- Functionality for buttons -->
 <script>
-  $(function() {
-    var socket = io();
-
-    // Submits the message to the server when the button is pressed.
-    $('loginForm').submit(function() {
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
+  $('#loginForm').submit(function() {
+    console.log("formsubmitted");
+    return false;
   });
 </script>
 
