@@ -1,15 +1,7 @@
-<!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <h3 align="center">Assassins Party Game</h3>
-
+  <h1 align="center">Assassins Party Game</h1>
   <p align="center">
     Developed by Minh Vu & Michael Asare
     <br />
@@ -121,16 +113,3 @@ Project Link: [https://github.com/minhd-vu/assassins](https://github.com/minhd-v
 * []()
 * []()
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/minhd-vu/repo.svg?style=flat-square
-[contributors-url]: https://github.com/minhd-vu/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/minhd-vu/repo.svg?style=flat-square
-[forks-url]: https://github.com/minhd-vu/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/minhd-vu/repo.svg?style=flat-square
-[stars-url]: https://github.com/minhd-vu/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/minhd-vu/repo.svg?style=flat-square
-[issues-url]: https://github.com/minhd-vu/repo/issues
-[license-shield]: https://img.shields.io/github/license/minhd-vu/repo.svg?style=flat-square
-[license-url]: https://github.com/minhd-vu/repo/blob/master/LICENSE.txt
-[product-screenshot]: images/screenshot.png
