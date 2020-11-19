@@ -1,0 +1,10 @@
+{
+  "name": "assassins",
+  "version": "1.0.0",
+  "description": "Assassins Party Game",
+  "main": "index.js",
+  "repository": "https://github.com/minhd-vu/assassins.git",
+  "author": "Minh Vu <minhd_vu@yahoo.com>",
+  "license": "MIT",
+  "private": false
+}
