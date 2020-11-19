@@ -1,0 +1,35 @@
+dist: focal
+os: linux
+language: ruby
+
+services:
+  - docker
+  - mysql
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.23.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+before_script:
+  - sudo apt-get install -y qemu binfmt-support qemu-user-static
+  - git clone https://github.com/computermouth/qemu-static-conf.git
+  - sudo mkdir -p /lib/binfmt.d
+  - sudo cp qemu-static-conf/*.conf /lib/binfmt.d/
+  - sudo systemctl restart systemd-binfmt.service
+  - cd .devcontainer
+  - docker-compose up -d --build
+
+script:
+  - docker ps -a
+  - docker exec -it --privileged website /bin/sh -c "cd workspace && npm install"
+  - ls -la
+  - sleep 90
+  - docker exec -it --privileged website /bin/sh -c "cd workspace && npm test"
+
+after_script:
+  - docker-compose down
