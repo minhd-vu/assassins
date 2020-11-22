@@ -53,8 +53,8 @@ Assassins is a game that can be played almost anywhere, but best done in semi-cr
 
 ### Built With
 
-* []()
-* []()
+* [Node.JS]()
+* [Express]()
 * []()
 
 <!-- GETTING STARTED -->
@@ -78,6 +78,11 @@ git clone https://github.com/minhd-vu/assassins.git
 2. Install dependencies
 ```sh
 npm install
+```
+
+3. Start the app
+```sh
+npm start
 ```
 
 <!-- ROADMAP -->
