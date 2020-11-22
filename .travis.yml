@@ -29,7 +29,7 @@ script:
   - docker exec -it --privileged app /bin/sh -c "cd workspace && npm install"
   - ls -la
   - sleep 90
-  - docker exec -it --privileged app /bin/sh -c "cd workspace && npm start &"
+  - docker exec -it --privileged app /bin/sh -c "cd workspace && npm test"
 
 after_script:
   - docker-compose down
