@@ -10,12 +10,12 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("MongoDB database connection established successfully");
-})
+mongoose.connect(process.env.URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+}).then(() => console.log("MongoDB Connected!")).catch(err => {
+    console.log(err.message);
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
