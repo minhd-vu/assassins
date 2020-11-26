@@ -7,7 +7,8 @@ export default class Register extends Component {
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangePassword = this.onChangeConfirmPassword.bind(this);
+        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
+        this.canSubmit = this.canSubmit.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -40,8 +41,7 @@ export default class Register extends Component {
 
         const user = {
             username: this.state.username,
-            password: this.state.password,
-            confirmPassword: this.state.confirmPassword
+            password: this.state.password
         }
 
         console.log(user);
@@ -50,6 +50,10 @@ export default class Register extends Component {
             .then(res => console.log(res.data));
 
         window.location = '/login';
+    }
+
+    canSubmit() {
+        return this.state.username.length > 0 && this.state.password.length > 0 && this.state.password === this.state.confirmPassword;
     }
 
     render() {
@@ -69,7 +73,7 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>Password: </label>
                         <input
-                            type="text"
+                            type="password"
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}
@@ -78,7 +82,7 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>Confirm Password: </label>
                         <input
-                            type="text"
+                            type="password"
                             className="form-control"
                             value={this.state.confirmPassword}
                             onChange={this.onChangeConfirmPassword}
@@ -86,7 +90,7 @@ export default class Register extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Register" className="btn btn-primary" />
+                        <input type="submit" value="Register" disabled={!this.canSubmit} className="btn btn-primary" />
                     </div>
                 </form>
             </div>

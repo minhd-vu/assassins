@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./components/navbar.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
+import Home from "./components/home.component";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="container">
         <Navbar />
         <br />
+        <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
       </div>
