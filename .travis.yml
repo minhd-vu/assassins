@@ -25,13 +25,10 @@ before_script:
   - docker-compose up -d --build
 
 script:
-  - docker ps -a
-  - docker exec -it --privileged app /bin/sh -c "cd /workspace/client && npm install &"
-  - docker exec -it --privileged app /bin/sh -c "cd /workspace/server && npm install &"
-  - ls -la
-  - sleep 90
-  - docker exec -it --privileged app /bin/sh -c "cd /workspace/client && npm test"
-  - docker exec -it --privileged app /bin/sh -c "cd /workspace/server && npm test"
+  - docker exec -it --privileged app /bin/sh -c "cd /workspace/client/ && npm install"
+  - docker exec -it --privileged app /bin/sh -c "cd /workspace/server/ && npm install"
+  - docker exec -it --privileged app /bin/sh -c "cd /workspace/client/ && npm test"
+  - docker exec -it --privileged app /bin/sh -c "cd /workspace/server/ && npm test"
 
 after_script:
   - docker-compose down
