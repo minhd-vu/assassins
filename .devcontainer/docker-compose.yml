@@ -36,17 +36,6 @@ services:
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
-  mysqldb:
-    container_name: mysqldb
-    image: mysql:5.6.44
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: db
-    volumes:
-      - ../database:/database
-    ports:
-      - "3309:3306"
-
   mongo:
     image: mongo
     restart: always
