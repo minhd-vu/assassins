@@ -13,10 +13,15 @@ app.use(express.json());
 mongoose.connect(process.env.URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-}).then(() => console.log("MongoDB Connected!")).catch(err => {
+}).then(() => console.log("Connected to MongoDB database")).catch(err => {
     console.log(err.message);
 });
+
+app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
 });
+
+module.exports = app;
