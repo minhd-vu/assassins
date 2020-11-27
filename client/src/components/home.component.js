@@ -11,7 +11,7 @@ export default class Home extends Component {
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
-            party_code: ''
+            partyCode: ''
         }
     }
 
@@ -19,7 +19,7 @@ export default class Home extends Component {
         e.preventDefault();
 
         const party = {
-            party_code: this.state.party_code
+            partyCode: this.state.partyCode
         }
 
         console.log(party);
@@ -32,7 +32,7 @@ export default class Home extends Component {
 
     onChangePartyCode(e) {
         this.setState({
-            party_code: e.target.value
+            partyCode: e.target.value
         })
     }
 
@@ -43,13 +43,12 @@ export default class Home extends Component {
     render() {
         return (
             <div className="text-center">
-                <form className="form-inline" onSubmit={this.onJoinParty}>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="partyCode" class="sr-only">Party Code</label>
+                <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
+                    <div className="form-group mx-sm-3">
                         <input
                             type="text"
                             className="form-control"
-                            value={this.state.party_code}
+                            value={this.state.partyCode}
                             onChange={this.onChangePartyCode}
                             id="partyCode"
                             placeholder="Party Code"
