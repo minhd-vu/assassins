@@ -40,7 +40,7 @@ export default class Home extends Component {
         e.preventDefault();
         
         axios.get('http://localhost:5000/create')
-            .then(res => console.log(res.data));
+            .then(res => window.location = res.data);
     }
 
     render() {
