@@ -38,6 +38,9 @@ export default class Home extends Component {
 
     onCreateParty(e) {
         e.preventDefault();
+        
+        axios.get('http://localhost:5000/create')
+            .then(res => console.log(res.data));
     }
 
     render() {

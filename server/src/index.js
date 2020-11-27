@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require("passport");
-const User = require("./models/user");
+const User = require("./models/user.model");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
+const { customRandom, urlAlphabet } = require('nanoid');
+const nanoid = customRandom(urlAlphabet, 5, random);
 
 require('dotenv').config();
 
@@ -61,6 +63,11 @@ app.post("/login", passport.authenticate("local", {
 app.get("/logout", function (req, res) {
     req.logout();
     // res.redirect("/");
+});
+
+app.get("/create", isLoggedIn, function (req, res) {
+    
+    res.redirect("/");
 });
 
 function isLoggedIn(req, res, next) {
