@@ -24,7 +24,7 @@ export default class Home extends Component {
 
         console.log(party);
 
-        axios.post('http://localhost:5000/join', party)
+        axios.post('http://localhost:5000/join', party, { withCredentials: true })
             .then(res => console.log(res.data));
 
         // window.location = '/';
@@ -38,9 +38,9 @@ export default class Home extends Component {
 
     onCreateParty(e) {
         e.preventDefault();
-        
-        axios.get('http://localhost:5000/create')
-            .then(res => window.location = res.data);
+
+        axios.get('http://localhost:5000/create', { withCredentials: true })
+            .then(res => console.log(res.data));
     }
 
     render() {

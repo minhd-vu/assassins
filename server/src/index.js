@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cookieSession = require("cookie-session");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require("passport");
@@ -15,7 +16,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,17 +28,29 @@ mongoose.connect(process.env.ATLAS_URI, {
 });
 
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: new session.MemoryStore,
-    cookie: {
-        path: '/',
-        secure: false,
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24
-    }
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new session.MemoryStore,
+//     cookie: {
+//         path: '/',
+//         secure: false,
+//         httpOnly: false,
+//         maxAge: 1000 * 60 * 60 * 24
+//     }
+// }));
+
+app.use(cookieSession({
+    name: "session",
+    keys: [process.env.SESSION_SECRET],
+    maxAge: 24 * 60 * 60 * 100
+}));
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true
 }));
 
 // app.use('/login', require('./routes/login'));
@@ -63,9 +76,7 @@ app.post("/register", function (req, res) {
 });
 
 app.post("/login", passport.authenticate("local"), function (req, res) {
-    if (isLoggedIn) {
-        res.json("/");
-    }
+    res.send("User is " + req.user.id);
 });
 
 app.get("/logout", function (req, res) {
@@ -81,7 +92,10 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.json("/login");
+    res.status(401).json({
+        authenticated: false,
+        message: "user has not been authenticated"
+    });
 }
 
 app.listen(port, () => {
