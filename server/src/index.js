@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cookieSession = require("cookie-session");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require("passport");
@@ -15,10 +16,14 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+<<<<<<< HEAD
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
 }));
+=======
+// app.use(cors());
+>>>>>>> 47ace4f5589999379eedec870206c4f58ad3f060
 app.use(express.json());
 app.use(cookieParser());
 
@@ -30,17 +35,29 @@ mongoose.connect(process.env.ATLAS_URI, {
 });
 
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: new session.MemoryStore,
-    cookie: {
-        path: '/',
-        secure: false,
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24
-    }
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new session.MemoryStore,
+//     cookie: {
+//         path: '/',
+//         secure: false,
+//         httpOnly: false,
+//         maxAge: 1000 * 60 * 60 * 24
+//     }
+// }));
+
+app.use(cookieSession({
+    name: "session",
+    keys: [process.env.SESSION_SECRET],
+    maxAge: 24 * 60 * 60 * 100
+}));
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true
 }));
 
 // app.use('/login', require('./routes/login'));
