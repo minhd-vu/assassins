@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Login extends Component {
@@ -37,13 +38,20 @@ export default class Login extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/login', user)
-            .then(res => window.location = res.data);
-
-        // window.location = '/';
+        axios.post('http://localhost:5000/login', user, { withCredentials: true })
+            .then(res => {
+                if (res.status === 200) {
+                    this.props.updateUser({
+                        isAuthenticated: true,
+                        username: res.data.username
+                    });
+                    this.setState({ redirectTo: '/' });
+                }
+            });
     }
 
     render() {
+        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div>
                 <h3>Login</h3>
@@ -72,6 +80,6 @@ export default class Login extends Component {
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }

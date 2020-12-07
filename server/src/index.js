@@ -15,7 +15,10 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -64,13 +67,15 @@ app.post("/register", function (req, res) {
 
 app.post("/login", passport.authenticate("local"), function (req, res) {
     if (isLoggedIn) {
-        res.json("/");
+        console.log(req.user);
+        res.send({ username: req.user.username });
+    } else {
+        res.status(204).send();
     }
 });
 
 app.get("/logout", function (req, res) {
     req.logout();
-    // res.redirect("/");
 });
 
 app.get("/create", isLoggedIn, function (req, res) {
@@ -81,7 +86,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.json("/login");
+    res.redirect("/login");
 }
 
 app.listen(port, () => {
