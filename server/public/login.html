@@ -27,16 +27,15 @@
         </nav>
         <br />
         <h3>Login</h3>
-        <form onsubmit="onLogin()">
+        <form id="login-form" onsubmit="onLogin()">
             <div class="form-group">
                 <label>Username: </label>
-                <input type="text" required class="form-control" />
+                <input type="text" required class="form-control" name="username" />
             </div>
             <div class="form-group">
                 <label>Password: </label>
-                <input type="password" class="form-control" />
+                <input type="password" required class="form-control" name="password" />
             </div>
-
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary" />
             </div>

@@ -27,21 +27,21 @@
         </nav>
         <br />
         <h3>Register</h3>
-        <form onSubmit={this.onSubmit}>
+        <form id="register-form" onSubmit="onRegister()">
             <div class="form-group">
                 <label>Username: </label>
-                <input type="text" required class="form-control"/>
+                <input type="text" required class="form-control" name="username" />
             </div>
             <div class="form-group">
                 <label>Password: </label>
-                <input type="password" class="form-control" />
+                <input type="password" class="form-control" name="password" />
             </div>
             <div class="form-group">
                 <label>Confirm Password: </label>
-                <input type="password" class="form-control" />
+                <input type="password" class="form-control" name="confirm-password" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Register" disabled="canSubmit()" class="btn btn-primary" />
+                <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
     </div>

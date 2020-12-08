@@ -89,7 +89,7 @@ app.post("/register", function (req, res) {
 app.post("/login", passport.authenticate("local"), function (req, res) {
     if (isLoggedIn) {
         console.log(req.user);
-        res.send({ username: req.user.username });
+        res.status(200).send({ username: req.user.username });
     } else {
         res.status(204).send();
     }

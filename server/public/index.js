@@ -5,3 +5,7 @@ function onJoinParty() {
 function onCreateParty() {
     console.log("Creating Party");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    
+});
