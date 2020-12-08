@@ -1,0 +1,3 @@
+function canSubmit() {
+    return false;
+}

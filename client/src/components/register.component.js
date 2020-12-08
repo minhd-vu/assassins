@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Register extends Component {
@@ -47,9 +48,11 @@ export default class Register extends Component {
         console.log(user);
 
         axios.post('http://localhost:5000/register', user, { withCredentials: true })
-            .then(res => console.log(res.data));
-
-        window.location = '/login';
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({ redirectTo: '/login' });
+                }
+            });
     }
 
     canSubmit() {
@@ -57,6 +60,7 @@ export default class Register extends Component {
     }
 
     render() {
+        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div>
                 <h3>Register</h3>

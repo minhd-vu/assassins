@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import axios from 'axios';
 
 import Navbar from "./components/navbar.component";
 import Login from "./components/login.component";
@@ -17,19 +16,21 @@ class App extends Component {
 			username: null
 		}
 
-		this.getUser = this.getUser.bind(this);
-		this.componentDidMount = this.componentDidMount.bind(this);
-		this.updateUser = this.updateUser.bind(this);
+		this.setUser = this.setUser.bind(this);
+	}
+
+	setUser(user) {
+		this.setState(user);
 	}
 
 	render() {
 		return (
 			<Router>
 				<div className="container">
-					<Navbar />
+					<Navbar isAuthenticated={this.isAuthenticated} setUser={this.setUser} />
 					<br />
 					<Route path="/" exact component={Home} />
-					<Route path="/login" component={Login} />
+					<Route path="/login" render={() => <Login setUser={this.setUser} />} />
 					<Route path="/register" component={Register} />
 				</div>
 			</Router >

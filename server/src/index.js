@@ -10,12 +10,14 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const { customAlphabet } = require('nanoid/non-secure');
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
@@ -50,12 +52,6 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 100
 }));
 
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true
-}));
-
 // app.use('/login', require('./routes/login'));
 // app.use('/register', require('./routes/register'));
 
@@ -65,6 +61,18 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/login.html"));
+});
+
+app.get("/register", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/register.html"));
+});
 
 app.post("/register", function (req, res) {
     User.register(new User({ username: req.body.username }), req.body.password, function (err, user) {
@@ -88,11 +96,13 @@ app.post("/login", passport.authenticate("local"), function (req, res) {
 });
 
 app.get("/logout", function (req, res) {
+    console.log(req.user);
     req.logout();
 });
 
 app.get("/create", isLoggedIn, function (req, res) {
-    res.redirect("/" + nanoid());
+    console.log(req.user);
+    res.send(nanoid());
 });
 
 function isLoggedIn(req, res, next) {

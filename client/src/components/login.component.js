@@ -40,8 +40,9 @@ export default class Login extends Component {
 
         axios.post('http://localhost:5000/login', user, { withCredentials: true })
             .then(res => {
+                console.log(res);
                 if (res.status === 200) {
-                    this.props.updateUser({
+                    this.props.setUser({
                         isAuthenticated: true,
                         username: res.data.username
                     });
