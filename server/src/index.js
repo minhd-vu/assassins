@@ -105,7 +105,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.status(204).send("/login");
+    res.status(401).send("/login");
 }
 
 app.listen(port, () => {
