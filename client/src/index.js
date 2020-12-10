@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import axios from 'axios';
+import axios from 'axios';
 
-// axios.interceptors.response.use(res => res, err => {
-// 	if (err.response.status === 401) {
-// 		this.setState({ redirectTo: '/login' });
-// 	}
-// 	return Promise.reject(err);
-// });
+axios.interceptors.response.use(res => res, err => {
+	if (err.response.status === 401) {
+		// this.setState({ redirectTo: '/login' });
+	}
+	return Promise.reject(err);
+});
 
 ReactDOM.render(
 	<React.StrictMode>

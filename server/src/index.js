@@ -17,7 +17,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../build")));
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
@@ -63,15 +63,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
-});
-
-app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/login.html"));
-});
-
-app.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/register.html"));
+    res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.post("/register", function (req, res) {
@@ -83,6 +75,10 @@ app.post("/register", function (req, res) {
             res.status(200).send();
         });
     });
+});
+
+app.get("/login", isLoggedIn, function (req, res) {
+    res.send(req.user);
 });
 
 app.post("/login", passport.authenticate("local"), function (req, res) {
@@ -105,15 +101,11 @@ app.get("/create", isLoggedIn, function (req, res) {
     res.send(nanoid());
 });
 
-app.get("/user", isLoggedIn, function (req, res) {
-    res.send(req.user);
-});
-
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.status(401).send("/login");
+    res.status(204).send("/login");
 }
 
 app.listen(port, () => {

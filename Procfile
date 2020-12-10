@@ -1,1 +1,1 @@
-web: cd server/ && npm start
+web: rm -rf ./server/build/ && cp -a ./client/build/ ./server/ && cd server/ && npm start

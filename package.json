@@ -1,0 +1,19 @@
+{
+  "name": "assassins",
+  "version": "1.0.0",
+  "description": "<!-- PROJECT LOGO -->\r <br />\r <p align=\"center\">\r   <h1 align=\"center\">Assassins Party Game</h1>\r   <p align=\"center\">\r     Developed by Minh Vu\r     <br />\r     <a href=\"https://github.com/minhd-vu/assassins\">View Demo</a>\r     ·\r     <a href=\"https://github.com/minhd-vu/assassins/issues\">Report Bug</a>\r     ·\r     <a href=\"https://github.com/minhd-vu/assassins/issues\">Request Feature</a>\r   </p>\r </p>",
+  "main": "./server/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhd-vu/assassins.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhd-vu/assassins/issues"
+  },
+  "homepage": "https://github.com/minhd-vu/assassins#readme"
+}

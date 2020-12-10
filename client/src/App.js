@@ -22,7 +22,7 @@ class App extends Component {
 	}
 
 	getUser() {
-		axios.get('http://localhost:5000/user', { withCredentials: true })
+		axios.get('http://localhost:5000/login', { withCredentials: true })
 			.then(res => {
 				console.log(res.data);
 				if (res.status === 200) {
