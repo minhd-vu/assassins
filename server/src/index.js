@@ -98,6 +98,7 @@ app.post("/login", passport.authenticate("local"), function (req, res) {
 app.get("/logout", function (req, res) {
     console.log(req.user);
     req.logout();
+    res.status(200).send();
 });
 
 app.get("/create", isLoggedIn, function (req, res) {
