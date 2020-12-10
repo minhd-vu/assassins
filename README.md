@@ -3,7 +3,7 @@
 <p align="center">
   <h1 align="center">Assassins Party Game</h1>
   <p align="center">
-    Developed by Minh Vu & Michael Asare
+    Developed by Minh Vu
     <br />
     <a href="https://github.com/minhd-vu/assassins">View Demo</a>
     ·
@@ -18,10 +18,10 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
-  - [Built With](#built-with)
+	- [Built With](#built-with)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
@@ -53,9 +53,10 @@ Assassins is a game that can be played almost anywhere, but best done in semi-cr
 
 ### Built With
 
-* [Node.JS]()
+* [MongoDB]()
 * [Express]()
-* []()
+* [React]()
+* [Node.JS]()
 
 <!-- GETTING STARTED -->
 ## Getting Started

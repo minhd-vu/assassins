@@ -105,11 +105,15 @@ app.get("/create", isLoggedIn, function (req, res) {
     res.send(nanoid());
 });
 
+app.get("/user", isLoggedIn, function (req, res) {
+    res.send(req.user);
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect("/login");
+    res.status(401).send("/login");
 }
 
 app.listen(port, () => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from 'axios';
 
 import Navbar from "./components/navbar.component";
 import Login from "./components/login.component";
@@ -16,18 +17,36 @@ class App extends Component {
 			username: null
 		}
 
+		this.getUser = this.getUser.bind(this);
 		this.setUser = this.setUser.bind(this);
+	}
+
+	getUser() {
+		axios.get('http://localhost:5000/user', { withCredentials: true })
+			.then(res => {
+				console.log(res.data);
+				if (res.status === 200) {
+					this.setState({
+						isAuthenticated: true,
+						username: res.data.username
+					});
+				}
+			});
 	}
 
 	setUser(user) {
 		this.setState(user);
 	}
 
+	componentDidMount() {
+		this.getUser();
+	}
+
 	render() {
 		return (
 			<Router>
 				<div className="container">
-					<Navbar isAuthenticated={this.isAuthenticated} setUser={this.setUser} />
+					<Navbar isAuthenticated={this.state.isAuthenticated} setUser={this.setUser} />
 					<br />
 					<Route path="/" exact component={Home} />
 					<Route path="/login" render={() => <Login setUser={this.setUser} />} />

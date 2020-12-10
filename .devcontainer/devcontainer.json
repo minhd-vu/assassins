@@ -18,7 +18,8 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"ms-azuretools.vscode-docker",
-		"aeschli.vscode-css-formatter"
+		"aeschli.vscode-css-formatter",
+		"yzhang.markdown-all-in-one"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

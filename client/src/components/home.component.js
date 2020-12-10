@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Home extends Component {
@@ -26,8 +27,6 @@ export default class Home extends Component {
 
         axios.post('http://localhost:5000/join', party, { withCredentials: true })
             .then(res => console.log(res.data));
-
-        // window.location = '/';
     }
 
     onChangePartyCode(e) {
@@ -40,10 +39,17 @@ export default class Home extends Component {
         e.preventDefault();
 
         axios.get('http://localhost:5000/create', { withCredentials: true })
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res.data);
+                if (res.status === 200) {
+                } else if (res.status === 401) {
+                    this.setState({ redirectTo: '/login' });
+                }
+            });
     }
 
     render() {
+        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div className="text-center">
                 <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
