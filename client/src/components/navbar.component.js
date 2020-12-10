@@ -12,7 +12,7 @@ export default class Navbar extends Component {
     onLogout(e) {
         e.preventDefault();
         
-        axios.get('http://localhost:5000/logout', { withCredentials: true })
+        axios.get('/logout', { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {

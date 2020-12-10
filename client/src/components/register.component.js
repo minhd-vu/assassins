@@ -47,7 +47,7 @@ export default class Register extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/register', user, { withCredentials: true })
+        axios.post('/register', user, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     this.setState({ redirectTo: '/login' });

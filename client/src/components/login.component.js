@@ -38,7 +38,7 @@ export default class Login extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/login', user, { withCredentials: true })
+        axios.post('/login', user, { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {

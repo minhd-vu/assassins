@@ -38,7 +38,7 @@ export default class Home extends Component {
     onCreateParty(e) {
         e.preventDefault();
 
-        axios.get('http://localhost:5000/create', { withCredentials: true })
+        axios.get('/create', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
                 if (res.status === 200) {

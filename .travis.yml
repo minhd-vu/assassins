@@ -25,7 +25,7 @@ before_script:
   - docker-compose up -d --build
 
 script:
-  - docker exec -it --privileged app /bin/sh -c "cd /workspace/client/ && npm install && npm test"
+  # - docker exec -it --privileged app /bin/sh -c "cd /workspace/client/ && npm install && npm test"
   - docker exec -it --privileged app /bin/sh -c "cd /workspace/server/ && npm install && npm test"
 
 after_script:
