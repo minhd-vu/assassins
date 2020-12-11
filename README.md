@@ -18,10 +18,10 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
-	- [Built With](#built-with)
+  - [Built With](#built-with)
 - [Getting Started](#getting-started)
-	- [Prerequisites](#prerequisites)
-	- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
