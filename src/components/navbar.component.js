@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default class Navbar extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class Navbar extends Component {
     onLogout(e) {
         e.preventDefault();
         
-        axios.get('/logout', { withCredentials: true })
+        axios.get("/api/logout", { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {

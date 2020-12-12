@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import axios from 'axios';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom"
+import axios from "axios";
 
 export default class Register extends Component {
     constructor(props) {
@@ -13,9 +13,9 @@ export default class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username: '',
-            password: '',
-            confirmPassword: ''
+            username: "",
+            password: "",
+            confirmPassword: ""
         }
     }
 
@@ -47,10 +47,10 @@ export default class Register extends Component {
 
         console.log(user);
 
-        axios.post('/register', user, { withCredentials: true })
+        axios.post("/api/register", user, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    this.setState({ redirectTo: '/login' });
+                    this.setState({ redirectTo: "/login" });
                 }
             });
     }

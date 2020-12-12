@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 import Navbar from "./components/navbar.component";
 import Login from "./components/login.component";
@@ -22,7 +22,7 @@ class App extends Component {
 	}
 
 	getUser() {
-		axios.get('/login', { withCredentials: true })
+		axios.get("/api/login", { withCredentials: true })
 			.then(res => {
 				console.log(res.data);
 				if (res.status === 200) {

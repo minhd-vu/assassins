@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import axios from 'axios';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom"
+import axios from "axios";
 
 export default class Home extends Component {
-
     constructor(props) {
         super(props);
 
@@ -12,7 +11,7 @@ export default class Home extends Component {
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
-            partyCode: ''
+            partyCode: ""
         }
     }
 
@@ -25,7 +24,7 @@ export default class Home extends Component {
 
         console.log(party);
 
-        axios.post('http://localhost:5000/join', party, { withCredentials: true })
+        axios.post("/api/join", party, { withCredentials: true })
             .then(res => console.log(res.data));
     }
 
@@ -38,12 +37,12 @@ export default class Home extends Component {
     onCreateParty(e) {
         e.preventDefault();
 
-        axios.get('/create', { withCredentials: true })
+        axios.get("/api/create", { withCredentials: true })
             .then(res => {
-                console.log(res.data);
                 if (res.status === 200) {
+                    console.log(res.data);
                 } else if (res.status === 401) {
-                    this.setState({ redirectTo: '/login' });
+                    this.setState({ redirectTo: "/login" });
                 }
             });
     }
