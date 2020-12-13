@@ -6,9 +6,7 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.canSubmit = this.canSubmit.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
@@ -19,21 +17,9 @@ export default class Register extends Component {
         }
     }
 
-    onChangeUsername(e) {
+    onChange(e) {
         this.setState({
-            username: e.target.value
-        })
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
-        })
-    }
-
-    onChangeConfirmPassword(e) {
-        this.setState({
-            confirmPassword: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -68,28 +54,31 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>Username: </label>
                         <input type="text"
+                            name="username"
                             required
                             className="form-control"
                             value={this.state.username}
-                            onChange={this.onChangeUsername}
+                            onChange={this.onChange}
                         />
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
                         <input
                             type="password"
+                            name="password"
                             className="form-control"
                             value={this.state.password}
-                            onChange={this.onChangePassword}
+                            onChange={this.onChange}
                         />
                     </div>
                     <div className="form-group">
                         <label>Confirm Password: </label>
                         <input
                             type="password"
+                            name="confirmPassword"
                             className="form-control"
                             value={this.state.confirmPassword}
-                            onChange={this.onChangeConfirmPassword}
+                            onChange={this.onChange}
                         />
                     </div>
 

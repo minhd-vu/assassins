@@ -6,8 +6,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -16,15 +15,9 @@ export default class Login extends Component {
         }
     }
 
-    onChangeUsername(e) {
+    onChange(e) {
         this.setState({
-            username: e.target.value
-        })
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -65,18 +58,20 @@ export default class Login extends Component {
                         <label>Username: </label>
                         <input type="text"
                             required
+                            name="username"
                             className="form-control"
                             value={this.state.username}
-                            onChange={this.onChangeUsername}
+                            onChange={this.onChange}
                         />
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
                         <input
                             type="password"
+                            name="password"
                             className="form-control"
                             value={this.state.password}
-                            onChange={this.onChangePassword}
+                            onChange={this.onChange}
                         />
                     </div>
 
