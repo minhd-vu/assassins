@@ -43,7 +43,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use("/api/login", require("./routes/login"));
-app.use("/api/create", require("./routes/register"));
+app.use("/api/register", require("./routes/register"));
 app.use("/api/logout", require("./routes/logout"));
 app.use("/api/create", require("./routes/create"));
 
