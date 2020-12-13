@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const User = require('./user.model');
+const mongoose = require("mongoose");
+const User = require("./user.model");
 
 const Schema = mongoose.Schema;
 
@@ -12,6 +12,6 @@ const partySchema = new Schema({
     timestamps: true,
 });
 
-const Party = mongoose.model('Party', partySchema);
+const Party = mongoose.model("Party", partySchema);
 
 module.exports = Party;
