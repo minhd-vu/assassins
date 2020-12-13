@@ -18,9 +18,10 @@ export default class Register extends Component {
     }
 
     onChange(e) {
+        const {name, value} = e.target;
         this.setState({
-            [e.target.name]: e.target.value
-        })
+            [name]: value
+        });
     }
 
     onSubmit(e) {
