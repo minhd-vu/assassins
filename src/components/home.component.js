@@ -6,8 +6,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangePartyCode = this.onChangePartyCode.bind(this);
         this.onJoinParty = this.onJoinParty.bind(this);
+        this.onChangePartyCode = this.onChangePartyCode.bind(this);
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
@@ -18,14 +18,14 @@ export default class Home extends Component {
     onJoinParty(e) {
         e.preventDefault();
 
-        const party = {
-            partyCode: this.state.partyCode
-        }
-
-        console.log(party);
-
-        axios.post("/api/join", party, { withCredentials: true })
-            .then(res => console.log(res.data));
+        axios.get("/api/party/" + this.state.partyCode, { withCredentials: true })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                } else if (res.status === 401) {
+                    this.setState({ redirectTo: "/login" });
+                }
+            });
     }
 
     onChangePartyCode(e) {
@@ -63,7 +63,7 @@ export default class Home extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Join Party" className="btn btn-primary" />
+                        <input type="submit" value="Join Party" className="btn btn-primary" disabled={this.state.partyCode.length === 0} />
                     </div>
                 </form>
                 <form onSubmit={this.onCreateParty}>

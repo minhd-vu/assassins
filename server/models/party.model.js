@@ -1,16 +1,13 @@
 const mongoose = require("mongoose");
-const User = require("./user.model");
-
 const Schema = mongoose.Schema;
+const User = require("./user.model");
 
 const partySchema = new Schema({
     code: { type: String, required: true },
-    admin: { type: User, required: true },
-    players: [{ player: User, target: User }],
+    admin: { type: Schema.ObjectId, required: true },
+    players: [{ player: Schema.ObjectId, target: Schema.ObjectId }],
     date: { type: Date, default: Date.now }
-}, {
-    timestamps: true,
-});
+}, { timestamps: true });
 
 const Party = mongoose.model("Party", partySchema);
 

@@ -51,6 +51,10 @@ export default class Login extends Component {
             });
     }
 
+    canSubmit() {
+        return this.state.username.length > 0 && this.state.password.length > 0;
+    }
+
     render() {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
@@ -77,7 +81,7 @@ export default class Login extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Login" className="btn btn-primary" />
+                        <input type="submit" value="Login" className="btn btn-primary" disabled={!this.canSubmit()}/>
                     </div>
                 </form>
             </div>

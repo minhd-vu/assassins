@@ -46,6 +46,7 @@ app.use("/api/login", require("./routes/login"));
 app.use("/api/register", require("./routes/register"));
 app.use("/api/logout", require("./routes/logout"));
 app.use("/api/create", require("./routes/create"));
+app.use("/api/party", require("./routes/party"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));
