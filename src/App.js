@@ -31,6 +31,8 @@ class App extends Component {
 						username: res.data.username
 					});
 				}
+			}).catch(err => {
+				console.log(err);
 			});
 	}
 
@@ -40,13 +42,6 @@ class App extends Component {
 
 	componentDidMount() {
 		this.getUser();
-
-		axios.interceptors.response.use(res => res, err => {
-			if (err.response.status === 401) {
-				this.setState({ isAuthenticated: false });
-			}
-			return Promise.reject(err);
-		});
 	}
 
 	render() {

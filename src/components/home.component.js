@@ -15,10 +15,6 @@ export default class Home extends Component {
         }
     }
 
-    componentDidUpdate() {
-        if (!this.props.isAuthenticated) this.setState({ redirectTo: "/login" });
-    }
-
     onJoinParty(e) {
         e.preventDefault();
 
@@ -26,7 +22,11 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                } else if (res.status === 401) {
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                if (err.response.status === 401) {
                     this.setState({ redirectTo: "/login" });
                 }
             });
@@ -35,7 +35,7 @@ export default class Home extends Component {
     onChangePartyCode(e) {
         this.setState({
             partyCode: e.target.value
-        })
+        });
     }
 
     onCreateParty(e) {
@@ -45,7 +45,11 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                } else if (res.status === 401) {
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                if (err.response.status === 401) {
                     this.setState({ redirectTo: "/login" });
                 }
             });
