@@ -40,6 +40,13 @@ class App extends Component {
 
 	componentDidMount() {
 		this.getUser();
+
+		axios.interceptors.response.use(res => res, err => {
+			if (err.response.status === 401) {
+				this.setState({ isAuthenticated: false });
+			}
+			return Promise.reject(err);
+		});
 	}
 
 	render() {
@@ -48,7 +55,7 @@ class App extends Component {
 				<div className="container">
 					<Navbar isAuthenticated={this.state.isAuthenticated} setUser={this.setUser} />
 					<br />
-					<Route path="/" exact component={Home} />
+					<Route path="/" exact render={() => <Home isAuthenticated={this.state.isAuthenticated}/>} />
 					<Route path="/login" render={() => <Login setUser={this.setUser} />} />
 					<Route path="/register" component={Register} />
 				</div>

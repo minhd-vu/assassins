@@ -11,7 +11,7 @@ export default class Navbar extends Component {
 
     onLogout(e) {
         e.preventDefault();
-        
+
         axios.get("/api/logout", { withCredentials: true })
             .then(res => {
                 console.log(res);
@@ -37,9 +37,12 @@ export default class Navbar extends Component {
                                     <Link to="/login" className="nav-link">Login</Link>
                             }
                         </li>
-                        <li className="navbar-item">
-                            <Link to="/register" className="nav-link">Register</Link>
-                        </li>
+                        {
+                            !this.props.isAuthenticated &&
+                            <li className="navbar-item">
+                                <Link to="/register" className="nav-link">Register</Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav >

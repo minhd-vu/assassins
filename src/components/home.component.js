@@ -48,6 +48,7 @@ export default class Home extends Component {
     }
 
     render() {
+        if (!this.props.isAuthenticated) this.setState({redirectTo: "/login"});
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div className="text-center">
