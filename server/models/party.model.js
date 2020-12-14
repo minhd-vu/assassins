@@ -4,8 +4,8 @@ const User = require("./user.model");
 
 const partySchema = new Schema({
     code: { type: String, required: true },
-    admin: { type: Schema.ObjectId, required: true },
-    players: [{ player: Schema.ObjectId, target: Schema.ObjectId }],
+    admin: { type: String, required: true },
+    players: [{ player: String, target: String }],
     date: { type: Date, default: Date.now }
 }, { timestamps: true });
 
