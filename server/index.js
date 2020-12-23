@@ -1,18 +1,20 @@
 const express = require("express");
-const session = require("express-session");
 const cookieSession = require("cookie-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require("./models/user.model");
 const LocalStrategy = require("passport-local");
-const passportLocalMongoose = require("passport-local-mongoose");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const socketio = require("socket.io");
+const http = require("http");
 
 require("dotenv").config();
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 const port = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, "../build")));
@@ -46,13 +48,19 @@ app.use("/api/login", require("./routes/login"));
 app.use("/api/register", require("./routes/register"));
 app.use("/api/logout", require("./routes/logout"));
 app.use("/api/create", require("./routes/create"));
+app.use("/api/join", require("./routes/join"));
 app.use("/api/party", require("./routes/party"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-app.listen(port, () => {
+// io.on("connection", socket => {
+//     console.log(socket);
+//     socket.emit("message", "Welcome to Assassins Party Game!");
+// });
+
+server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
 });
 

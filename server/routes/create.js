@@ -3,28 +3,26 @@ const isLoggedIn = require("../helpers/isLoggedIn");
 const { customAlphabet } = require("nanoid/non-secure");
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 5);
 const Party = require("../models/party.model");
-const User = require("../models/user.model");
+const Player = require("../models/player.model");
+const mongoose = require("mongoose");
 
 router.route("/").get(isLoggedIn, function (req, res) {
     console.log(req.user);
-    
-    const code = nanoid();
-    const admin = req.user.username;
 
     const party = new Party({
-        code,
-        admin
+        code: nanoid()
     });
 
-    party.players.push({
-        player: admin,
-        target: null
-    });
+    party.players.push(new Player({
+        player: req.user._id,
+        target: null,
+        isAdmin: true,
+        party: party._id
+    }));
 
-    console.log(party);
-
-    party.save().then(() => {
-        res.status(200).send(code);
+    party.save().then((p) => {
+        console.log(p);
+        res.status(200).send(p.code);
     });
 });
 

@@ -10,17 +10,8 @@ router.route("/:id").get(isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
         }
-
-        if (!party.players.some(e => e.player === req.user.username)) {
-            party.players.push({
-                player: req.user.username,
-                target: null
-            });
-            party.save();
-
-            console.log(party);
-        }
-
+        
+        console.log(party);
         res.status(200).send(party);
     });
 });
