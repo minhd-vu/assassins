@@ -11,12 +11,13 @@ export default class Login extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            error: false
         }
     }
 
     onChange(e) {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         });
@@ -42,6 +43,14 @@ export default class Login extends Component {
                     });
                     this.setState({ redirectTo: "/" });
                 }
+            })
+            .catch(err => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    this.setState({
+                        error: true
+                    });
+                }
             });
     }
 
@@ -54,6 +63,12 @@ export default class Login extends Component {
         return (
             <div>
                 <h3>Login</h3>
+                {
+                    this.state.error &&
+                    <div className="alert alert-danger" role="alert">
+                        Invalid username and/or password.
+                    </div>
+                }
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
@@ -77,7 +92,7 @@ export default class Login extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Login" className="btn btn-primary" disabled={!this.canSubmit()}/>
+                        <input type="submit" value="Login" className="btn btn-primary" disabled={!this.canSubmit()} />
                     </div>
                 </form>
             </div>
