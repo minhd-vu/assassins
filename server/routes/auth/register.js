@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const User = require("../models/user.model");
+const User = require("../../models/user.model");
 
 router.route("/").post(function (req, res) {
     User.register(new User({ username: req.body.username }), req.body.password, function (err, user) {

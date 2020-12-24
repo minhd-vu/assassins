@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const isLoggedIn = require("../helpers/isLoggedIn");
+const isLoggedIn = require("../../helpers/isLoggedIn");
 
 router.route("/").get(isLoggedIn, function (req, res) {
     res.send(req.user);

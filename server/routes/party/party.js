@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const isLoggedIn = require("../helpers/isLoggedIn");
-const Party = require("../models/party.model");
-const User = require("../models/user.model");
+const isLoggedIn = require("../../helpers/isLoggedIn");
+const Party = require("../../models/party.model");
+const User = require("../../models/user.model");
 
 router.route("/:id").get(isLoggedIn, function (req, res) {
     console.log(req.user);

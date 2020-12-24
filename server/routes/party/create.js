@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const isLoggedIn = require("../helpers/isLoggedIn");
+const isLoggedIn = require("../../helpers/isLoggedIn");
 const { customAlphabet } = require("nanoid/non-secure");
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 5);
-const Party = require("../models/party.model");
+const Party = require("../../models/party.model");
 const mongoose = require("mongoose");
 
-router.route("/").get(isLoggedIn, function (req, res) {
+router.route("/").get(isLoggedIn, async function (req, res) {
     console.log(req.user);
 
     const party = new Party({
@@ -14,10 +14,15 @@ router.route("/").get(isLoggedIn, function (req, res) {
 
     party.players.push(req.user);
 
-    party.save().then((p) => {
-        console.log(p);
-        res.status(200).send(p.code);
-    });
+    await party.save();
+
+    req.user.isAdmin = true;
+    req.user.party = party;
+
+    await req.user.save();
+
+    console.log(party);
+    res.status(200).send(party.code);
 });
 
 module.exports = router;

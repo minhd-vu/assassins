@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     party: { type: Schema.Types.ObjectId, ref: "Party", default: null },
     isAlive: { type: Boolean, default: true },
     isAdmin: { type: Boolean, default: false }
-});
+}, { timestamps: true });
 
 UserSchema.plugin(passportLocalMongoose);
 
