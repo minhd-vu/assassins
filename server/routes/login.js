@@ -9,7 +9,7 @@ router.route("/").get(isLoggedIn, function (req, res) {
 router.route("/").post(passport.authenticate("local"), function (req, res) {
     if (isLoggedIn) {
         console.log(req.user);
-        res.status(200).send({ username: req.user.username });
+        res.status(200).send(req.user);
     } else {
         res.status(204).send();
     }

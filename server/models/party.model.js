@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PartySchema = new Schema({
     code: { type: String, required: true },
-    players: [{ type: Schema.Types.ObjectId, ref: "Player" }],
+    players: [{ type: Schema.Types.ObjectId, ref: "User" }],
     isStarted: {type: Boolean, default: false}
 }, { timestamps: true });
 
