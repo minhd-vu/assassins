@@ -7,8 +7,8 @@ router.route("/:id").get(isLoggedIn, function (req, res) {
     Party.findOne({ "code": req.params.id }, async function (err, party) {
         if (err) console.log(err);
 
-        if (party.isStarted) {
-            res.status(204).send();
+        if (!party || party.isStarted) {
+            return res.status(204).send();
         }
 
         if (!party.players.some(e => String(e) === String(req.user._id))) {
@@ -19,7 +19,7 @@ router.route("/:id").get(isLoggedIn, function (req, res) {
         }
 
         await party.execPopulate("players");
-        res.status(200).send(party);
+        return res.status(200).send(party);
     });
 });
 
