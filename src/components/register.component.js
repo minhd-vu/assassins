@@ -13,12 +13,13 @@ export default class Register extends Component {
         this.state = {
             username: "",
             password: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            error: false
         }
     }
 
     onChange(e) {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         });
@@ -39,6 +40,12 @@ export default class Register extends Component {
                 if (res.status === 200) {
                     this.setState({ redirectTo: "/login" });
                 }
+            })
+            .catch(err => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    this.setState({ error: true });
+                }
             });
     }
 
@@ -51,6 +58,12 @@ export default class Register extends Component {
         return (
             <div>
                 <h3>Register</h3>
+                {
+                    this.state.error &&
+                    <div className="alert alert-danger" role="alert">
+                        Username is already in use.
+                    </div>
+                }
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
