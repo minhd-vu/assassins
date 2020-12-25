@@ -7,7 +7,6 @@ export default function Profile() {
     return (
         <div>
             <h5>{user.username}'s Profile</h5>
-            
         </div>
     );
 }

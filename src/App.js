@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
+import Container from "react-bootstrap/Container";
 
 import NavigationBar from "./components/navbar.component";
 import Login from "./components/auth/login.component";
@@ -33,7 +34,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<Router>
-				<div className="container">
+				<Container>
 					<NavigationBar />
 					<br />
 					<Route path="/" exact component={Home} />
@@ -42,7 +43,7 @@ export default class App extends Component {
 					<Route path="/about" component={About} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/help" component={Help} />
-				</div>
+				</Container>
 			</Router >
 		);
 	}
