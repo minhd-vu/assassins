@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 export default class Party extends Component {
     static contextType = UserContext;
@@ -20,7 +21,19 @@ export default class Party extends Component {
 
     onLeaveParty(e) {
         e.preventDefault();
-        this.context.setPartyCode("");
+
+        axios.get("/api/leave", { withCredentials: true })
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    this.context.setPartyCode("");
+                    this.context.setIsAdmin(false);
+                    this.setState({ redirectTo: "/" });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
