@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../contexts/user.context";
 
@@ -16,7 +16,7 @@ export default class PartyForm extends Component {
         this.state = {
             partyCode: "",
             error: false
-        }
+        };
     }
 
     onJoinParty(e) {

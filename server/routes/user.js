@@ -12,9 +12,7 @@ router.route("/:id").get(function (req, res) {
 
         res.status(200).send({
             elims: user.stats.elims,
-            deaths: user.stats.deaths,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt
+            deaths: user.stats.deaths
         });
     });
 });

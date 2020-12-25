@@ -6,10 +6,7 @@ export default function Profile(props) {
     const { username } = props.match.params;
     const [elims, setElims] = useState(0);
     const [deaths, setDeaths] = useState(0);
-    const [createdAt, setCreatedAt] = useState(Date.now);
-    const [updatedAt, setUpdatedAt] = useState(Date.now);
     const [error, setError] = useState(false);
-    const options = { year: "numeric", month: "short", day: "numeric" };
 
     useEffect(() => {
         console.log("username" + username);
@@ -19,8 +16,6 @@ export default function Profile(props) {
                     console.log(res.data);
                     setElims(res.data.elims);
                     setDeaths(res.data.deaths);
-                    setCreatedAt(new Date(res.data.createdAt).toLocaleDateString("en-US", options));
-                    setUpdatedAt(new Date(res.data.updatedAt).toLocaleDateString("en-US", options));
                     setError(false);
                 } else if (res.status === 204) {
                     setError(true);
@@ -34,13 +29,25 @@ export default function Profile(props) {
     return (
         error ?
             <Alert key="danger" variant="danger">No user found with username <b>{username}</b>.</Alert> :
-            <div className="text-center">
-                <h5>{username}</h5>
-                <p>Kills: <b>{elims}</b></p>
-                <p>Deaths: <b>{deaths}</b></p>
-                <p>K/D: <b>{(elims / deaths).toFixed(2)}</b></p>
-                <p>Account Created: <b>{createdAt}</b></p>
-                <p>Last Login: <b>{updatedAt}</b></p>
-            </div>
+            <table className="table">
+                <thead className="thead-light">
+                    <tr>
+                        {/* <th scope="col">Rank</th> */}
+                        <th scope="col">Name</th>
+                        <th scope="col">Kills</th>
+                        <th scope="col">Deaths</th>
+                        <th scope="col">K/D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {/* <th scope="row">?</th> */}
+                        <td>{username}</td>
+                        <td>{elims}</td>
+                        <td>{deaths}</td>
+                        <td>{(elims / deaths).toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>
     );
 }
