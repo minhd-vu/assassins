@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../contexts/user.context";
-import NavbarAuth from "./navbar/auth.component";
-import NavbarNoAuth from "./navbar/noauth.component";
+import { UserContext } from "../../contexts/user.context";
+import NavbarAuth from "./auth.component";
+import NavbarNoAuth from "./noauth.component";
 
 export default function Navbar() {
     const user = useContext(UserContext);

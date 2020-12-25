@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import axios from "axios";
-import { UserContext } from "../contexts/user.context";
+import { UserContext } from "../../contexts/user.context";
 
 export default class PartyForm extends Component {
     static contextType = UserContext;
@@ -71,7 +71,7 @@ export default class PartyForm extends Component {
                     this.state.error &&
                     <div className="alert alert-danger" role="alert">
                         Cannot find party with code <b>{this.state.partyCode}</b>.
-                </div>
+                    </div>
                 }
                 <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
                     <div className="form-group mx-sm-3">

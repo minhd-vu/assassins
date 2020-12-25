@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 
-import Navbar from "./components/navbar.component";
-import Login from "./components/login.component";
-import Register from "./components/register.component";
+import Navbar from "./components/navbar/navbar.component";
+import Login from "./components/auth/login.component";
+import Register from "./components/auth/register.component";
 import Home from "./components/home.component";
 
 import { UserContext } from "./contexts/user.context";

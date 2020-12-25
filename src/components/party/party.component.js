@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { UserContext } from "../contexts/user.context";
+import { UserContext } from "../../contexts/user.context";
 import { Redirect } from "react-router-dom";
 
 export default class Party extends Component {
