@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from '../contexts/user.context';
+
 
 export default class Navbar extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
 
@@ -16,11 +20,9 @@ export default class Navbar extends Component {
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
-                    this.props.setUser({
-                        isAuth: false,
-                        username: "",
-                        partyCode: ""
-                    });
+                    this.context.setIsAuth(false);
+                    this.context.setUsername("");
+                    this.context.setPartyCode("");
                 }
             });
     }
@@ -33,13 +35,13 @@ export default class Navbar extends Component {
                     <ul className="navbar-nav mr-auto">
                         <li className="navbar-item">
                             {
-                                this.props.isAuth ?
+                                this.context.isAuth ?
                                     <Link to="/" className="nav-link" onClick={this.onLogout}>Logout</Link> :
                                     <Link to="/login" className="nav-link">Login</Link>
                             }
                         </li>
                         {
-                            !this.props.isAuth &&
+                            !this.context.isAuth &&
                             <li className="navbar-item">
                                 <Link to="/register" className="nav-link">Register</Link>
                             </li>

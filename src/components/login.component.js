@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import axios from "axios";
+import { UserContext } from "../contexts/user.context";
 
 export default class Login extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
 
@@ -37,12 +40,10 @@ export default class Login extends Component {
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
-                    this.props.setUser({
-                        isAuth: true,
-                        username: res.data.username,
-                        partyCode: res.data.partyCode,
-                        isAdmin: res.data.isAdmin
-                    });
+                    this.context.setIsAuth(true);
+                    this.context.setUsername(res.data.username);
+                    this.context.setPartyCode(res.data.partyCode);
+                    this.context.setIsAdmin(res.data.isAdmin);
                     this.setState({ redirectTo: "/" });
                 }
             })

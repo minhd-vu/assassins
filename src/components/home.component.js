@@ -3,8 +3,11 @@ import { Redirect } from "react-router-dom"
 import axios from "axios";
 import Party from "./party.component"
 import io from "socket.io-client";
+import { UserContext } from "../contexts/user.context";
 
 export default class Home extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
 
@@ -40,9 +43,7 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                    this.props.setUser({
-                        partyCode: res.data
-                    });
+                    this.context.setUsername(res.data);
                 } else if (res.status === 204) {
                     this.setState({ error: true });
                 }
@@ -68,6 +69,7 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
+                    this.context.setPartyCode(res.data);
                 }
             })
             .catch(err => {
@@ -81,7 +83,7 @@ export default class Home extends Component {
     render() {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
-            this.props.partyCode ?
+            this.context.partyCode ?
                 <Party />
                 :
                 <div className="text-center">
