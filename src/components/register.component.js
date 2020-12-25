@@ -38,7 +38,7 @@ export default class Register extends Component {
         axios.post("/api/register", user, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    this.setState({ redirectTo: "/login" });
+                    this.setState({ redirectTo: "/" });
                 }
             })
             .catch(err => {
