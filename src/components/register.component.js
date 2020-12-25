@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import axios from "axios";
+import { UserContext } from "../contexts/user.context";
 
 export default class Register extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
 
@@ -38,6 +41,8 @@ export default class Register extends Component {
         axios.post("/api/register", user, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
+                    this.context.setUsername(user.username);
+                    this.context.setIsAuth(true);
                     this.setState({ redirectTo: "/" });
                 }
             })
