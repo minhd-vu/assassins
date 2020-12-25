@@ -29,7 +29,6 @@ export default class Party extends Component {
             <div className="text-center">
                 <h4>Party Code: <b>{this.context.partyCode}</b></h4>
                 <label className="col-sm-2 col-form-label">Target</label>
-
                 {
                     this.context.isAdmin &&
                     <form onSubmit={this.onStartParty}>

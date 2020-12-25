@@ -30,7 +30,7 @@ export default function NavigationBar() {
                         user.isAuth ?
                             <React.Fragment>
                                 <Nav.Link as={Link} to="/login" onClick={onLogout}>Logout</Nav.Link>
-                                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                                <Nav.Link as={Link} to={"/user/" + user.username}>Profile</Nav.Link>
                             </React.Fragment> :
                             <React.Fragment>
                                 <Nav.Link as={Link} to="/login">Login</Nav.Link>

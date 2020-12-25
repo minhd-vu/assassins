@@ -41,7 +41,7 @@ export default class App extends Component {
 					<Route path="/login" component={Login} />
 					<Route path="/register" component={Register} />
 					<Route path="/about" component={About} />
-					<Route path="/profile" component={Profile} />
+					<Route path="/user/:username" render={props => <Profile {...props} />} />
 					<Route path="/help" component={Help} />
 				</Container>
 			</Router >

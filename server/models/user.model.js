@@ -8,7 +8,11 @@ const UserSchema = new Schema({
     target: { type: Schema.Types.ObjectId, ref: "User", default: null },
     party: { type: Schema.Types.ObjectId, ref: "Party", default: null },
     isAlive: { type: Boolean, default: true },
-    isAdmin: { type: Boolean, default: false }
+    isAdmin: { type: Boolean, default: false },
+    stats: {
+        elims: { type: Number, default: 0 },
+        deaths: { type: Number, default: 0 }
+    }
 }, { timestamps: true });
 
 UserSchema.plugin(passportLocalMongoose);
