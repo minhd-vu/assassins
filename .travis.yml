@@ -1,3 +1,4 @@
 
 language: nodejs
-node_js: latest
+node_js:
+  - 15
