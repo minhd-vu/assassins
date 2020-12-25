@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { UserContext } from "../contexts/user.context";
+import { Redirect } from "react-router-dom";
 
 export default class Party extends Component {
     static contextType = UserContext;
@@ -9,6 +10,8 @@ export default class Party extends Component {
 
         this.onLeaveParty = this.onLeaveParty.bind(this);
         this.onStartParty = this.onStartParty.bind(this);
+
+        this.state = {};
     }
 
     onStartParty(e) {
@@ -21,6 +24,7 @@ export default class Party extends Component {
     }
 
     render() {
+        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div className="text-center">
                 <h4>Party Code: <b>{this.context.partyCode}</b></h4>
