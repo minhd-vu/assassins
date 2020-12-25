@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
 
-import NavigationBar from "./components/navbar.component";
+import Header from "./components/header.component";
+import Footer from "./components/footer.component";
 import Login from "./components/auth/login.component";
 import Register from "./components/auth/register.component";
 import Home from "./components/home.component";
@@ -34,9 +35,9 @@ export default class App extends Component {
 	render() {
 		return (
 			<Router>
+				<Header />
+				<br />
 				<Container>
-					<NavigationBar />
-					<br />
 					<Route path="/" exact component={Home} />
 					<Route path="/login" component={Login} />
 					<Route path="/register" component={Register} />
@@ -44,6 +45,7 @@ export default class App extends Component {
 					<Route path="/user/:username" render={props => <Profile {...props} />} />
 					<Route path="/help" component={Help} />
 				</Container>
+				<Footer />
 			</Router >
 		);
 	}
