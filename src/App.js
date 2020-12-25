@@ -7,6 +7,9 @@ import Navbar from "./components/navbar/navbar.component";
 import Login from "./components/auth/login.component";
 import Register from "./components/auth/register.component";
 import Home from "./components/home.component";
+import About from "./components/about.component";
+import Help from "./components/help.component";
+import Profile from "./components/profile.component";
 
 import { UserContext } from "./contexts/user.context";
 
@@ -36,6 +39,9 @@ export default class App extends Component {
 					<Route path="/" exact component={Home} />
 					<Route path="/login" component={Login} />
 					<Route path="/register" component={Register} />
+					<Route path="/about" component={About} />
+					<Route path="/profile" component={Profile} />
+					<Route path="/help" component={Help} />
 				</div>
 			</Router >
 		);

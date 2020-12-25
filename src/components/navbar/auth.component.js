@@ -1,7 +1,7 @@
 
 import { UserContext } from "../../contexts/user.context";
 import axios from "axios";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export default function NavbarAuth() {
@@ -22,13 +22,13 @@ export default function NavbarAuth() {
     }
 
     return (
-        <div>
+        <React.Fragment>
             <li className="navbar-item">
                 <Link to="/" className="nav-link" onClick={onLogout}>Logout</Link>
             </li>
             <li className="navbar-item">
                 <Link to="/profile" className="nav-link">Profile</Link>
             </li>
-        </div>
+        </React.Fragment>
     );
 }
