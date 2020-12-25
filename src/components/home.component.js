@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom"
 import axios from "axios";
+import Party from "./party.component"
 import io from "socket.io-client";
 
 export default class Home extends Component {
@@ -81,9 +82,7 @@ export default class Home extends Component {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             this.props.partyCode ?
-                <div>
-                    Party {this.props.partyCode}
-                </div>
+                <Party />
                 :
                 <div className="text-center">
                     {

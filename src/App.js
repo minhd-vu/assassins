@@ -7,9 +7,8 @@ import Navbar from "./components/navbar.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-import Party from "./components/party.component";
 
-class App extends Component {
+export default class App extends Component {
 	constructor(props) {
 		super(props);
 
@@ -53,10 +52,14 @@ class App extends Component {
 				<div className="container">
 					<Navbar isAuth={this.state.isAuth} setUser={this.setUser} />
 					<br />
-					<Route path="/" exact render={() => <Home
-						isAuth={this.state.isAuth}
-						partyCode={this.state.partyCode}
-						setUser={this.setUser} />} />
+					<Route path="/" exact render={() =>
+						<Home
+							isAuth={this.state.isAuth}
+							partyCode={this.state.partyCode}
+							setUser={this.setUser}
+							isAdmin={this.state.isAdmin}
+						/>
+					} />
 					<Route path="/login" render={() => <Login setUser={this.setUser} />} />
 					<Route path="/register" component={Register} />
 				</div>
@@ -64,5 +67,3 @@ class App extends Component {
 		);
 	}
 }
-
-export default App;

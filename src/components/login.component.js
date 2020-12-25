@@ -40,7 +40,8 @@ export default class Login extends Component {
                     this.props.setUser({
                         isAuth: true,
                         username: res.data.username,
-                        partyCode: res.data.partyCode
+                        partyCode: res.data.partyCode,
+                        isAdmin: res.data.isAdmin
                     });
                     this.setState({ redirectTo: "/" });
                 }
