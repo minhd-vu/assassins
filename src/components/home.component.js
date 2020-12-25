@@ -12,7 +12,8 @@ export default class Home extends Component {
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
-            partyCode: ""
+            partyCode: "",
+            error: false
         }
     }
 
@@ -38,6 +39,8 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
+                } else if (res.status === 204) {
+                    this.setState({ error: true });
                 }
             })
             .catch(err => {
@@ -75,6 +78,12 @@ export default class Home extends Component {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div className="text-center">
+                {
+                    this.state.error &&
+                    <div className="alert alert-danger" role="alert">
+                        Cannot find party with code <b>{this.state.partyCode}</b>.
+                    </div>
+                }
                 <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
                     <div className="form-group mx-sm-3">
                         <input
