@@ -17,7 +17,7 @@ export default class Navbar extends Component {
                 console.log(res);
                 if (res.status === 200) {
                     this.props.setUser({
-                        isAuthenticated: false,
+                        isAuth: false,
                         username: null
                     });
                 }
@@ -32,13 +32,13 @@ export default class Navbar extends Component {
                     <ul className="navbar-nav mr-auto">
                         <li className="navbar-item">
                             {
-                                this.props.isAuthenticated ?
+                                this.props.isAuth ?
                                     <Link to="/" className="nav-link" onClick={this.onLogout}>Logout</Link> :
                                     <Link to="/login" className="nav-link">Login</Link>
                             }
                         </li>
                         {
-                            !this.props.isAuthenticated &&
+                            !this.props.isAuth &&
                             <li className="navbar-item">
                                 <Link to="/register" className="nav-link">Register</Link>
                             </li>

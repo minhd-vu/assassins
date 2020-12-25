@@ -12,7 +12,6 @@ export default class Home extends Component {
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
-            partyCode: "",
             error: false
         }
     }

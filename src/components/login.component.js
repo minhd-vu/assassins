@@ -38,8 +38,9 @@ export default class Login extends Component {
                 console.log(res);
                 if (res.status === 200) {
                     this.props.setUser({
-                        isAuthenticated: true,
-                        username: res.data.username
+                        isAuth: true,
+                        username: res.data.username,
+                        
                     });
                     this.setState({ redirectTo: "/" });
                 }
