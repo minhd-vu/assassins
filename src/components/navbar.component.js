@@ -18,7 +18,8 @@ export default class Navbar extends Component {
                 if (res.status === 200) {
                     this.props.setUser({
                         isAuth: false,
-                        username: null
+                        username: "",
+                        partyCode: ""
                     });
                 }
             });

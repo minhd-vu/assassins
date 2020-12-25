@@ -53,10 +53,12 @@ class App extends Component {
 				<div className="container">
 					<Navbar isAuth={this.state.isAuth} setUser={this.setUser} />
 					<br />
-					<Route path="/" exact render={() => <Home isAuth={this.state.isAuth} />} />
+					<Route path="/" exact render={() => <Home
+						isAuth={this.state.isAuth}
+						partyCode={this.state.partyCode}
+						setUser={this.setUser} />} />
 					<Route path="/login" render={() => <Login setUser={this.setUser} />} />
 					<Route path="/register" component={Register} />
-					{/* <Route path="/party" render={() => <Party />} /> */}
 				</div>
 			</Router >
 		);

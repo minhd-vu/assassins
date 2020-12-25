@@ -12,6 +12,7 @@ export default class Home extends Component {
         this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
+            partyCode: "",
             error: false
         }
     }
@@ -38,6 +39,9 @@ export default class Home extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
+                    this.props.setUser({
+                        partyCode: res.data
+                    });
                 } else if (res.status === 204) {
                     this.setState({ error: true });
                 }
@@ -76,35 +80,39 @@ export default class Home extends Component {
     render() {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
-            <div className="text-center">
-                {
-                    this.state.error &&
-                    <div className="alert alert-danger" role="alert">
-                        Cannot find party with code <b>{this.state.partyCode}</b>.
-                    </div>
-                }
-                <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
-                    <div className="form-group mx-sm-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.partyCode}
-                            onChange={this.onChangePartyCode}
-                            id="partyCode"
-                            placeholder="Party Code"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Join Party" className="btn btn-primary" disabled={this.state.partyCode.length === 0} />
-                    </div>
-                </form>
-                <form onSubmit={this.onCreateParty}>
-                    <div className="form-group">
-                        <input type="submit" value="Create Party" className="btn btn-primary" />
-                    </div>
-                </form>
-                <br />
-            </div>
+            this.props.partyCode ?
+                <div>
+                    Party {this.props.partyCode}
+                </div>
+                :
+                <div className="text-center">
+                    {
+                        this.state.error &&
+                        <div className="alert alert-danger" role="alert">
+                            Cannot find party with code <b>{this.state.partyCode}</b>.
+                        </div>
+                    }
+                    <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
+                        <div className="form-group mx-sm-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={this.state.partyCode}
+                                onChange={this.onChangePartyCode}
+                                id="partyCode"
+                                placeholder="Party Code"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input type="submit" value="Join Party" className="btn btn-primary" disabled={this.state.partyCode.length === 0} />
+                        </div>
+                    </form>
+                    <form onSubmit={this.onCreateParty}>
+                        <div className="form-group">
+                            <input type="submit" value="Create Party" className="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
         );
     }
 }
