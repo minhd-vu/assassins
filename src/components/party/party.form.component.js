@@ -73,8 +73,8 @@ export default class PartyForm extends Component {
                         Cannot find party with code <b>{this.state.partyCode}</b>.
                     </div>
                 }
-                <form className="form-inline justify-content-center mb-3" onSubmit={this.onJoinParty}>
-                    <div className="form-group mx-sm-3">
+                <form onSubmit={this.onJoinParty}>
+                    <div className="form-group">
                         <input
                             type="text"
                             className="form-control"
