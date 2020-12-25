@@ -22,6 +22,10 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 mongoose.connect(process.env.ATLAS_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
