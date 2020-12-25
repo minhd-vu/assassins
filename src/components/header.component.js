@@ -40,7 +40,6 @@ export default function Header() {
                                 </React.Fragment>
                         }
                         <Nav.Link as={Link} to="/help">Help</Nav.Link>
-                        <Nav.Link as={Link} to="/about">About</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
