@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 
-import Navbar from "./components/navbar/navbar.component";
+import NavigationBar from "./components/navbar.component";
 import Login from "./components/auth/login.component";
 import Register from "./components/auth/register.component";
 import Home from "./components/home.component";
@@ -34,7 +34,7 @@ export default class App extends Component {
 		return (
 			<Router>
 				<div className="container">
-					<Navbar />
+					<NavigationBar />
 					<br />
 					<Route path="/" exact component={Home} />
 					<Route path="/login" component={Login} />
