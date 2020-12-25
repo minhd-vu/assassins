@@ -8,7 +8,7 @@ export default function Navbar() {
     const user = useContext(UserContext);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             <Link to="/" className="navbar-brand">Assassins</Link>
             <div className="collpase navbar-collapse">
                 <ul className="navbar-nav mr-auto">

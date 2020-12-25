@@ -5,7 +5,7 @@
   <p align="center">
     Developed by Minh Vu
     <br />
-    <a href="https://github.com/minhd-vu/assassins">View Demo</a>
+    <a href="https://assassinspartygame.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/minhd-vu/assassins/issues">Report Bug</a>
     ·
@@ -18,10 +18,16 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
-  - [Built With](#built-with)
+	- [How to Play](#how-to-play)
+		- [Create a User](#create-a-user)
+		- [Party System](#party-system)
+			- [Create a Party](#create-a-party)
+			- [Join a Party](#join-a-party)
+			- [Leave a Party](#leave-a-party)
+	- [Built With](#built-with)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
@@ -31,32 +37,38 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whoever you are assigned.
+Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
 
-1. Login & Character Cards
-  - Character cards consist of a image and a nickname.
-2. Lobby System
-  - One person makes the lobby--he/she is deemed the lobby leader and has administrative rights to the lobby
-  - This person may start the game once everyone joins.
-  - Players may join the game with a randomly generated key.
-  - Once the lobby is started no other players may join the lobby.
-  - Lobby leaders have the ability to cancel a lobby and return everyone into a neutral state.
-3. The Game
-  - Once the game starts, everyone is assigned a random person from the lobby.
-    - That person cannot be yourself.
-  - Once assigned a person, the player is instructed to kill given player as defined by the lobby leader.
-  - Once you kill that player, you must send a request to the killed player and that player must confirm that you killed him/her.
-    - You cannot kill any other player except for that player that is your target.
-    - The server will then notify everyone that that player has died (but not necessarily who killed him/her).
-  - Once a player has died everyone will have their target rerolled ensuring to ensure that no one receives themselves or a target that is dead.
-    - The reshuffle will have a delay of 30 seconds after the kill.
+### How to Play
+
+#### Create a User
+
+Before doing anything, you should create a user. It will keep track of your statistics as well as identifying who you are in a party. You can register yourself by heading to the [register](https://assassinspartygame.herokuapp.com/register) link in the navbar. Once you create a user, you will no longer be able to change the username or password.
+
+If you already have a user, you can login by heading to the [login](https://assassinspartygame.herokuapp.com/login) link in the navbar.
+
+#### Party System
+
+Once you have logged in you have the option of joining or creating a party. A party is an instance of the assassins game; it is how you connect with your friends.
+
+##### Create a Party
+
+To create a party, click the **Create Party** button on the [home page](https://assassinspartygame.herokuapp.com/). Once you have created it, the app will display the party code in **bold**. Give this code to your friends so that you they can join. When you create a party, you are given administrative rights. You are given the ability to kick players from the party and to start the party.
+
+##### Join a Party
+
+To join a party, type in the party code in the input field on the [home page](https://assassinspartygame.herokuapp.com/) then click the **Join Party** button. Once a party has started you can no longer join it.
+
+##### Leave a Party
+
+Once you join a party, you have the option of leaving it. You can leave it anytime, and the app will handle the reshuffling of players.
 
 ### Built With
 
-* [MongoDB]()
-* [Express]()
-* [React]()
-* [Node.JS]()
+* [MongoDB](https://www.mongodb.com/)
+* [Express](https://expressjs.com/)
+* [React](https://reactjs.org/)
+* [Node.JS](https://nodejs.org/en/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -80,8 +92,11 @@ git clone https://github.com/minhd-vu/assassins.git
 ```sh
 npm install
 ```
-
-3. Start the app
+3. Start the backend
+```sh
+npm run dev
+```
+4. Start the frontend
 ```sh
 npm start
 ```
