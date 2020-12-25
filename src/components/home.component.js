@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Party from "./party.component"
 import PartyForm from "./party.form.component"
 import { UserContext } from "../contexts/user.context";
-import { useContext } from "react";
 
 export default function Home() {
     const user = useContext(UserContext);

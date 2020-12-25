@@ -7,7 +7,7 @@ router.route("/").get(isLoggedIn, async function (req, res) {
 
     res.status(200).send({
         username: req.user.username,
-        partyCode: req.user.party.code,
+        partyCode: req.user.party ? req.user.party.code : null,
         isAdmin: req.user.isAdmin
     });
 });
@@ -20,7 +20,7 @@ router.route("/").post(passport.authenticate("local"), async function (req, res)
 
         res.status(200).send({
             username: req.user.username,
-            partyCode: req.user.party.code,
+            partyCode: req.user.party ? req.user.party.code : null,
             isAdmin: req.user.isAdmin
         });
     } else {
