@@ -61,16 +61,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-io.on("connection", socket => {
-    console.log(socket);
-    socket.emit("message", "Welcome to Assassins Party Game!");
-
-    // Runs when client disconnects
-    socket.on("disconnect", () => {
-        
-    });
-});
-
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
 });

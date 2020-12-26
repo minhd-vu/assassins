@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Redirect } from "react-router-dom";
-import socketio from "socket.io-client";
 import axios from "axios";
+import Players from "./players.component";
 
 export default function Party() {
     const user = useContext(UserContext);
@@ -10,16 +10,19 @@ export default function Party() {
     const [party, setParty] = useState({});
 
     useEffect(() => {
-        const socket = socketio();
-        socket.on("party", data => {
-            setParty(data);
-        });
-
-        socket.on("message", data => {
-            console.log(data);
-        });
-
-        return () => socket.disconnect();
+        const interval = setInterval(() => {
+            user.partyCode && axios.get("/api/party", { withCredentials: true })
+                .then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        setParty(res.data);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     function onStartParty(e) {
@@ -42,12 +45,17 @@ export default function Party() {
             });
     }
 
+    function displayPlayers() {
+    }
+
     if (redirectTo) return <Redirect to={{ pathname: redirectTo }} />;
     return (
         <div className="text-center">
             <h4>Party Code: <b>{user.partyCode}</b></h4>
-
+            <Players players={party && party.players} />
+            <br />
             {
+                !party.isStarted &&
                 user.isAdmin &&
                 <form onSubmit={onStartParty}>
                     <div className="form-group">
