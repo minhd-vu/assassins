@@ -25,6 +25,7 @@ export default class App extends Component {
 					this.context.setIsAuth(true);
 					this.context.setUsername(res.data.username);
 					this.context.setPartyCode(res.data.partyCode);
+					this.context.setIsAdmin(res.data.isAdmin);
 				}
 			}).catch(err => {
 				console.log(err);
