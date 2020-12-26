@@ -28,7 +28,6 @@ export default class Party extends Component {
                 if (res.status === 200) {
                     this.context.setPartyCode("");
                     this.context.setIsAdmin(false);
-                    this.setState({ redirectTo: "/" });
                 }
             })
             .catch(err => {
