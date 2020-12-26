@@ -92,16 +92,13 @@ export default function Party() {
                 party.isStarted &&
                 <div>
                     <h6>Target: </h6>
-                    <div className="d-flex flex-wrap justify-content-center">
-                        <div className="p-2">
-                            <button type="button" className="btn btn-light">{party.target}</button>
-                        </div>
-                    </div>
+                    <button type="button" className="btn btn-light">{party.target}</button>
                 </div>
             }
+            <br />
             <div>
                 <h6>Players: </h6>
-                <div className="d-flex flex-wrap justify-content-center">
+                <div className="d-flex flex-wrap justify-content-center align-items-top">
                     {players}
                 </div>
             </div>
