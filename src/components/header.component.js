@@ -3,23 +3,11 @@ import { UserContext } from "../contexts/user.context";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Container from "react-bootstrap/Container";
+import Logout from "./auth/logout.component";
 
 export default function Header() {
     const user = useContext(UserContext);
-
-    function onLogout() {
-        axios.get("/api/logout", { withCredentials: true })
-            .then(res => {
-                console.log(res);
-                if (res.status === 200) {
-                    user.setIsAuth(false);
-                    user.setUsername("");
-                    user.setPartyCode("");
-                }
-            });
-    }
 
     return (
         <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" sticky="top">
@@ -31,7 +19,7 @@ export default function Header() {
                         {
                             user.isAuth ?
                                 <React.Fragment>
-                                    <Nav.Link as={Link} to="/login" onClick={onLogout}>Logout</Nav.Link>
+                                    <Logout/>
                                     <Nav.Link as={Link} to={"/user/" + user.username}>Profile</Nav.Link>
                                 </React.Fragment> :
                                 <React.Fragment>

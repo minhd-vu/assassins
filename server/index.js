@@ -56,6 +56,7 @@ app.use("/api/join", require("./routes/party/join"));
 app.use("/api/party", require("./routes/party/party"));
 app.use("/api/leave", require("./routes/party/leave"));
 app.use("/api/user", require("./routes/user"));
+app.use("/api/start", require("./routes/party/start"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));
