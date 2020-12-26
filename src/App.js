@@ -45,6 +45,7 @@ export default class App extends Component {
 				</Container>
 				<br />
 				<br />
+				<br />
 				<Footer />
 			</Router >
 		);
