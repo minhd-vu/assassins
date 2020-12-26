@@ -22,8 +22,20 @@ export default function Party() {
                         setParty(res.data);
                         if (res.data && res.data.players) {
                             setPlayers(res.data.players.map((player) =>
-                                <div key={player.username} className="p-2">
-                                    <button type="button" className="btn btn-light">{player.username}</button>
+                                <div key={player.username} className="p-2 justify-content-between">
+                                    <button type="button" className="btn btn-light">
+                                        <span>{player.username} </span>
+                                        {
+                                            player.isAlive ?
+                                                <span className="badge badge-success">Alive</span> :
+                                                <span className="badge badge-danger">Dead</span>
+                                        }
+                                        <span> </span>
+                                        {
+                                            player.isAdmin &&
+                                            <span className="badge badge-primary">Admin</span>
+                                        }
+                                    </button>
                                 </div>
                             ));
                         }
@@ -77,22 +89,22 @@ export default function Party() {
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             <br />
             {
-                party.isStarted ?
-                    <div>
-                        <h6>Target: </h6>
-                        <div className="d-flex flex-wrap justify-content-center">
-                            <div className="p-2">
-                                <button type="button" className="btn btn-light">{party.target}</button>
-                            </div>
-                        </div>
-                    </div> :
-                    <div>
-                        <h6>Players: </h6>
-                        <div className="d-flex flex-wrap justify-content-center">
-                            {players}
+                party.isStarted &&
+                <div>
+                    <h6>Target: </h6>
+                    <div className="d-flex flex-wrap justify-content-center">
+                        <div className="p-2">
+                            <button type="button" className="btn btn-light">{party.target}</button>
                         </div>
                     </div>
+                </div>
             }
+            <div>
+                <h6>Players: </h6>
+                <div className="d-flex flex-wrap justify-content-center">
+                    {players}
+                </div>
+            </div>
             <br />
             {
                 !party.isStarted &&

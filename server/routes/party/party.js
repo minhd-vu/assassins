@@ -10,7 +10,8 @@ router.route("/").get(isLoggedIn, async function (req, res) {
             if (req.user.target) {
                 return res.status(200).send({
                     isStarted: true,
-                    target: req.user.target.username
+                    target: req.user.target.username,
+                    players: req.user.party.players
                 });
             }
         }
