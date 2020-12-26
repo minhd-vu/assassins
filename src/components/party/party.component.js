@@ -11,7 +11,7 @@ export default function Party() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            user.partyCode && axios.get("/api/party", { withCredentials: true })
+            axios.get("/api/party", { withCredentials: true })
                 .then(res => {
                     if (res.status === 200) {
                         setParty(res.data);
