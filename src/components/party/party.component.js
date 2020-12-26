@@ -17,7 +17,7 @@ export default function Party() {
                         setParty(res.data);
                         if (res.data && res.data.players) {
                             setPlayers(res.data.players.map((player) =>
-                                <li class="list-group-item">{player.username}</li>
+                                <li key={player.username} className="list-group-item">{player.username}</li>
                             ));
                         }
                     }
