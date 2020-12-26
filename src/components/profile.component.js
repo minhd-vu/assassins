@@ -9,7 +9,6 @@ export default function Profile(props) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        console.log("username" + username);
         axios.get("/api/user/" + username, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {

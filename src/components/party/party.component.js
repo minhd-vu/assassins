@@ -2,20 +2,24 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import Players from "./players.component";
 
 export default function Party() {
     const user = useContext(UserContext);
     const [redirectTo, setRedirectTo] = useState("");
     const [party, setParty] = useState({});
+    const [players, setPlayers] = useState([]);
 
     useEffect(() => {
         const interval = setInterval(() => {
             user.partyCode && axios.get("/api/party", { withCredentials: true })
                 .then(res => {
-                    console.log(res);
                     if (res.status === 200) {
                         setParty(res.data);
+                        if (res.data && res.data.players) {
+                            setPlayers(res.data.players.map((player) =>
+                                <li class="list-group-item">{player.username}</li>
+                            ));
+                        }
                     }
                 })
                 .catch(err => {
@@ -45,14 +49,13 @@ export default function Party() {
             });
     }
 
-    function displayPlayers() {
-    }
-
     if (redirectTo) return <Redirect to={{ pathname: redirectTo }} />;
     return (
         <div className="text-center">
             <h4>Party Code: <b>{user.partyCode}</b></h4>
-            <Players players={party && party.players} />
+            <ul className="list-group">
+                {players}
+            </ul>
             <br />
             {
                 !party.isStarted &&
