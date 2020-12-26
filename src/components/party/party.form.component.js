@@ -26,7 +26,8 @@ export default class PartyForm extends Component {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                    this.context.setUsername(res.data);
+                    this.context.setPartyCode(res.data.code);
+                    this.context.setIsAdmin(false);
                 }
             })
             .catch(err => {

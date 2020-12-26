@@ -18,6 +18,7 @@ export default function Party() {
             axios.get("/api/party", { withCredentials: true })
                 .then(res => {
                     if (res.status === 200) {
+                        console.log(res.data);
                         setParty(res.data);
                         if (res.data && res.data.players) {
                             setPlayers(res.data.players.map((player) =>
@@ -75,10 +76,23 @@ export default function Party() {
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             <br />
-            <h6>Players: </h6>
-            <div className="d-flex flex-wrap justify-content-center">
-                {players}
-            </div>
+            {
+                party.isStarted ?
+                    <div>
+                        <h6>Target: </h6>
+                        <div className="d-flex flex-wrap justify-content-center">
+                            <div className="p-2">
+                                <button type="button" className="btn btn-light">{party.target}</button>
+                            </div>
+                        </div>
+                    </div> :
+                    <div>
+                        <h6>Players: </h6>
+                        <div className="d-flex flex-wrap justify-content-center">
+                            {players}
+                        </div>
+                    </div>
+            }
             <br />
             {
                 !party.isStarted &&
