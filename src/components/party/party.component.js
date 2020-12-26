@@ -1,33 +1,40 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Redirect } from "react-router-dom";
+import socketio from "socket.io-client";
 import axios from "axios";
 
-export default class Party extends Component {
-    static contextType = UserContext;
+export default function Party() {
+    const user = useContext(UserContext);
+    const [redirectTo, setRedirectTo] = useState("");
+    const [party, setParty] = useState({});
 
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        const socket = socketio();
+        socket.on("party", data => {
+            setParty(data);
+        });
 
-        this.onLeaveParty = this.onLeaveParty.bind(this);
-        this.onStartParty = this.onStartParty.bind(this);
+        socket.on("message", data => {
+            console.log(data);
+        });
 
-        this.state = {};
-    }
+        return () => socket.disconnect();
+    }, []);
 
-    onStartParty(e) {
+    function onStartParty(e) {
         e.preventDefault();
     }
 
-    onLeaveParty(e) {
+    function onLeaveParty(e) {
         e.preventDefault();
 
         axios.get("/api/leave", { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
-                    this.context.setPartyCode("");
-                    this.context.setIsAdmin(false);
+                    user.setPartyCode("");
+                    user.setIsAdmin(false);
                 }
             })
             .catch(err => {
@@ -35,26 +42,24 @@ export default class Party extends Component {
             });
     }
 
-    render() {
-        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
-        return (
-            <div className="text-center">
-                <h4>Party Code: <b>{this.context.partyCode}</b></h4>
-                <label className="col-sm-2 col-form-label">Target</label>
-                {
-                    this.context.isAdmin &&
-                    <form onSubmit={this.onStartParty}>
-                        <div className="form-group">
-                            <input type="submit" value="Start Party" className="btn btn-primary" />
-                        </div>
-                    </form>
-                }
-                <form onSubmit={this.onLeaveParty}>
+    if (redirectTo) return <Redirect to={{ pathname: redirectTo }} />;
+    return (
+        <div className="text-center">
+            <h4>Party Code: <b>{user.partyCode}</b></h4>
+
+            {
+                user.isAdmin &&
+                <form onSubmit={onStartParty}>
                     <div className="form-group">
-                        <input type="submit" value="Leave Party" className="btn btn-primary" />
+                        <input type="submit" value="Start Party" className="btn btn-primary" />
                     </div>
                 </form>
-            </div>
-        );
-    }
+            }
+            <form onSubmit={onLeaveParty}>
+                <div className="form-group">
+                    <input type="submit" value="Leave Party" className="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    );
 }
