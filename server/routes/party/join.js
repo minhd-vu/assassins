@@ -8,7 +8,7 @@ router.route("/:id").get(isLoggedIn, function (req, res) {
         if (err) console.log(err);
 
         if (!party || party.isStarted) {
-            return res.status(204).send();
+            return res.status(400).send("Could not find party with code " + req.params.id + ".");
         }
 
         if (!party.players.some(e => String(e) === String(req.user._id))) {

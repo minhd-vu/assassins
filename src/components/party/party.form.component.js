@@ -15,7 +15,7 @@ export default class PartyForm extends Component {
 
         this.state = {
             partyCode: "",
-            error: false
+            error: ""
         };
     }
 
@@ -27,14 +27,14 @@ export default class PartyForm extends Component {
                 if (res.status === 200) {
                     console.log(res.data);
                     this.context.setUsername(res.data);
-                } else if (res.status === 204) {
-                    this.setState({ error: true });
                 }
             })
             .catch(err => {
                 console.log(err);
                 if (err.response.status === 401) {
                     this.setState({ redirectTo: "/login" });
+                } else {
+                    this.setState({ error: err.response.data });
                 }
             });
     }
@@ -69,9 +69,7 @@ export default class PartyForm extends Component {
             <div className="text-center">
                 {
                     this.state.error &&
-                    <div className="alert alert-danger" role="alert">
-                        Cannot find party with code <b>{this.state.partyCode}</b>.
-                    </div>
+                    <div className="alert alert-danger" role="alert">{this.state.error}</div>
                 }
                 <form onSubmit={this.onJoinParty}>
                     <div className="form-group">
