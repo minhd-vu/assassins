@@ -47,6 +47,6 @@ export default function Profile(props) {
                         <td>{(elims / deaths).toFixed(2)}</td>
                     </tr>
                 </tbody>
-            </table>
+            </table> 
     );
 }

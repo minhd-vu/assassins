@@ -1,20 +1,22 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../contexts/user.context";
 
 export default function PartyJoin(props) {
+    const user = useContext(UserContext);
     const [partyCode, setPartyCode] = useState("");
     const history = useHistory();
 
     function onJoinParty(e) {
         e.preventDefault();
 
-        axios.get("/api/join/" + this.state.partyCode, { withCredentials: true })
+        axios.get("/api/join/" + partyCode, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                    this.context.setPartyCode(res.data.code);
-                    this.context.setIsAdmin(false);
+                    user.setPartyCode(res.data.code);
+                    user.setIsAdmin(false);
                 }
             })
             .catch(err => {
@@ -33,13 +35,14 @@ export default function PartyJoin(props) {
                 <input
                     type="text"
                     className="form-control"
+                    required
                     value={partyCode}
                     onChange={e => setPartyCode(e.target.value)}
                     placeholder="Party Code"
                 />
             </div>
             <div className="form-group">
-                <input type="submit" value="Join Party" className="btn btn-primary" disabled={partyCode.length === 0} />
+                <input type="submit" value="Join Party" className="btn btn-primary" />
             </div>
         </form>
     );

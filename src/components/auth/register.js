@@ -1,111 +1,80 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom"
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom"
 import axios from "axios";
 import { UserContext } from "../../contexts/user.context";
 
-export default class Register extends Component {
-    static contextType = UserContext;
+export default function Register() {
+    const history = useHistory();
+    const user = useContext(UserContext);
+    const [error, setError] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    constructor(props) {
-        super(props);
-
-        this.onChange = this.onChange.bind(this);
-        this.canSubmit = this.canSubmit.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
-            username: "",
-            password: "",
-            confirmPassword: "",
-            error: false
-        }
-    }
-
-    onChange(e) {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        });
-    }
-
-    onSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault();
 
-        const user = {
-            username: this.state.username,
-            password: this.state.password
+        if (password !== confirmPassword) {
+            return setError("Passwords do not match.");
         }
 
-        console.log(user);
-
-        axios.post("/api/register", user, { withCredentials: true })
+        axios.post("/api/register", { username: username, password: password }, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    this.context.setUsername(user.username);
-                    this.context.setIsAuth(true);
-                    this.setState({ redirectTo: "/" });
+                    user.setUsername(username);
+                    user.setIsAuth(true);
+                    history.push("/");
                 }
             })
             .catch(err => {
                 console.log(err);
                 if (err.response.status === 401) {
-                    this.setState({ error: true });
+                    setError("Username is already in use.");
                 }
             });
     }
 
-    canSubmit() {
-        return this.state.username.length > 0 && this.state.password.length > 0 && this.state.password === this.state.confirmPassword;
-    }
-
-    render() {
-        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
-        return (
-            <div>
-                <h3>Register</h3>
-                {
-                    this.state.error &&
-                    <div className="alert alert-danger" role="alert">
-                        Username is already in use.
-                    </div>
-                }
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <input type="text"
-                            name="username"
-                            required
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Confirm Password: </label>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            className="form-control"
-                            value={this.state.confirmPassword}
-                            onChange={this.onChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Register" disabled={!this.canSubmit()} className="btn btn-primary" />
-                    </div>
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h3>Register</h3>
+            {
+                error && <div className="alert alert-danger" role="alert">{error}</div>
+            }
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Username: </label>
+                    <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        required
+                        className="form-control"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Confirm Password: </label>
+                    <input
+                        type="password"
+                        required
+                        className="form-control"
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <input type="submit" value="Register" className="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    );
 }
