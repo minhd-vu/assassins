@@ -4,8 +4,8 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import PartyLeave from "./party.leave.component";
-import Player from "./player.component";
+import PartyLeave from "./party.leave";
+import Player from "./player";
 
 export default function Party() {
     const user = useContext(UserContext);

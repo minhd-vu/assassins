@@ -4,13 +4,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
 
-import Header from "./components/header.component";
-import Footer from "./components/footer.component";
-import Login from "./components/auth/login.component";
-import Register from "./components/auth/register.component";
-import Home from "./components/home.component";
-import Help from "./components/help.component";
-import Profile from "./components/profile.component";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import Login from "./components/auth/login";
+import Register from "./components/auth/register";
+import Home from "./components/home";
+import Help from "./components/help";
+import Profile from "./components/profile";
 
 import { UserContext } from "./contexts/user.context";
 
