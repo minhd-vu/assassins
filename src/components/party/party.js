@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -9,7 +8,6 @@ import Player from "./player";
 
 export default function Party() {
     const user = useContext(UserContext);
-    const [redirectTo, setRedirectTo] = useState("");
     const [party, setParty] = useState({});
     const [players, setPlayers] = useState([]);
     const [gameMode, setGameMode] = useState("Classic");
@@ -55,7 +53,6 @@ export default function Party() {
             });
     }
 
-    if (redirectTo) return <Redirect to={{ pathname: redirectTo }} />;
     return (
         <div className="text-center">
             {

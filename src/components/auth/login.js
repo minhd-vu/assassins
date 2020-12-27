@@ -1,104 +1,73 @@
-import React, { Component } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../contexts/user.context";
 
-export default class Login extends Component {
-    static contextType = UserContext;
+export default function Login() {
+    const history = useHistory();
+    const user = useContext(UserContext);
+    const [error, setError] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    constructor(props) {
-        super(props);
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
-            username: "",
-            password: "",
-            error: false
-        }
-    }
-
-    onChange(e) {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        });
-    }
-
-    onSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault();
 
-        const user = {
-            username: this.state.username,
-            password: this.state.password
-        }
-
-        console.log(user);
-
-        axios.post("/api/login", user, { withCredentials: true })
+        axios.post("/api/login", { username: username, password: password }, { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
-                    this.context.setIsAuth(true);
-                    this.context.setUsername(res.data.username);
-                    this.context.setPartyCode(res.data.partyCode);
-                    this.context.setIsAdmin(res.data.isAdmin);
-                    this.setState({ redirectTo: "/" });
+                    user.setIsAuth(true);
+                    user.setUsername(res.data.username);
+                    user.setPartyCode(res.data.partyCode);
+                    user.setIsAdmin(res.data.isAdmin);
+                    history.push("/");
                 }
             })
             .catch(err => {
                 console.log(err);
                 if (err.response.status === 401) {
-                    this.setState({
-                        error: true
-                    });
+                    setError("Invalid username and/or password.");
                 }
             });
     }
 
-    canSubmit() {
-        return this.state.username.length > 0 && this.state.password.length > 0;
+    function canSubmit() {
+        return username.length > 0 && password.length > 0;
     }
 
-    render() {
-        if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
-        return (
-            <div>
-                <h3>Login</h3>
-                {
-                    this.state.error &&
-                    <div className="alert alert-danger" role="alert">
-                        Invalid username and/or password.
-                    </div>
-                }
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <input type="text"
-                            required
-                            name="username"
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Login" className="btn btn-primary" disabled={!this.canSubmit()} />
-                    </div>
-                </form>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h3>Login</h3>
+            {
+                error && <div className="alert alert-danger" role="alert">{error}</div>
+            }
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Username: </label>
+                    <input type="text"
+                        required
+                        name="username"
+                        className="form-control"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <input type="submit" value="Login" className="btn btn-primary" disabled={!canSubmit()} />
+                </div>
+            </form>
+        </div>
+    );
 }
