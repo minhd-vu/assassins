@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import PartyLeave from "./party.leave.component";
+import Player from "./player.component";
 
 export default function Party() {
     const user = useContext(UserContext);
@@ -22,21 +24,11 @@ export default function Party() {
                         setParty(res.data);
                         if (res.data && res.data.players) {
                             setPlayers(res.data.players.map((player) =>
-                                <div key={player.username} className="p-2 justify-content-between">
-                                    <button type="button" className="btn btn-light">
-                                        <span>{player.username} </span>
-                                        {
-                                            player.isAlive ?
-                                                <span className="badge badge-success">Alive</span> :
-                                                <span className="badge badge-danger">Dead</span>
-                                        }
-                                        <span> </span>
-                                        {
-                                            player.isAdmin &&
-                                            <span className="badge badge-primary">Admin</span>
-                                        }
-                                    </button>
-                                </div>
+                                <Player
+                                    key={player.username}
+                                    player={player}
+                                    isStarted={res.data.isStarted}
+                                />
                             ));
                         }
                     }
@@ -60,22 +52,6 @@ export default function Party() {
             .catch(err => {
                 console.log(err);
                 setError(err.response.data);
-            });
-    }
-
-    function onLeaveParty(e) {
-        e.preventDefault();
-
-        axios.get("/api/leave", { withCredentials: true })
-            .then(res => {
-                console.log(res);
-                if (res.status === 200) {
-                    user.setPartyCode("");
-                    user.setIsAdmin(false);
-                }
-            })
-            .catch(err => {
-                console.log(err);
             });
     }
 
@@ -123,11 +99,7 @@ export default function Party() {
                     </div>
                 </form>
             }
-            <form onSubmit={onLeaveParty}>
-                <div className="form-group">
-                    <input type="submit" value="Leave Party" className="btn btn-primary" />
-                </div>
-            </form>
+            <PartyLeave />
         </div>
     );
 }
