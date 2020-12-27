@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import axios from "axios";
-import PlayerTarget from "./player.target";
+import PlayerTarget from "../player/player.target";
 import PartyLeave from "./party.leave";
-import Player from "./player";
-import PlayerList from "./player.list";
+import Player from "../player/player";
+import PlayerList from "../player/player.list";
 import PartyAdmin from "./party.admin";
 
 export default function Party() {
