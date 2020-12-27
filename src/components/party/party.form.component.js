@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../contexts/user.context";
+import PartyCreate from "./party.create.component";
 
 export default class PartyForm extends Component {
     static contextType = UserContext;
@@ -11,7 +12,6 @@ export default class PartyForm extends Component {
 
         this.onJoinParty = this.onJoinParty.bind(this);
         this.onChangePartyCode = this.onChangePartyCode.bind(this);
-        this.onCreateParty = this.onCreateParty.bind(this);
 
         this.state = {
             partyCode: "",
@@ -46,23 +46,6 @@ export default class PartyForm extends Component {
         });
     }
 
-    onCreateParty(e) {
-        e.preventDefault();
-
-        axios.get("/api/create", { withCredentials: true })
-            .then(res => {
-                if (res.status === 200) {
-                    this.context.setPartyCode(res.data);
-                    this.context.setIsAdmin(true);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                if (err.response.status === 401) {
-                    this.setState({ redirectTo: "/login" });
-                }
-            });
-    }
 
     render() {
         if (this.state.redirectTo) return <Redirect to={{ pathname: this.state.redirectTo }} />;
@@ -87,11 +70,7 @@ export default class PartyForm extends Component {
                         <input type="submit" value="Join Party" className="btn btn-primary" disabled={this.state.partyCode.length === 0} />
                     </div>
                 </form>
-                <form onSubmit={this.onCreateParty}>
-                    <div className="form-group">
-                        <input type="submit" value="Create Party" className="btn btn-primary" />
-                    </div>
-                </form>
+                <PartyCreate/>
             </div>
         );
     }
