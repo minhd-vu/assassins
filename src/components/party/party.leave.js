@@ -1,5 +1,5 @@
 import { UserContext } from "../../contexts/user.context";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 
 export default function PartyLeave() {
@@ -22,10 +22,13 @@ export default function PartyLeave() {
     }
 
     return (
-        <form onSubmit={onLeaveParty}>
-            <div className="form-group">
-                <input type="submit" value="Leave Party" className="btn btn-primary" />
-            </div>
-        </form>
+        <React.Fragment>
+            <br />
+            <form onSubmit={onLeaveParty}>
+                <div className="form-group">
+                    <input type="submit" value="Leave Party" className="btn btn-primary" />
+                </div>
+            </form>
+        </React.Fragment>
     );
 }

@@ -22,9 +22,12 @@ export default function PlayerTarget() {
 
     return (
         target &&
-        <div>
-            <h6>Target: </h6>
-            <button type="button" className="btn btn-light">{target.username}</button>
-        </div>
+        <React.Fragment>
+            <br />
+            <div>
+                <h6>Target: </h6>
+                <button type="button" className="btn btn-light">{target.username}</button>
+            </div>
+        </React.Fragment>
     );
 }

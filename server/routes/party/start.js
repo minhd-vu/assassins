@@ -17,7 +17,7 @@ function shuffle(array) {
     return array;
 }
 
-router.route("/").post(isLoggedIn, async function (req, res) {
+router.route("/").post(isLoggedIn, function (req, res) {
     Party.findById(req.user.party, async function (err, party) {
         if (err) console.log(err);
 

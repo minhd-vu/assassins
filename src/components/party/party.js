@@ -45,13 +45,10 @@ export default function Party() {
                 <div className="alert alert-danger" role="alert">{error}</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
-            <br />
             {
                 party.isStarted && <PlayerTarget />
             }
-            <br />
             <PlayerList players={players} />
-            <br />
             {
                 !party.isStarted && user.isAdmin && <PartyAdmin setError={setError} />
             }
