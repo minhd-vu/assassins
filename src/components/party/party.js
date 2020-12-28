@@ -11,7 +11,7 @@ export default function Party() {
     const user = useContext(UserContext);
     const [party, setParty] = useState({});
     const [players, setPlayers] = useState([]);
-    const [error, setError] = useState(""); 
+    const [error, setError] = useState("");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -41,8 +41,7 @@ export default function Party() {
     return (
         <div className="text-center">
             {
-                error &&
-                <div className="alert alert-danger" role="alert">{error}</div>
+                error && <div className="alert alert-danger" role="alert">{error}</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             {
