@@ -7,14 +7,10 @@ const User = require("./models/user.model");
 const LocalStrategy = require("passport-local");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const socketio = require("socket.io");
-const http = require("http");
 
 require("dotenv").config();
 
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
 const port = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, "../build")));
@@ -63,7 +59,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
 });
 

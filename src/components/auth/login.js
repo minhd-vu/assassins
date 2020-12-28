@@ -32,10 +32,6 @@ export default function Login() {
             });
     }
 
-    function canSubmit() {
-        return username.length > 0 && password.length > 0;
-    }
-
     return (
         <div>
             <h3>Login</h3>
@@ -45,9 +41,9 @@ export default function Login() {
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Username: </label>
-                    <input type="text"
+                    <input
+                        type="text"
                         required
-                        name="username"
                         className="form-control"
                         value={username}
                         onChange={e => setUsername(e.target.value)}
@@ -57,14 +53,14 @@ export default function Login() {
                     <label>Password: </label>
                     <input
                         type="password"
-                        name="password"
+                        required
                         className="form-control"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
-                    <input type="submit" value="Login" className="btn btn-primary" disabled={!canSubmit()} />
+                    <input type="submit" value="Login" className="btn btn-primary"/>
                 </div>
             </form>
         </div>
