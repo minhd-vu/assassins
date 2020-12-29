@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import React, { useState } from "react";
-import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function PartyAdmin(props) {
     const [gameMode, setGameMode] = useState("Classic");
@@ -23,19 +23,25 @@ export default function PartyAdmin(props) {
     return (
         <React.Fragment>
             <br />
-            <form onSubmit={onStartParty}>
-                <Form.Group as={Row} className="justify-content-center">
-                    <Form.Label className="mx-1">Game Mode:</Form.Label>
-                    <Form.Control className="mx-1" as="select" defaultValue={gameMode} onChange={e => setGameMode(e.target.value)}>
-                        <option>Classic</option>
-                        <option>Shuffle</option>
-                    </Form.Control>
+            <Form onSubmit={onStartParty}>
+                <Form.Group>
+                    <Form.Row className="justify-content-center align-items-center">
+                        <Form.Label column xs="auto">Game Mode:</Form.Label>
+                        <Col xs="auto">
+                            <Form.Control as="select" defaultValue={gameMode} onChange={e => setGameMode(e.target.value)}>
+                                <option>Classic</option>
+                                <option>Shuffle</option>
+                            </Form.Control>
+                        </Col>
+                    </Form.Row>
                 </Form.Group>
-                <Form.Check type="checkbox" label="Show Players" defaultValue={showPlayers} onChange={e => setShowPlayers(e.target.value)} />
-                <div className="form-group my-2">
+                <Form.Group>
+                    <Form.Check type="checkbox" label="Show Players" defaultValue={showPlayers} onChange={e => setShowPlayers(e.target.value)} />
+                </Form.Group>
+                <Form.Group>
                     <input type="submit" value="Start Party" className="btn btn-primary" />
-                </div>
-            </form>
+                </Form.Group>
+            </Form>
         </React.Fragment>
     );
 }
