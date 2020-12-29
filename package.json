@@ -4,9 +4,6 @@
 	"private": true,
 	"proxy": "http://localhost:5000",
 	"dependencies": {
-		"@testing-library/jest-dom": "^5.11.4",
-		"@testing-library/react": "^11.1.0",
-		"@testing-library/user-event": "^12.1.10",
 		"axios": "^0.21.0",
 		"bootstrap": "^4.5.3",
 		"cookie-parser": "^1.4.5",
@@ -25,13 +22,12 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.1",
 		"socket.io": "^3.0.4",
-		"socket.io-client": "^3.0.4",
-		"web-vitals": "^0.2.4"
+		"socket.io-client": "^3.0.4"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "jest",
+		"test": "jest --passWithNoTests",
 		"eject": "react-scripts eject",
 		"dev": "nodemon server/index.js"
 	},
