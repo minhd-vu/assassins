@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
-import Form from "react-bootstrap/Form";
 
 export default function PartyJoin(props) {
     const user = useContext(UserContext);
