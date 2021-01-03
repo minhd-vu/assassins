@@ -54,6 +54,9 @@ app.use("/api/leave", require("./routes/party/leave"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/start", require("./routes/party/start"));
 app.use("/api/target", require("./routes/party/target"));
+app.use("/api/assassinate", require("./routes/assassinate/assassinate"));
+app.use("/api/confirm", require("./routes/assassinate/confirm"));
+app.use("/api/deny", require("./routes/assassinate/deny"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));

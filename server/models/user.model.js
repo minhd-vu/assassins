@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     target: { type: Schema.Types.ObjectId, ref: "User", default: null },
     party: { type: Schema.Types.ObjectId, ref: "Party", default: null },
     isAlive: { type: Boolean, default: true },
+    isPending: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
     stats: {
         elims: { type: Number, default: 0 },
