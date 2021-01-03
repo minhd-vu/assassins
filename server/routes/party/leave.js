@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const isLoggedIn = require("../../helpers/isLoggedIn");
 const Party = require("../../models/party.model");
+const User = require("../../models/user.model");
 
 router.route("/").get(isLoggedIn, async function (req, res) {
     await Party.updateOne({ _id: req.user.party }, { $pullAll: { players: [req.user._id] } });
@@ -10,6 +11,7 @@ router.route("/").get(isLoggedIn, async function (req, res) {
     req.user.isAlive = true;
     req.user.isAdmin = false;
     await req.user.save();
+    await User.updateMany({ target: req.user }, { target: null });
     res.status(200).send();
 });
 
