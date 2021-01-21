@@ -7,8 +7,12 @@ export default function Pending() {
         <React.Fragment>
             <br />
             <p>You have been assassinated.</p>
-            <Confirm/>
-            <Deny/>
+            <form>
+                <div className="form-group">
+                    <Confirm />
+                    <Deny />
+                </div>
+            </form>
         </React.Fragment>
     );
 }
