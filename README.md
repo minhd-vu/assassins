@@ -31,7 +31,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
+Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned. Read more about assassins [here](https://en.wikipedia.org/wiki/Assassin_(game)).
+
+This project is designed to easily faciliate the distribution of targets to players, along with the transfer of targets post-assassination. Additionally, assassins aims to resolve some of the complications that can arise in these processes.
 
 ### Built With
 
@@ -100,7 +102,7 @@ Project Link: [https://github.com/minhd-vu/assassins](https://github.com/minhd-v
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
+* [Minh Vu](https://github.com/minhd-vu)
 * []()
 * []()
 
