@@ -13,29 +13,32 @@ export default function Party() {
     const [players, setPlayers] = useState([]);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            axios.get("/api/party", { withCredentials: true })
-                .then(res => {
-                    if (res.status === 200) {
-                        console.log(res.data);
-                        setParty(res.data);
-                        if (res.data && res.data.players) {
-                            setPlayers(res.data.players.map((player) =>
-                                <Player
-                                    key={player.username}
-                                    player={player}
-                                    isStarted={res.data.isStarted}
-                                />
-                            ));
-                        }
+    function getParty() {
+        axios.get("/api/party", { withCredentials: true })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    setParty(res.data);
+                    if (res.data && res.data.players) {
+                        setPlayers(res.data.players.map((player) =>
+                            <Player
+                                key={player.username}
+                                player={player}
+                                isStarted={res.data.isStarted}
+                            />
+                        ));
                     }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }, 1000);
-        return () => clearInterval(interval);
+                }
+
+                setTimeout(getParty, 1000);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    useEffect(() => {
+        getParty();
     }, []);
 
     return (
