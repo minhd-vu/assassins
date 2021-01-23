@@ -26,6 +26,7 @@ router.route("/").post(isLoggedIn, function (req, res) {
         }
 
         party.gameMode = req.body.gameMode;
+        party.showPlayers = req.body.showPlayers;
         party.isStarted = true;
 
         await party.save();

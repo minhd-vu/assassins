@@ -10,7 +10,7 @@ export default function PartyAdmin(props) {
     function onStartParty(e) {
         e.preventDefault();
 
-        axios.post("/api/start", { gameMode: gameMode }, { withCredentials: true })
+        axios.post("/api/start", { gameMode: gameMode, showPlayers: showPlayers }, { withCredentials: true })
             .then(res => {
                 console.log(res);
             })
