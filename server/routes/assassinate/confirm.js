@@ -10,8 +10,29 @@ router.route("/").get(isLoggedIn, async function (req, res) {
         req.user.stats.deaths += 1;
         await req.user.save();
 
-        await User.findOne({ "target": req.user._id }, async function (err, user) {
-            
+        await req.user.execPopulate("party");
+
+        await User.findOne({ "target": req.user._id }, function (err, user) {
+            if (err) console.log(err);
+            console.log(user);
+
+
+            switch (req.user.party.gameMode) {
+                case "Classic":
+                    break;
+                case "Shuffle":
+                    await req.user.party.execPopulate("players");
+                    const players = shuffle(req.user.party.players.filter(player => player.isAlive && player !== user));
+                    await players.forEach((player, i) => {
+                        if (i === players.length - 1) {
+                            player.target = players[0]._id;
+                        } else {
+                            player.target = players[i + 1]._id;
+                        }
+                        player.save();
+                    });
+                    break;
+            }
         });
     }
     res.status(200).send();
