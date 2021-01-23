@@ -31,6 +31,10 @@ router.route("/").post(isLoggedIn, function (req, res) {
         await party.save();
         await party.execPopulate("players");
 
+        /**
+         * Assign a new target for each player.
+         * Reset the isAlive and isPending variables so they don't transfer.
+         */
         const players = shuffle(party.players.filter(player => player.isAlive));
         await players.forEach((player, i) => {
             if (i === players.length - 1) {
@@ -38,6 +42,8 @@ router.route("/").post(isLoggedIn, function (req, res) {
             } else {
                 player.target = players[i + 1]._id;
             }
+            player.isAlive = true;
+            player.isPending = false;
             player.save();
         });
 
