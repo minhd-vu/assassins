@@ -11,6 +11,7 @@ export default function Party() {
     const user = useContext(UserContext);
     const [party, setParty] = useState({});
     const [players, setPlayers] = useState([]);
+    const [winner, setWinner] = useState("");
     const [error, setError] = useState("");
 
     function getParty() {
@@ -27,6 +28,11 @@ export default function Party() {
                                 isStarted={res.data.isStarted}
                             />
                         ));
+
+                        const alivePlayers = res.data.players.filter(player => player.isAlive);
+                        if (alivePlayers.length === 1) {
+                            setWinner(alivePlayers[0].username);
+                        }
                     }
                 }
 
@@ -45,6 +51,9 @@ export default function Party() {
         <div className="text-center">
             {
                 error && <div className="alert alert-danger" role="alert">{error}</div>
+            }
+            {
+                winner && party.isStarted && <div className="alert alert-success" role="alert">{winner} was the winner!</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             {
