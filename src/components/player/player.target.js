@@ -14,8 +14,6 @@ export default function PlayerTarget() {
                 if (res.status === 200) {
                     setIsPending(res.data);
                 }
-
-                setTimeout(getIsPending, 1000);
             })
             .catch(err => {
                 console.log(err);
@@ -29,8 +27,6 @@ export default function PlayerTarget() {
                     console.log(res.data);
                     setTarget(res.data);
                 }
-
-                setTimeout(getTarget, 1000);
             })
             .catch(err => {
                 console.log(err);
@@ -40,6 +36,11 @@ export default function PlayerTarget() {
     useEffect(() => {
         getTarget();
         getIsPending();
+        const interval = setInterval(() => {
+            getTarget();
+            getIsPending();
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return (

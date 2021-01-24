@@ -35,8 +35,6 @@ export default function Party() {
                         }
                     }
                 }
-
-                setTimeout(getParty, 1000);
             })
             .catch(err => {
                 console.log(err);
@@ -45,6 +43,8 @@ export default function Party() {
 
     useEffect(() => {
         getParty();
+        const interval = setInterval(getParty, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return (
