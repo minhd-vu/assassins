@@ -41,12 +41,10 @@ export default function Help() {
             <h4>Game Modes</h4>
             <dl className="row">
                 <dt className="col-sm-3">Classic</dt>
-                <dd className="col-sm-9">When you assassinate a target, your next target will be the target your target had. If you recieve yourself as a target, you have the ability to assassinate anyone.</dd>
+                <dd className="col-sm-9">When you assassinate a target, your next target will be the target your target had.</dd>
 
                 <dt className="col-sm-3">Shuffle</dt>
-                <dd className="col-sm-9">
-                    <p>When a player assassinates a target, all players will recieve a new target from the remaining players alive.</p>
-                </dd>
+                <dd className="col-sm-9">When a player assassinates a target, all players will recieve a new target from the remaining players alive.</dd>
             </dl>
         </div>
     );
