@@ -7,14 +7,15 @@ export default function Profile(props) {
     const [elims, setElims] = useState(0);
     const [deaths, setDeaths] = useState(0);
     const [error, setError] = useState(false);
+    const [rank, setRank] = useState(0);
 
     useEffect(() => {
         axios.get("/api/user/" + username, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.data);
                     setElims(res.data.elims);
                     setDeaths(res.data.deaths);
+                    setRank(res.data.rank);
                     setError(false);
                 } else if (res.status === 204) {
                     setError(true);
@@ -23,7 +24,7 @@ export default function Profile(props) {
             .catch(err => {
                 console.log(err);
             });
-    });
+    }, []);
 
     return (
         error ?
@@ -31,7 +32,7 @@ export default function Profile(props) {
             <table className="table">
                 <thead className="thead-light">
                     <tr>
-                        {/* <th scope="col">Rank</th> */}
+                        <th scope="col">Rank</th>
                         <th scope="col">Name</th>
                         <th scope="col">Kills</th>
                         <th scope="col">Deaths</th>
@@ -40,7 +41,7 @@ export default function Profile(props) {
                 </thead>
                 <tbody>
                     <tr>
-                        {/* <th scope="row">?</th> */}
+                        <td>{rank}</td>
                         <td>{username}</td>
                         <td>{elims}</td>
                         <td>{deaths}</td>
