@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 router.route("/:id").get(async function (req, res) {
     let rank = 0;
 
-    await User.find({}).sort({ "stats.elmins": "descending", "stats.deaths": "ascending" }).exec(function (err, users) {
+    await User.find({}).sort({ "stats.elims": "descending", "stats.deaths": "ascending" }).exec(function (err, users) {
         if (err) console.log(err);
         rank = users.findIndex(user => user._id.equals(req.user._id)) + 1;
     });
