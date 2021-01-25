@@ -19,7 +19,7 @@ export default function Header() {
                         {
                             user.isAuth ?
                                 <React.Fragment>
-                                    <Logout/>
+                                    <Logout />
                                     <Nav.Link as={Link} to={"/user/" + user.username}>Profile</Nav.Link>
                                 </React.Fragment> :
                                 <React.Fragment>
@@ -28,6 +28,9 @@ export default function Header() {
                                 </React.Fragment>
                         }
                         <Nav.Link as={Link} to="/help">Help</Nav.Link>
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <Nav.Link as={Link} to="/leaderboard">Leaderboard</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

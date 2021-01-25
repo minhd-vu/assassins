@@ -58,6 +58,7 @@ app.use("/api/assassinate", require("./routes/assassinate/assassinate"));
 app.use("/api/confirm", require("./routes/assassinate/confirm"));
 app.use("/api/deny", require("./routes/assassinate/deny"));
 app.use("/api/pending", require("./routes/assassinate/pending"));
+app.use("/api/leaderboard", require("./routes/leaderboard"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../build/index.html"));

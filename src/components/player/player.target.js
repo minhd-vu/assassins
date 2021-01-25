@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Assassinate from "../assassinate/assassinate";
 import Pending from "../assassinate/pending";

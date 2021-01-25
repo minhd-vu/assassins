@@ -11,6 +11,7 @@ import Register from "./components/auth/register";
 import Home from "./components/home";
 import Help from "./components/help";
 import Profile from "./components/profile";
+import Leaderboard from "./components/leaderboard";
 
 import { UserContext } from "./contexts/user.context";
 
@@ -43,6 +44,7 @@ export default class App extends Component {
 					<Route path="/register" component={Register} />
 					<Route path="/user/:username" render={props => <Profile {...props} />} />
 					<Route path="/help" component={Help} />
+					<Route path="/leaderboard" component={Leaderboard} />
 				</Container>
 				<br />
 				<br />
