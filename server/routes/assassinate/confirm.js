@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const isLoggedIn = require("../../helpers/isLoggedIn");
 const User = require("../../models/user.model");
+const shuffle = require("../../helpers/shuffle");
 
 router.route("/").get(isLoggedIn, async function (req, res) {
     if (req.user.isPending) {
@@ -14,22 +15,20 @@ router.route("/").get(isLoggedIn, async function (req, res) {
         req.user.stats.deaths += 1;
         await req.user.save();
 
-        console.log(target);
-
         await User.findOne({ "target": req.user._id }, async function (err, user) {
             if (err) console.log(err);
 
             await user.execPopulate("party");
             await user.party.execPopulate("players");
 
-            const alivePlayers = user.party.players.filter(player => player.isAlive);
+            user.stats.elims++;
 
-            switch (req.user.party.gameMode) {
+            switch (user.party.gameMode) {
                 case "Classic":
                     user.target = target;
-                    await user.save();
                     break;
                 case "Shuffle":
+                    const alivePlayers = user.party.players.filter(player => player.isAlive);
                     const players = shuffle(alivePlayers.filter(player => player !== user));
                     players.forEach((player, i) => {
                         if (i === players.length - 1) {
@@ -41,6 +40,8 @@ router.route("/").get(isLoggedIn, async function (req, res) {
                     });
                     break;
             }
+
+            await user.save();
         });
     }
     res.status(200).send();

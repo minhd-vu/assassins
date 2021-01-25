@@ -1,21 +1,7 @@
 const router = require("express").Router();
 const isLoggedIn = require("../../helpers/isLoggedIn");
 const Party = require("../../models/party.model");
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
+const shuffle = require("../../helpers/shuffle");
 
 router.route("/").post(isLoggedIn, function (req, res) {
     Party.findById(req.user.party, async function (err, party) {
