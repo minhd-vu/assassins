@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Assassinate from "../assassinate/assassinate";
 import Pending from "../assassinate/pending";
+import useInterval from "../../hooks/useInterval";
 
 export default function PlayerTarget() {
     const [isPending, setIsPending] = useState(false);
@@ -24,7 +25,6 @@ export default function PlayerTarget() {
         axios.get("/api/target", { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.data);
                     setTarget(res.data);
                 }
             })
@@ -33,15 +33,10 @@ export default function PlayerTarget() {
             });
     }
 
-    useEffect(() => {
+    useInterval(() => {
         getTarget();
         getIsPending();
-        const interval = setInterval(() => {
-            getTarget();
-            getIsPending();
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    }, 1000);
 
     return (
         target &&

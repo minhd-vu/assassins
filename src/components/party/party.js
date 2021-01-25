@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import axios from "axios";
 import PlayerTarget from "../player/player.target";
@@ -6,6 +6,7 @@ import PartyLeave from "./party.leave";
 import Player from "../player/player";
 import PlayerList from "../player/player.list";
 import PartyAdmin from "./party.admin";
+import useInterval from "../../hooks/useInterval";
 
 export default function Party() {
     const user = useContext(UserContext);
@@ -41,11 +42,9 @@ export default function Party() {
             });
     }
 
-    useEffect(() => {
+    useInterval(() => {
         getParty();
-        const interval = setInterval(getParty, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    }, 1000);
 
     return (
         <div className="text-center">
