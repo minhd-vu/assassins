@@ -8,6 +8,7 @@ import useInterval from "../../hooks/useInterval";
 export default function PlayerTarget() {
     const [isPending, setIsPending] = useState(false);
     const [target, setTarget] = useState({});
+    const [delay, setDelay] = useState(0);
 
     function getIsPending() {
         axios.get("/api/pending", { withCredentials: true })
@@ -36,7 +37,8 @@ export default function PlayerTarget() {
     useInterval(() => {
         getTarget();
         getIsPending();
-    }, 1000);
+        setDelay(1000);
+    }, delay);
 
     return (
         target &&

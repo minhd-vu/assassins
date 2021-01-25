@@ -14,6 +14,7 @@ export default function Party() {
     const [players, setPlayers] = useState([]);
     const [winner, setWinner] = useState("");
     const [error, setError] = useState("");
+    const [delay, setDelay] = useState(0);
 
     function getParty() {
         axios.get("/api/party", { withCredentials: true })
@@ -44,7 +45,8 @@ export default function Party() {
 
     useInterval(() => {
         getParty();
-    }, 1000);
+        setDelay(1000);
+    }, delay);
 
     return (
         <div className="text-center">
@@ -52,7 +54,7 @@ export default function Party() {
                 error && <div className="alert alert-danger" role="alert">{error}</div>
             }
             {
-                winner && party.isStarted && <div className="alert alert-success" role="alert">{winner} was the winner!</div>
+                winner && party.isStarted && <div className="alert alert-success" role="alert"><b>{winner}</b> is the winner!</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             {
