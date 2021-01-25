@@ -2,8 +2,6 @@ const router = require("express").Router();
 const User = require("../models/user.model");
 
 router.route("/:id").get(async function (req, res) {
-    console.log(req.params.id);
-
     let rank = 0;
 
     await User.find({}).sort({ "stats.elmins": "descending", "stats.deaths": "ascending" }).exec(function (err, users) {
