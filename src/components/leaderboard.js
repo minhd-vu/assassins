@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import getKDRatio from "../helpers/getKDRatio";
 
 export default function Profile() {
     const [players, setPlayers] = useState([]);
@@ -14,7 +15,7 @@ export default function Profile() {
                             <td>{player.username}</td>
                             <td>{player.elims}</td>
                             <td>{player.deaths}</td>
-                            <td>{(player.elims / player.deaths).toFixed(2)}</td>
+                            <td>{getKDRatio(players.elims, player.deaths)}</td>
                         </tr>
                     ));
                 }

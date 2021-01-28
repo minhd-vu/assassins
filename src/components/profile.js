@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
+import getKDRatio from "../helpers/getKDRatio";
 
 export default function Profile(props) {
     const { username } = props.match.params;
@@ -48,7 +49,7 @@ export default function Profile(props) {
                                 <td>{username}</td>
                                 <td>{elims}</td>
                                 <td>{deaths}</td>
-                                <td>{(elims / deaths).toFixed(2)}</td>
+                                <td>{getKDRatio(elims, deaths)}</td>
                             </tr>
                         </tbody>
                     </table>
