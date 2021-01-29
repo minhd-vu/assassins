@@ -8,8 +8,14 @@ const mongoose = require("mongoose");
 router.route("/").get(isLoggedIn, async function (req, res) {
     console.log(req.user);
 
+    let code;
+    
+    do {
+        code = nanoid();
+    } while (Party.findOne({ code: code }).exec());
+
     const party = new Party({
-        code: nanoid()
+        code: code
     });
 
     party.players.push(req.user);
