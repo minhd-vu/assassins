@@ -103,6 +103,6 @@ Project Link: [https://github.com/minhd-vu/assassins](https://github.com/minhd-v
 ## Acknowledgements
 
 * [Minh Vu](https://github.com/minhd-vu)
-* []()
+* [Bisrat Mekonnen](https://github.com/bismek)
 * []()
 
