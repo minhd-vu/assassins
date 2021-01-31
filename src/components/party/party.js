@@ -12,7 +12,6 @@ export default function Party() {
     const user = useContext(UserContext);
     const [party, setParty] = useState({});
     const [players, setPlayers] = useState([]);
-    const [winner, setWinner] = useState("");
     const [error, setError] = useState("");
     const [delay, setDelay] = useState(0);
 

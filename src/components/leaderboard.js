@@ -15,7 +15,7 @@ export default function Profile() {
                             <td>{player.username}</td>
                             <td>{player.elims}</td>
                             <td>{player.deaths}</td>
-                            <td>{getKDRatio(players.elims, player.deaths)}</td>
+                            <td>{getKDRatio(player.elims, player.deaths)}</td>
                         </tr>
                     ));
                 }
