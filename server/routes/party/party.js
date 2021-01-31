@@ -8,8 +8,8 @@ router.route("/").get(isLoggedIn, async function (req, res) {
         await req.user.party.execPopulate("players");
 
         // Assign a winner if there is only one player left.
-        const players = req.user.party.players;
-        if (players.filter(player => player.isAlive).length === 1) {
+        const players = req.user.party.players.filter(player => player.isAlive);
+        if (players.length === 1) {
             winner = players[0];
         }
     }
