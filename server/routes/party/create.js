@@ -5,14 +5,10 @@ const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 5);
 const Party = require("../../models/party.model");
 const mongoose = require("mongoose");
 
-router.route("/").get(isLoggedIn, async function (req, res) {
+router.route("/").get(isLoggedIn, async function createParty (req, res) {
     console.log(req.user);
 
-    let code;
-    
-    do {
-        code = nanoid();
-    } while (Party.findOne({ code: code }).exec());
+    const code = nanoid();
 
     const party = new Party({
         code: code
@@ -20,7 +16,15 @@ router.route("/").get(isLoggedIn, async function (req, res) {
 
     party.players.push(req.user);
 
-    await party.save();
+    try {
+        await party.save();
+    } catch (err) {
+        if (err.code === "11000") {
+            return createParty(req, res);
+        } else {
+            throw err;
+        }
+    }
 
     req.user.isAdmin = true;
     req.user.party = party;
