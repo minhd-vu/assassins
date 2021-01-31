@@ -13,6 +13,7 @@ export default function Profile() {
                         <tr key={player.username}>
                             <td>{player.rank}</td>
                             <td>{player.username}</td>
+                            <td>{player.wins}</td>
                             <td>{player.elims}</td>
                             <td>{player.deaths}</td>
                             <td>{getKDRatio(player.elims, player.deaths)}</td>
@@ -33,6 +34,7 @@ export default function Profile() {
                     <tr>
                         <th scope="col">Rank</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Wins</th>
                         <th scope="col">Kills</th>
                         <th scope="col">Deaths</th>
                         <th scope="col">K/D</th>

@@ -12,7 +12,8 @@ const UserSchema = new Schema({
     isAdmin: { type: Boolean, default: false },
     stats: {
         elims: { type: Number, default: 0 },
-        deaths: { type: Number, default: 0 }
+        deaths: { type: Number, default: 0 },
+        wins: { type: Number, default: 0 }
     }
 }, { timestamps: true });
 

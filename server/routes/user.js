@@ -19,6 +19,7 @@ router.route("/:id").get(async function (req, res) {
         res.status(200).send({
             elims: user.stats.elims,
             deaths: user.stats.deaths,
+            wins: user.stats.wins,
             rank: rank
         });
     });

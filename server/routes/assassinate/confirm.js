@@ -25,7 +25,12 @@ router.route("/").get(isLoggedIn, async function (req, res) {
 
             switch (user.party.gameMode) {
                 case "Classic":
-                    user.target = user._id.toString() === target.toString() ? null : target;
+                    if (user._id.toString() === target.toString()) {
+                        user.stats.wins++;
+                        user.target = null;
+                    } else {
+                        user.target = target;
+                    }
                     break;
                 case "Shuffle":
                     const alivePlayers = user.party.players.filter(player => player.isAlive);
