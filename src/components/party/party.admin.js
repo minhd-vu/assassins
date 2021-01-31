@@ -36,7 +36,7 @@ export default function PartyAdmin(props) {
                     </Form.Row>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Check type="checkbox" label="Show Players" checked={showPlayers} onChange={e => setShowPlayers(!showPlayers)} />
+                    <Form.Check type="checkbox" label="Show Players" checked={showPlayers} onChange={() => setShowPlayers(!showPlayers)} />
                 </Form.Group>
                 <Form.Group>
                     <input type="submit" value="Start Party" className="btn btn-primary" />
