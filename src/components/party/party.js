@@ -30,11 +30,6 @@ export default function Party() {
                                 isStarted={res.data.isStarted}
                             />
                         ));
-
-                        const alivePlayers = res.data.players.filter(player => player.isAlive);
-                        if (alivePlayers.length === 1) {
-                            setWinner(alivePlayers[0].username);
-                        }
                     }
                 }
             })
@@ -54,7 +49,7 @@ export default function Party() {
                 error && <div className="alert alert-danger" role="alert">{error}</div>
             }
             {
-                winner && party.isStarted && <div className="alert alert-success" role="alert"><b>{winner}</b> is the winner!</div>
+                party.winner && party.isStarted && <div className="alert alert-success" role="alert"><b>{party.winner.username}</b> is the winner!</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             {
