@@ -12,7 +12,7 @@ router.route("/").get(isLoggedIn, async function (req, res) {
         req.user.isAlive = false;
         req.user.isPending = false;
         req.user.target = null;
-        req.user.stats.deaths += 1;
+        req.user.stats.deaths++;
         await req.user.save();
 
         await User.findOne({ "target": req.user._id }, async function (err, user) {
