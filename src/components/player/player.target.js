@@ -37,7 +37,7 @@ export default function PlayerTarget() {
     useInterval(() => {
         getTarget();
         getIsPending();
-        setDelay(1000);
+        if (delay === 0) setDelay(1000);
     }, delay);
 
     return (
