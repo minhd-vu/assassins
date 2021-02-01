@@ -6,10 +6,11 @@ export default function Profile() {
     const [players, setPlayers] = useState([]);
 
     useEffect(() => {
+        let isMounted = true;
         axios.get("/api/leaderboard", { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    setPlayers(res.data.map(player =>
+                    isMounted && setPlayers(res.data.map(player =>
                         <tr key={player.username}>
                             <td>{player.rank}</td>
                             <td>{player.username}</td>
@@ -24,6 +25,7 @@ export default function Profile() {
             .catch(err => {
                 console.log(err);
             });
+        return () => { isMounted = false };
     }, []);
 
     return (

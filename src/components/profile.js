@@ -9,18 +9,22 @@ export default function Profile(props) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
         axios.get("/api/user/" + username, { withCredentials: true })
             .then(res => {
-                if (res.status === 200) {
-                    setUser(res.data);
-                    setError(false);
-                } else if (res.status === 204) {
-                    setError(true);
+                if (isMounted) {
+                    if (res.status === 200) {
+                        setUser(res.data);
+                        setError(false);
+                    } else if (res.status === 204) {
+                        setError(true);
+                    }
                 }
             })
             .catch(err => {
                 console.log(err);
             });
+        return () => { isMounted = false };
     }, [username]);
 
     return (
