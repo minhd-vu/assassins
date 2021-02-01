@@ -28,6 +28,9 @@ router.route("/").get(isLoggedIn, async function (req, res) {
                     if (user._id.toString() === target.toString()) {
                         user.stats.wins++;
                         user.target = null;
+                        user.party.isStarted = false;
+                        user.party.winner = user._id;
+                        await user.party.save();
                     } else {
                         user.target = target;
                     }

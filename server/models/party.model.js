@@ -6,7 +6,8 @@ const PartySchema = new Schema({
     players: [{ type: Schema.Types.ObjectId, ref: "User" }],
     isStarted: { type: Boolean, default: false },
     gameMode: { type: String, default: "Classic" },
-    showPlayers: { type: Boolean, default: "true" }
+    showPlayers: { type: Boolean, default: true },
+    winner: { type: Schema.Types.ObjectId, ref: "User", default: null }
 }, { timestamps: true });
 
 const Party = mongoose.model("Party", PartySchema);

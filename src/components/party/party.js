@@ -48,7 +48,7 @@ export default function Party() {
                 error && <div className="alert alert-danger" role="alert">{error}</div>
             }
             {
-                party.winner && party.isStarted && <div className="alert alert-success" role="alert"><b>{party.winner.username}</b> is the winner!</div>
+                party.winner && <div className="alert alert-success" role="alert"><b>{party.winner.username}</b> won the game!</div>
             }
             <h4>Party Code: <b>{user.partyCode}</b></h4>
             {
