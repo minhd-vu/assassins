@@ -6,6 +6,15 @@ const User = require("../../models/user.model");
 router.route("/").get(isLoggedIn, async function (req, res) {
     await Party.updateOne({ _id: req.user.party }, { $pullAll: { players: [req.user._id] } });
     await Party.deleteOne({ players: { $exists: true, $size: 0 } });
+
+    if (req.user.isAdmin) {
+        await req.user.execPopulate("party");
+        await req.user.party.execPopulate("players");
+        const player = req.user.party.players[Math.floor(Math.random() * req.user.party.players.length)];
+        player.isAdmin = true;
+        await player.save();
+    }
+
     req.user.party = null;
     req.user.target = null;
     req.user.isAlive = true;
