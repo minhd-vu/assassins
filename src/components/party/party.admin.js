@@ -20,28 +20,48 @@ export default function PartyAdmin(props) {
             });
     }
 
+    function onStopParty(e) {
+        e.preventDefault();
+
+        axios.get("/api/stop", { withCredentials: true })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+                props.setError(err.response.data);
+            });
+    }
+
     return (
         <React.Fragment>
             <br />
-            <Form onSubmit={onStartParty}>
-                <Form.Group>
-                    <Form.Row className="justify-content-center align-items-center">
-                        <Form.Label column xs="auto">Game Mode:</Form.Label>
-                        <Col xs="auto">
-                            <Form.Control as="select" defaultValue={gameMode} onChange={e => setGameMode(e.target.value)}>
-                                <option>Classic</option>
-                                <option>Shuffle</option>
-                            </Form.Control>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Check type="checkbox" label="Show Players" checked={showPlayers} onChange={() => setShowPlayers(!showPlayers)} />
-                </Form.Group>
-                <Form.Group>
-                    <input type="submit" value="Start Party" className="btn btn-primary" />
-                </Form.Group>
-            </Form>
+            {
+                props.isStarted ?
+                    <Form onSubmit={onStopParty}>
+                        <input type="submit" value="Stop Party" className="btn btn-primary" />
+                    </Form> :
+                    <Form onSubmit={onStartParty}>
+                        <Form.Group>
+                            <Form.Row className="justify-content-center align-items-center">
+                                <Form.Label column xs="auto">Game Mode:</Form.Label>
+                                <Col xs="auto">
+                                    <Form.Control as="select" defaultValue={gameMode} onChange={e => setGameMode(e.target.value)}>
+                                        <option>Classic</option>
+                                        <option>Shuffle</option>
+                                    </Form.Control>
+                                </Col>
+                            </Form.Row>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Check type="checkbox" label="Show Players" checked={showPlayers} onChange={() => setShowPlayers(!showPlayers)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <input type="submit" value="Start Party" className="btn btn-primary" />
+                        </Form.Group>
+                    </Form>
+            }
+
         </React.Fragment>
     );
 }

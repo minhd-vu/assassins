@@ -58,7 +58,7 @@ export default function Party() {
                 party.isStarted ? party.showPlayers && <PlayerList players={players} /> : <PlayerList players={players} />
             }
             {
-                !party.isStarted && user.isAdmin && <PartyAdmin setError={setError} />
+                user.isAdmin && <PartyAdmin setError={setError} isStarted={party.isStarted} />
             }
             <PartyLeave />
         </div>
