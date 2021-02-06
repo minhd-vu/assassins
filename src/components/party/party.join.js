@@ -11,7 +11,7 @@ export default function PartyJoin(props) {
     function onJoinParty(e) {
         e.preventDefault();
 
-        axios.get("/api/join/" + partyCode, { withCredentials: true })
+        axios.get("/api/join/" + partyCode.trim(), { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
