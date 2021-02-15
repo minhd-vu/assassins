@@ -2,6 +2,7 @@ const router = require("express").Router();
 const isLoggedIn = require("../../helpers/isLoggedIn");
 const User = require("../../models/user.model");
 const shuffle = require("../../helpers/shuffle");
+const setWinner = require("../../helpers/setWinner");
 
 router.route("/").get(isLoggedIn, async function (req, res) {
     if (req.user.isPending) {
@@ -25,13 +26,7 @@ router.route("/").get(isLoggedIn, async function (req, res) {
 
             switch (user.party.gameMode) {
                 case "Classic":
-                    if (user._id.toString() === target.toString()) {
-                        user.stats.wins++;
-                        user.target = null;
-                        user.party.isStarted = false;
-                        user.party.winner = user._id;
-                        await user.party.save();
-                    } else {
+                    if (!setWinner(user, target)) {
                         user.target = target;
                     }
                     break;
@@ -46,6 +41,7 @@ router.route("/").get(isLoggedIn, async function (req, res) {
                         }
                         player.save();
                     });
+                    setWinner(user, target);
                     break;
             }
 
