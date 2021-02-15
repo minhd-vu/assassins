@@ -52,7 +52,7 @@ export default function PlayerTarget() {
                 </div>
             }
             {
-                isPending ? <Pending /> : <Assassinate />
+                isPending ? <Pending /> : <Assassinate target={target}/>
             }
         </React.Fragment>
     );

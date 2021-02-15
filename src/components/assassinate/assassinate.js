@@ -2,7 +2,7 @@
 import React from "react";
 import axios from "axios";
 
-export default function Assassinate() {
+export default function Assassinate(props) {
     function onAssassinate(e) {
         e.preventDefault();
 
@@ -18,11 +18,15 @@ export default function Assassinate() {
     return (
         <React.Fragment>
             <br />
-            <form onSubmit={onAssassinate}>
-                <div className="form-group">
-                    <input type="submit" value="Assassinate" className="btn btn-primary" />
-                </div>
-            </form>
+            {
+                props.target.isPending ?
+                    <p>Pending</p> :
+                    <form onSubmit={onAssassinate}>
+                        <div className="form-group">
+                            <input type="submit" value="Assassinate" className="btn btn-primary" />
+                        </div>
+                    </form>
+            }
         </React.Fragment>
     );
 }

@@ -1,5 +1,5 @@
 module.exports = async function setWinner(user, target) {
-    const isWinner = user._id.toString() === target.toString()
+    const isWinner = user._id.toString() === target.toString();
 
     if (isWinner) {
         user.stats.wins++;
