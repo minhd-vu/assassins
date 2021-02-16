@@ -18,15 +18,18 @@ export default function Assassinate(props) {
     return (
         <React.Fragment>
             <br />
-            {
-                props.target.isPending ?
-                    <p>Pending</p> :
-                    <form onSubmit={onAssassinate}>
-                        <div className="form-group">
+            <form onSubmit={onAssassinate}>
+                <div className="form-group">
+                    {
+                        props.target.isPending ?
+                            <button className="btn btn-primary" type="button" disabled>
+                                <span className="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
+                                <span className="mx-1">Pending...</span>
+                            </button> :
                             <input type="submit" value="Assassinate" className="btn btn-primary" />
-                        </div>
-                    </form>
-            }
+                    }
+                </div>
+            </form>
         </React.Fragment>
     );
 }
