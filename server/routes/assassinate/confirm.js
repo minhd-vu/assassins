@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const isLoggedIn = require("../../helpers/isLoggedIn");
 const User = require("../../models/user.model");
-const shuffle = require("../../helpers/shuffle");
-const setWinner = require("../../helpers/setWinner");
+const setTargets = require("../../helpers/setTargets");
 
 router.route("/").get(isLoggedIn, async function (req, res) {
     if (req.user.isPending) {
@@ -18,34 +17,8 @@ router.route("/").get(isLoggedIn, async function (req, res) {
 
         await User.findOne({ "target": req.user._id }, async function (err, user) {
             if (err) console.log(err);
-
-            await user.execPopulate("party");
-            await user.party.execPopulate("players");
-
             user.stats.elims++;
-
-            switch (user.party.gameMode) {
-                case "Classic":
-                    if (!setWinner(user, target)) {
-                        user.target = target;
-                    }
-                    break;
-                case "Shuffle":
-                    const alivePlayers = user.party.players.filter(player => player.isAlive);
-                    const players = shuffle(alivePlayers.filter(player => player !== user));
-                    players.forEach((player, i) => {
-                        if (i === players.length - 1) {
-                            player.target = players[0]._id;
-                        } else {
-                            player.target = players[i + 1]._id;
-                        }
-                        player.save();
-                    });
-                    setWinner(user, target);
-                    break;
-            }
-
-            await user.save();
+            setTargets(user, target);
         });
     }
     res.status(200).send();
