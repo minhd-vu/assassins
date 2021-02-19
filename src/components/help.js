@@ -4,7 +4,7 @@ export default function Help() {
     return (
         <div>
             <h3>How to Play</h3>
-            <p>Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.</p>
+            <p>Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.</p>
 
             <h4>Create a User</h4>
             <p>Before doing anything, you should create a user. It will keep track of your statistics as well as identifying who you are in a party. You can register yourself by heading to the <Link to="/register">register</Link> link in the navbar. Once you create a user, you will no longer be able to change the username or password.</p>
