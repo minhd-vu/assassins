@@ -1,6 +1,10 @@
 const setWinner = require("./setWinner");
 
 module.exports = async function setTargets(user, target) {
+    if (!user) {
+        return;
+    }
+    
     await user.execPopulate("party");
     await user.party.execPopulate("players");
 
