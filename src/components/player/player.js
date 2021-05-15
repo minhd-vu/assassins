@@ -28,7 +28,7 @@ export default function Player(props) {
                         <button className="mx-1 badge btn-danger" onClick={onKickPlayer}>Kick Player</button>
                     </div>
                     <div>
-                        <button className="mx-1 badge btn-warning">Make Admin</button>
+                        <button className="mx-1 badge btn-warning" onClick={onMakeAdmin}>Make Admin</button>
                     </div>
                 </div>
             </Popover.Content>
