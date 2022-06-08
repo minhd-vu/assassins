@@ -55,7 +55,7 @@ This project is designed to easily faciliate the distribution of targets to play
 
 
 <details>
-  <summary>How to Play</summary>
+  <summary><h2>How to Play</h2></summary>
   
   ### How to Play
 
