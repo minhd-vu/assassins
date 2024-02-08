@@ -22,20 +22,25 @@ mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
-mongoose.connect(process.env.ATLAS_URI, {
+mongoose
+  .connect(process.env.ATLAS_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-}).then(() => console.log("Connected to MongoDB database")).catch(err => {
+  })
+  .then(() => console.log("Connected to MongoDB database"))
+  .catch((err) => {
     console.log(err.message);
-});
+  });
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieSession({
+app.use(
+  cookieSession({
     name: "session",
     keys: [process.env.SESSION_SECRET],
-    maxAge: 24 * 60 * 60 * 100
-}));
+    maxAge: 24 * 60 * 60 * 100,
+  }),
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,11 +67,11 @@ app.use("/api/leaderboard", require("./routes/leaderboard"));
 app.use("/api/stop", require("./routes/party/stop"));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build/index.html"));
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}/`);
+  console.log(`Server is running on http://localhost:${port}/`);
 });
 
 module.exports = app;
