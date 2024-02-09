@@ -4,8 +4,8 @@ import { IParty } from "./Party";
 export interface IUser extends Document {
   email: string;
   name: string;
-  target: IUser;
-  party: IParty;
+  target: Types.ObjectId;
+  party: Types.ObjectId;
   isAlive: boolean;
   isPending: boolean;
   isAdmin: boolean;
@@ -28,12 +28,12 @@ const UserSchema = new Schema<IUser>(
       unique: true,
     },
     target: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       default: null,
     },
     party: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Party",
       default: null,
     },

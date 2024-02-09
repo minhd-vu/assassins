@@ -3,11 +3,11 @@ import { IUser } from "./User";
 
 export interface IParty extends Document {
   code: string;
-  players: Types.DocumentArray<IUser>;
+  players: Types.ObjectId[];
   isStarted: boolean;
   gameMode: string;
   showPlayers: boolean;
-  winner?: IUser;
+  winner?: Types.ObjectId;
 }
 
 const PartySchema = new Schema<IParty>(
@@ -19,7 +19,7 @@ const PartySchema = new Schema<IParty>(
     },
     players: [
       {
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
       },
     ],
@@ -37,7 +37,7 @@ const PartySchema = new Schema<IParty>(
       default: true,
     },
     winner: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       default: null,
     },
