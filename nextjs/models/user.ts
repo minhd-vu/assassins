@@ -1,10 +1,10 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 import { Party } from "./Party";
 
-export interface User extends Document {
+export interface IUser extends Document {
   email: string;
   name: string;
-  target: User;
+  target: IUser;
   party: Party;
   isAlive: boolean;
   isPending: boolean;
@@ -16,7 +16,7 @@ export interface User extends Document {
   };
 }
 
-const UserSchema = new Schema<User>(
+const UserSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -69,4 +69,5 @@ const UserSchema = new Schema<User>(
   },
 );
 
-export default mongoose.models.User || mongoose.model<User>("User", UserSchema);
+export default mongoose.models.User ||
+  mongoose.model<IUser>("User", UserSchema);

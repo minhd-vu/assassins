@@ -1,13 +1,13 @@
 import mongoose, { Types, Schema, Document } from "mongoose";
-import { User } from "./User";
+import { IUser } from "./User";
 
 export interface Party extends Document {
   code: string;
-  players: Types.DocumentArray<User>;
+  players: Types.DocumentArray<IUser>;
   isStarted: boolean;
   gameMode: string;
   showPlayers: boolean;
-  winner?: User;
+  winner?: IUser;
 }
 
 const PartySchema = new Schema<Party>(
