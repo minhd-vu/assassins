@@ -1,29 +1,49 @@
-import mongoose from "mongoose";
-import { User } from "./user";
+import mongoose, { Types, Schema, Document } from "mongoose";
+import { User } from "./User";
 
-export interface Party extends mongoose.Document {
+export interface Party extends Document {
   code: string;
-  players: User[];
+  players: Types.DocumentArray<User>;
   isStarted: boolean;
   gameMode: string;
   showPlayers: boolean;
-  winner: User;
+  winner?: User;
 }
 
-const PartySchema = new mongoose.Schema<Party>(
+const PartySchema = new Schema<Party>(
   {
-    code: { type: String, required: true, unique: true },
-    players: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    isStarted: { type: Boolean, default: false },
-    gameMode: { type: String, default: "Classic" },
-    showPlayers: { type: Boolean, default: true },
+    code: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    players: [
+      {
+        type: Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    isStarted: {
+      type: Boolean,
+      default: false,
+    },
+    gameMode: {
+      type: String,
+      default: "Classic",
+    },
+    showPlayers: {
+      type: Boolean,
+      default: true,
+    },
     winner: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "User",
       default: null,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
 export default mongoose.models.Party ||

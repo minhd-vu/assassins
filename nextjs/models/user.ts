@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import { Document, Schema, Types } from "mongoose";
-import { Party } from "./party";
+import mongoose, { Document, Schema, Types } from "mongoose";
+import { Party } from "./Party";
 
 export interface User extends Document {
   email: string;
@@ -65,7 +64,9 @@ const UserSchema = new Schema<User>(
       },
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
 export default mongoose.models.User || mongoose.model<User>("User", UserSchema);
