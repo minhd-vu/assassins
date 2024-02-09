@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
-import { Party } from "./Party";
+import { IParty } from "./Party";
 
 export interface IUser extends Document {
   email: string;
   name: string;
   target: IUser;
-  party: Party;
+  party: IParty;
   isAlive: boolean;
   isPending: boolean;
   isAdmin: boolean;
