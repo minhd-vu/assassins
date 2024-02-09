@@ -1,7 +1,7 @@
 import mongoose, { Types, Schema, Document } from "mongoose";
 import { IUser } from "./User";
 
-export interface Party extends Document {
+export interface IParty extends Document {
   code: string;
   players: Types.DocumentArray<IUser>;
   isStarted: boolean;
@@ -10,7 +10,7 @@ export interface Party extends Document {
   winner?: IUser;
 }
 
-const PartySchema = new Schema<Party>(
+const PartySchema = new Schema<IParty>(
   {
     code: {
       type: String,
@@ -29,7 +29,8 @@ const PartySchema = new Schema<Party>(
     },
     gameMode: {
       type: String,
-      default: "Classic",
+      enum: ["classic"],
+      default: "classic",
     },
     showPlayers: {
       type: Boolean,
@@ -47,4 +48,4 @@ const PartySchema = new Schema<Party>(
 );
 
 export default mongoose.models.Party ||
-  mongoose.model<Party>("Party", PartySchema);
+  mongoose.model<IParty>("Party", PartySchema);
