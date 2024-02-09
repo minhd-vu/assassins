@@ -21,14 +21,14 @@ const options = {
       await dbConnect();
 
       try {
-        const oldUser = await User.findOne({ email: user.email });
+        let player = await User.findOne({ email: user.email });
 
-        if (!oldUser) {
-          const newUser = new User({
+        if (!player) {
+          player = new User({
             email: user.email,
             name: user.name,
           });
-          await newUser.save();
+          await player.save();
         }
 
         return true;
