@@ -19,6 +19,8 @@ model User {
   party    Party?  @relation("PartyPlayers", fields: [partyId], references: [id])
   partyId  String? @map("party_id") @db.ObjectId
   targetId String? @map("target_id") @db.ObjectId
+
+  @@map("users")
 }
 
 model Party {
@@ -29,6 +31,8 @@ model Party {
 
   players  User[]  @relation("PartyPlayers")
   winnerId String? @map("winner_id") @db.ObjectId
+
+  @@map("parties")
 }
 
 enum Mode {
