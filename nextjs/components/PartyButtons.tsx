@@ -1,6 +1,4 @@
 "use client";
-import { User } from "@prisma/client";
-import { useSession } from "next-auth/react";
 
 async function createParty() {
   const res = await fetch("/api/party", {

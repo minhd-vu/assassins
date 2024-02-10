@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { User } from "@prisma/client";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";

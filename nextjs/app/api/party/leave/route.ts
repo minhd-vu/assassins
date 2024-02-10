@@ -1,8 +1,39 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import _ from "lodash";
 
 export async function POST() {
+  // await Party.updateOne({ _id: req.user.party }, { $pullAll: { players: [req.user._id] } });
+  // await Party.deleteOne({ players: { $exists: true, $size: 0 } });
+  //
+  // await req.user.execPopulate("party");
+  //
+  // if (req.user.party) {
+  //     // Set a random player to be the new party admin.
+  //     if (req.user.isAdmin) {
+  //         await req.user.party.execPopulate("players");
+  //         const player = req.user.party.players[Math.floor(Math.random() * req.user.party.players.length)];
+  //         player.isAdmin = true;
+  //         await player.save();
+  //     }
+  //
+  //     const target = req.user.target;
+  //
+  //     await User.findOne({ "target": req.user._id }, async function (err, user) {
+  //         if (err) console.log(err);
+  //         setTargets(user, target);
+  //     });
+  // }
+  //
+  // req.user.party = null;
+  // req.user.target = null;
+  // req.user.isAlive = true;
+  // req.user.isAdmin = false;
+  //
+  // await req.user.save();
+  // await User.updateMany({ target: req.user }, { target: null });
+  //
+  // res.status(200).send();
+
   const session = await getServerSession();
   if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
@@ -59,26 +90,4 @@ export async function POST() {
       players: true,
     },
   });
-
-  const players = _.shuffle(party.players);
-
-  players.forEach(async (player, i) => {
-    if (i === players.length - 1) {
-      player.targetId = players[0].id;
-    } else {
-      player.targetId = players[i + 1].id;
-    }
-
-    player.alive = true;
-    player.pending = false;
-
-    await prisma.user.update({
-      where: {
-        id: player.id,
-      },
-      data: player,
-    });
-  });
-
-  return Response.json(null);
 }

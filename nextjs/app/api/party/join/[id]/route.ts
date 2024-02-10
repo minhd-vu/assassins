@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession();
-  if (!session || !session.user || !session.user.email) {
+  if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
   }
 

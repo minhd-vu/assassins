@@ -7,7 +7,7 @@ const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 6);
 
 export async function GET() {
   const session = await getServerSession();
-  if (!session || !session.user || !session.user.email) {
+  if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
   }
 
