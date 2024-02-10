@@ -24,7 +24,6 @@ model User {
   targetedBy User?   @relation("UserTarget")
 
   parties Party[]
-  userId  String  @db.ObjectId
 
   @@map("users")
 }
