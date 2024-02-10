@@ -14,11 +14,15 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   });
 
   if (!party) {
-    return Response.json(party, { status: 400 });
+    return Response.json(`Failed to find party with code ${params.id}`, {
+      status: 400,
+    });
   }
 
   if (party.started) {
-    return Response.json(party, { status: 403 });
+    return Response.json(`Cannot join party that has already started`, {
+      status: 403,
+    });
   }
 
   await prisma.user.update({

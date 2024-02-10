@@ -26,12 +26,12 @@ const options: NextAuthOptions = {
         });
 
         if (!player) {
-          const data = {
-            email: user.email,
-            name: user.name,
-          } as User;
-
-          await prisma.user.create({ data });
+          await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name,
+            },
+          });
         }
       } catch (err) {
         console.log("Error creating user", err);
@@ -45,6 +45,9 @@ const options: NextAuthOptions = {
         const user = await prisma.user.findUnique({
           where: {
             email: session.user.email,
+          },
+          include: {
+            party: true,
           },
         });
         session.user = user;

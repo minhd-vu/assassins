@@ -1,11 +1,11 @@
-import CreatePartyButton from "@/components/CreatePartyButton";
 import LoginButton from "@/components/LoginButton";
+import PartyButtons from "@/components/PartyButtons";
 
 export default function Home() {
   return (
     <div>
       <LoginButton />
-      <CreatePartyButton />
+      <PartyButtons />
     </div>
   );
 }

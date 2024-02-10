@@ -25,7 +25,15 @@ export async function GET() {
     },
   });
 
-  return Response.json(user);
+  if (!user) {
+    return Response.json("User does not exist", { status: 401 });
+  }
+
+  if (!user.party) {
+    return Response.json("User does not in a party", { status: 201 });
+  }
+
+  return Response.json(user.party);
 }
 
 export async function POST() {
@@ -47,6 +55,7 @@ export async function POST() {
     },
     data: {
       partyId: party.id,
+      admin: true,
     },
   });
 
