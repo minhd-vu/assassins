@@ -30,17 +30,34 @@ export async function GET() {
 
 export async function POST() {
   const session = await getServerSession();
-  if (!session || !session.user) {
+  if (!session || !session.user || !session.user.email) {
     return Response.json(null, { status: 401 });
   }
 
-  const code = nanoid();
   const party = await prisma.party.create({
     data: {
-      code: code,
+      code: nanoid(),
       mode: Mode.CLASSIC,
     } as Party,
   });
 
-  return Response.json(party);
+  await prisma.user.update({
+    where: {
+      email: session.user.email,
+    },
+    data: {
+      partyId: party.id,
+    },
+  });
+
+  const res = await prisma.party.findUnique({
+    where: {
+      id: party.id,
+    },
+    include: {
+      players: true,
+    },
+  });
+
+  return Response.json(res);
 }
