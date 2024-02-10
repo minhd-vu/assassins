@@ -1,10 +1,10 @@
-import dbConnect from "@/lib/dbConnect";
-import NextAuth from "next-auth";
+import prisma from "@/lib/prisma";
+import { User } from "@prisma/client";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import User from "@/models/User";
 
-const options = {
+const options: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GithubProvider({
@@ -18,30 +18,37 @@ const options = {
   ],
   callbacks: {
     async signIn({ user }: { user: any }) {
-      await dbConnect();
-
       try {
-        let player = await User.findOne({ email: user.email });
+        let player = await prisma.user.findUnique({
+          where: {
+            email: user.email,
+          },
+        });
 
         if (!player) {
-          player = new User({
+          const data = {
             email: user.email,
             name: user.name,
-          });
-          await player.save();
-        }
+          } as User;
 
-        return true;
+          await prisma.user.create({ data });
+        }
       } catch (err) {
-        console.log("Error saving user", err);
+        console.log("Error creating user", err);
         return false;
       }
+
+      return true;
     },
     async session({ session }: { session: any }) {
-      await dbConnect();
-
-      const user = await User.findOne({ email: session.user.email });
-      session.user = user;
+      if (session.user?.email) {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: session.user.email,
+          },
+        });
+        session.user = user;
+      }
 
       return session;
     },

@@ -1,0 +1,37 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+  name  String
+
+  alive   Boolean @default(false)
+  pending Boolean @default(false)
+  admin   Boolean @default(false)
+
+  party    Party?  @relation("PartyPlayers", fields: [partyId], references: [id])
+  partyId  String? @map("party_id") @db.ObjectId
+  targetId String? @map("target_id") @db.ObjectId
+}
+
+model Party {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  code    String  @unique
+  started Boolean @default(false)
+  mode    Mode    @default(CLASSIC)
+
+  players  User[]  @relation("PartyPlayers")
+  winnerId String? @map("winner_id") @db.ObjectId
+}
+
+enum Mode {
+  CLASSIC
+  SHUFFLE
+}
