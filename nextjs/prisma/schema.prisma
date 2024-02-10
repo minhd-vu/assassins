@@ -16,9 +16,14 @@ model User {
   pending Boolean @default(false)
   admin   Boolean @default(false)
 
-  party    Party?  @relation("PartyPlayers", fields: [partyId], references: [id])
-  partyId  String? @map("party_id") @db.ObjectId
-  targetId String? @map("target_id") @db.ObjectId
+  party   Party?  @relation("PartyPlayers", fields: [partyId], references: [id])
+  partyId String? @map("party_id") @db.ObjectId
+
+  target     User?   @relation("UserTarget", fields: [targetId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  targetId   String? @map("target_id") @db.ObjectId
+  targetedBy User[]  @relation("UserTarget")
+
+  parties Party[]
 
   @@map("users")
 }
@@ -29,7 +34,9 @@ model Party {
   started Boolean @default(false)
   mode    Mode    @default(CLASSIC)
 
-  players  User[]  @relation("PartyPlayers")
+  players User[] @relation("PartyPlayers")
+
+  winner   User?   @relation(fields: [winnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   winnerId String? @map("winner_id") @db.ObjectId
 
   @@map("parties")

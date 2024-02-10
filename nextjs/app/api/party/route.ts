@@ -1,3 +1,5 @@
+import prisma from "@/lib/prisma";
+import { Mode, Party } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { getServerSession } from "next-auth";
 
@@ -9,14 +11,36 @@ export async function GET() {
     return Response.json(null, { status: 401 });
   }
 
-  return Response.json(null);
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+    include: {
+      party: {
+        include: {
+          winner: true,
+          players: true,
+        },
+      },
+    },
+  });
+
+  return Response.json(user);
 }
 
-export async function POST(req: Request) {
+export async function POST() {
   const session = await getServerSession();
   if (!session || !session.user) {
     return Response.json(null, { status: 401 });
   }
 
-  return Response.json(null);
+  const code = nanoid();
+  const party = await prisma.party.create({
+    data: {
+      code: code,
+      mode: Mode.CLASSIC,
+    } as Party,
+  });
+
+  return Response.json(party);
 }
