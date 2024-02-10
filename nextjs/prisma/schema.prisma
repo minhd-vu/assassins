@@ -20,10 +20,11 @@ model User {
   partyId String? @map("party_id") @db.ObjectId
 
   target     User?   @relation("UserTarget", fields: [targetId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  targetId   String? @map("target_id") @db.ObjectId
-  targetedBy User[]  @relation("UserTarget")
+  targetId   String? @unique @map("target_id") @db.ObjectId
+  targetedBy User?   @relation("UserTarget")
 
   parties Party[]
+  userId  String  @db.ObjectId
 
   @@map("users")
 }
