@@ -73,11 +73,6 @@ export async function POST() {
     const users = await prisma.user.findMany({
       where: {
         partyId: party.id,
-        party: {
-          adminId: {
-            not: user.id,
-          },
-        },
       },
       include: {
         party: true,

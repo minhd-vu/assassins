@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Mode, Party } from "@prisma/client";
+import { Mode } from "@prisma/client";
 import { customAlphabet } from "nanoid";
 import { getServerSession } from "next-auth";
 
@@ -37,14 +37,14 @@ export async function POST() {
     return Response.json(null, { status: 401 });
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: {
       email: session.user.email,
     },
   });
 
-  if (!user) {
-    return Response.json("User does not exist", {
+  if (user.partyId !== null) {
+    return Response.json("User must leave before creating a new party", {
       status: 400,
     });
   }
