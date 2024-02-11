@@ -53,23 +53,25 @@ export async function POST() {
 
   const players = _.shuffle(party.players);
 
-  players.forEach(async (player, i) => {
+  for (let i = 0; i < players.length; i++) {
+    let targetId: string;
     if (i === players.length - 1) {
-      player.targetId = players[0].id;
+      targetId = players[0].id;
     } else {
-      player.targetId = players[i + 1].id;
+      targetId = players[i + 1].id;
     }
-
-    player.alive = true;
-    player.pending = false;
 
     await prisma.user.update({
       where: {
-        id: player.id,
+        id: players[i].id,
       },
-      data: player,
+      data: {
+        alive: true,
+        pending: false,
+        targetId,
+      },
     });
-  });
+  }
 
   return Response.json(null);
 }
