@@ -11,7 +11,7 @@ export async function GET() {
     return Response.json(null, { status: 401 });
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: {
       email: session.user.email,
     },
@@ -24,12 +24,8 @@ export async function GET() {
     },
   });
 
-  if (!user) {
-    return Response.json("User does not exist", { status: 401 });
-  }
-
   if (!user.party) {
-    return Response.json("User does not in a party", { status: 201 });
+    return Response.json("User is not in a party", { status: 201 });
   }
 
   return Response.json(user.party);

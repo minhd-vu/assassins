@@ -7,7 +7,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     return Response.json(null, { status: 401 });
   }
 
-  const party = await prisma.party.findUnique({
+  let party = await prisma.party.findUnique({
     where: {
       code: params.id,
     },
@@ -34,7 +34,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     },
   });
 
-  const res = await prisma.party.findUnique({
+  party = await prisma.party.findUnique({
     where: {
       code: params.id,
     },
@@ -43,5 +43,5 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     },
   });
 
-  return Response.json(res);
+  return Response.json(party);
 }

@@ -25,6 +25,10 @@ model User {
   winners Party[] @relation("PartyWinner")
   admins  Party[] @relation("PartyAdmin")
 
+  kills  Int @default(0)
+  deaths Int @default(0)
+  wins   Int @default(0)
+
   @@map("users")
 }
 

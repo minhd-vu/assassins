@@ -38,6 +38,36 @@ async function leaveParty() {
   console.log(res.status);
 }
 
+async function confirmKill() {
+  const res = await fetch(`/api/kill/confirm`, {
+    method: "POST",
+  });
+
+  console.log(res.status);
+}
+
+async function denyKill() {
+  const res = await fetch(`/api/kill/deny`, {
+    method: "POST",
+  });
+
+  console.log(res.status, await res.json());
+}
+
+async function requestKill() {
+  const res = await fetch(`/api/kill`, {
+    method: "POST",
+  });
+
+  console.log(res.status);
+}
+
+async function getKill() {
+  const res = await fetch(`/api/kill`);
+
+  console.log(res.status, await res.json());
+}
+
 export default function PartyButtons() {
   return (
     <>
@@ -55,6 +85,18 @@ export default function PartyButtons() {
       </div>
       <div>
         <button onClick={() => leaveParty()}>Leave party</button>
+      </div>
+      <div>
+        <button onClick={() => confirmKill()}>Confirm kill</button>
+      </div>
+      <div>
+        <button onClick={() => denyKill()}>Deny kill</button>
+      </div>
+      <div>
+        <button onClick={() => requestKill()}>Request kill</button>
+      </div>
+      <div>
+        <button onClick={() => getKill()}>Get kill</button>
       </div>
     </>
   );
