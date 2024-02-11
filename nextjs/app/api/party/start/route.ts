@@ -15,7 +15,6 @@ export async function POST() {
     include: {
       party: {
         include: {
-          winner: true,
           players: true,
         },
       },
@@ -28,15 +27,15 @@ export async function POST() {
     });
   }
 
-  if (!user.admin) {
-    return Response.json("User must be admin to start the party", {
-      status: 403,
-    });
-  }
-
   if (!user.party) {
     return Response.json("User is not currently part of a party", {
       status: 400,
+    });
+  }
+
+  if (user.id !== user.party.adminId) {
+    return Response.json("User must be admin to start the party", {
+      status: 403,
     });
   }
 
@@ -52,10 +51,8 @@ export async function POST() {
     },
     data: {
       started: true,
-      winnerId: null,
     },
     include: {
-      winner: true,
       players: true,
     },
   });

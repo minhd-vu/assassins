@@ -1,39 +1,8 @@
 import prisma from "@/lib/prisma";
+import _ from "lodash";
 import { getServerSession } from "next-auth";
 
 export async function POST() {
-  // await Party.updateOne({ _id: req.user.party }, { $pullAll: { players: [req.user._id] } });
-  // await Party.deleteOne({ players: { $exists: true, $size: 0 } });
-  //
-  // await req.user.execPopulate("party");
-  //
-  // if (req.user.party) {
-  //     // Set a random player to be the new party admin.
-  //     if (req.user.isAdmin) {
-  //         await req.user.party.execPopulate("players");
-  //         const player = req.user.party.players[Math.floor(Math.random() * req.user.party.players.length)];
-  //         player.isAdmin = true;
-  //         await player.save();
-  //     }
-  //
-  //     const target = req.user.target;
-  //
-  //     await User.findOne({ "target": req.user._id }, async function (err, user) {
-  //         if (err) console.log(err);
-  //         setTargets(user, target);
-  //     });
-  // }
-  //
-  // req.user.party = null;
-  // req.user.target = null;
-  // req.user.isAlive = true;
-  // req.user.isAdmin = false;
-  //
-  // await req.user.save();
-  // await User.updateMany({ target: req.user }, { target: null });
-  //
-  // res.status(200).send();
-
   const session = await getServerSession();
   if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
@@ -46,10 +15,10 @@ export async function POST() {
     include: {
       party: {
         include: {
-          winner: true,
           players: true,
         },
       },
+      targetedBy: true,
     },
   });
 
@@ -59,35 +28,83 @@ export async function POST() {
     });
   }
 
-  if (!user.admin) {
-    return Response.json("User must be admin to start the party", {
-      status: 403,
-    });
-  }
-
   if (!user.party) {
     return Response.json("User is not currently part of a party", {
       status: 400,
     });
   }
 
-  if (user.party.players.length < 2) {
-    return Response.json("Need at least two players to start party", {
-      status: 400,
-    });
-  }
+  let party = user.party;
 
-  const party = await prisma.party.update({
+  await prisma.user.update({
     where: {
-      id: user.party.id,
+      id: user.id,
     },
     data: {
-      started: true,
-      winnerId: null,
+      partyId: null,
+      targetId: null,
+    },
+  });
+
+  party = await prisma.party.findFirstOrThrow({
+    where: {
+      id: party.id,
     },
     include: {
-      winner: true,
       players: true,
     },
   });
+
+  if (party.players.length === 0) {
+    await prisma.party.delete({ where: { id: party.id } });
+    return Response.json(party);
+  }
+
+  if (party.started) {
+    if (!user.targetedBy || !user.targetId) {
+      return Response.json(null, { status: 500 });
+    }
+
+    await prisma.user.update({
+      where: {
+        id: user.targetedBy.id,
+      },
+      data: {
+        targetId: user.targetId,
+      },
+    });
+  }
+
+  if (user.id === user.party.adminId) {
+    const users = await prisma.user.findMany({
+      where: {
+        partyId: party.id,
+        party: {
+          adminId: {
+            not: user.id,
+          },
+        },
+      },
+      include: {
+        party: true,
+      },
+    });
+
+    const random = _.sample(users)!;
+
+    party = await prisma.party.update({
+      where: {
+        id: random.party!.id,
+      },
+      data: {
+        adminId: random.id,
+        started: party.players.length > 0 ? party.started : false,
+      },
+      include: {
+        players: true,
+      },
+    });
+  }
+
+  return Response.json(party);
 }

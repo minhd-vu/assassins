@@ -18,7 +18,6 @@ export async function GET() {
     include: {
       party: {
         include: {
-          winner: true,
           players: true,
         },
       },
@@ -38,15 +37,28 @@ export async function GET() {
 
 export async function POST() {
   const session = await getServerSession();
-  if (!session || !session.user || !session.user.email) {
+  if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
+  if (!user) {
+    return Response.json("User does not exist", {
+      status: 400,
+    });
   }
 
   const party = await prisma.party.create({
     data: {
       code: nanoid(),
       mode: Mode.CLASSIC,
-    } as Party,
+      adminId: user.id,
+    },
   });
 
   await prisma.user.update({
@@ -55,7 +67,6 @@ export async function POST() {
     },
     data: {
       partyId: party.id,
-      admin: true,
     },
   });
 

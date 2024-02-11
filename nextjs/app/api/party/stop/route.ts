@@ -11,6 +11,9 @@ export async function POST() {
     where: {
       email: session.user.email,
     },
+    include: {
+      party: true,
+    },
   });
 
   if (!user) {
@@ -19,21 +22,21 @@ export async function POST() {
     });
   }
 
-  if (!user.admin) {
-    return Response.json("User must be admin to stop the party", {
-      status: 403,
-    });
-  }
-
-  if (!user.partyId) {
+  if (!user.party) {
     return Response.json("User is not currently part of a party", {
       status: 400,
     });
   }
 
+  if (user.id !== user.party.adminId) {
+    return Response.json("User must be admin to stop the party", {
+      status: 403,
+    });
+  }
+
   const party = await prisma.party.update({
     where: {
-      id: user.partyId,
+      id: user.party.id,
     },
     data: {
       started: false,

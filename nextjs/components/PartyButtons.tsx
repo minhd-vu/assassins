@@ -30,6 +30,14 @@ async function stopParty() {
   console.log(res.status);
 }
 
+async function leaveParty() {
+  const res = await fetch(`/api/party/leave`, {
+    method: "POST",
+  });
+
+  console.log(res.status);
+}
+
 export default function PartyButtons() {
   return (
     <>
@@ -44,6 +52,9 @@ export default function PartyButtons() {
       </div>
       <div>
         <button onClick={() => stopParty()}>Stop party</button>
+      </div>
+      <div>
+        <button onClick={() => leaveParty()}>Leave party</button>
       </div>
     </>
   );

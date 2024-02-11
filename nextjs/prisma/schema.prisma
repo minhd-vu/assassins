@@ -14,7 +14,6 @@ model User {
 
   alive   Boolean @default(false)
   pending Boolean @default(false)
-  admin   Boolean @default(false)
 
   party   Party?  @relation("PartyPlayers", fields: [partyId], references: [id])
   partyId String? @map("party_id") @db.ObjectId
@@ -23,7 +22,8 @@ model User {
   targetId   String? @unique @map("target_id") @db.ObjectId
   targetedBy User?   @relation("UserTarget")
 
-  parties Party[]
+  winners Party[] @relation("PartyWinner")
+  admins  Party[] @relation("PartyAdmin")
 
   @@map("users")
 }
@@ -36,8 +36,11 @@ model Party {
 
   players User[] @relation("PartyPlayers")
 
-  winner   User?   @relation(fields: [winnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  winner   User?   @relation("PartyWinner", fields: [winnerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   winnerId String? @map("winner_id") @db.ObjectId
+
+  admin   User?   @relation("PartyAdmin", fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  adminId String? @map("userId") @db.ObjectId
 
   @@map("parties")
 }
