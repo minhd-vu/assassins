@@ -44,7 +44,7 @@ model Party {
   winnerId String? @map("winner_id") @db.ObjectId
 
   admin   User?   @relation("PartyAdmin", fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  adminId String? @map("userId") @db.ObjectId
+  adminId String? @map("admin_id") @db.ObjectId
 
   @@map("parties")
 }
