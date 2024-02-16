@@ -1,11 +1,11 @@
-import LoginButton from "@/components/LoginButton";
-import PartyButtons from "@/components/PartyButtons";
+import Navbar from "@/components/Navbar";
+import Party from "@/components/Party";
 
 export default function Home() {
   return (
     <div>
-      <LoginButton />
-      <PartyButtons />
+      <Navbar />
+      <Party />
     </div>
   );
 }
