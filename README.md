@@ -34,10 +34,6 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
@@ -56,7 +52,7 @@ This project is designed to easily facilitate the distribution of targets to pla
 <details>
   <summary><h2>How to Play</h2></summary>
   
-  ### How to Play
+### How to Play
 
 Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
 
@@ -144,38 +140,6 @@ npm run dev
 ```sh
 npm start
 ```
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/minhd-vu/assassins/issues) for a list of proposed features (and known issues).
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
-
-## Contact
-
-Project Link: [https://github.com/minhd-vu/assassins](https://github.com/minhd-vu/assassins)
-
-<!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
