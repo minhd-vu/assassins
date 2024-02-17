@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import prisma from "@/lib/prisma";
 
-export async function getLeaderboardUsers() {
+async function getLeaderboardUsers() {
   return await prisma.user.findMany({
     select: {
       name: true,
