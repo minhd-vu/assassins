@@ -5,6 +5,8 @@ import LeaveParty from "./LeaveParty";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
 import StartGame from "./StartGame";
+import { Party } from "@prisma/client";
+import AdminBadge from "./AdminBadge";
 
 async function getUser() {
   const session = await getServerSession();
@@ -44,6 +46,13 @@ export default async function Party() {
     );
   }
 
+  const players = party.players.map((player) => (
+    <li key={player.id}>
+      {player.name}
+      {party.adminId === player.id && <AdminBadge />}
+    </li>
+  ));
+
   return (
     <>
       <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -52,18 +61,7 @@ export default async function Party() {
         </h1>
         <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
         <h2>Players:</h2>
-        <ul>
-          {party.players.map((player) => (
-            <li key={player.id}>
-              {player.name}
-              {party.adminId === player.id && (
-                <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                  Admin
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
+        <ul>{players}</ul>
         {party.adminId === user.id && <StartGame />}
         <LeaveParty />
       </div>
