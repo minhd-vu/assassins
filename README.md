@@ -5,7 +5,7 @@
   <p align="center">
     Developed by Minh Vu
     <br />
-    <a href="https://assassinspartygame.herokuapp.com/">View Demo</a>
+    <a href="https://assassinspartygame.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/minhd-vu/assassins/issues">Report Bug</a>
     ·
