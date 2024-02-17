@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function POST(_: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession();
   if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
