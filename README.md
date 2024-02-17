@@ -14,6 +14,7 @@
 </p>
 
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -40,107 +41,118 @@
 - [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned. Read more about assassins [here](https://en.wikipedia.org/wiki/Assassin_(game)).
+Assassins is a game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned. Read more about assassins [here](<https://en.wikipedia.org/wiki/Assassin_(game)>).
 
-This project is designed to easily faciliate the distribution of targets to players, along with the transfer of targets post-assassination. Additionally, assassins aims to resolve some of the complications that can arise in these processes.
+This project is designed to easily facilitate the distribution of targets to players, along with the transfer of targets post-assassination. Additionally, assassins aims to resolve some of the complications that can arise in these processes.
 
 ### Built With
 
-* [MongoDB](https://www.mongodb.com/)
-* [Express](https://expressjs.com/)
-* [React](https://reactjs.org/)
-* [Node.JS](https://nodejs.org/en/)
-
+- [Next.js](https://nextjs.org/)
+- [MongoDB](https://www.mongodb.com/)
 
 <details>
   <summary><h2>How to Play</h2></summary>
   
   ### How to Play
 
-  Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
+Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
 
-  #### Create a User
+#### Create a User
 
-  Before doing anything, you should create a user. It will keep track of your statistics as well as identifying who you are in a party. You can register yourself by heading to the register link in the navbar. Once you create a user, you will no longer be able to change the username or password.
-    
-  If you already have a user, you can login by heading to the login link in the navbar.
+Before doing anything, you should create a user. It will keep track of your statistics as well as identifying who you are in a party. You can register yourself by heading to the register link in the navbar. Once you create a user, you will no longer be able to change the username or password.
 
-  #### Party System
+If you already have a user, you can login by heading to the login link in the navbar.
 
-  ![lobby](docs/lobby.png?raw=true "Party Lobby")
+#### Party System
 
-  Once you have logged in you have the option of joining or creating a party. A party is an instance of the assassins game; it is how you connect with your friends.
+![lobby](docs/lobby.png?raw=true "Party Lobby")
 
-  ##### Join a Party
+Once you have logged in you have the option of joining or creating a party. A party is an instance of the assassins game; it is how you connect with your friends.
 
-  To join a party, type in the party code in the input field on the <Link to="/">home page</Link> then click the **Join Party** button. Once a party has started you can no longer join it.
+##### Join a Party
 
-  ##### Create a Party
+To join a party, type in the party code in the input field on the <Link to="/">home page</Link> then click the **Join Party** button. Once a party has started you can no longer join it.
 
-  To create a party, click the **Create Party** button on the home page. Once you have created it, the app will display the party code in bold. Give this code to your friends so that they can join.
+##### Create a Party
 
-  ##### Leave a Party
-  Once you join a party, you have the option of leaving it. You can leave it anytime, and the app will handle the reshuffling of players.
+To create a party, click the **Create Party** button on the home page. Once you have created it, the app will display the party code in bold. Give this code to your friends so that they can join.
 
-  ##### Start a Party
-  Only the party leader can start the party. Once started everyone is assigned a target.
+##### Leave a Party
 
-  #### Eliminate Targets
+Once you join a party, you have the option of leaving it. You can leave it anytime, and the app will handle the reshuffling of players.
 
-  ![lobby-started](docs/lobby-started.png?raw=true "Lobby Started")
-  ![leaderboard](docs/leaderboard.png?raw=true "Leaderboard")
+##### Start a Party
 
-  You will be assigned a target to assassinate, hence the name *assassins*. Once you assassinated your target, either by means of dart blasters, tag, projectile launchers, or any other method, click the **Assassinate** button.
+Only the party leader can start the party. Once started everyone is assigned a target.
 
-  A notification will be send to the target just eliminated, the target will have option of confirming or denying the assassination attempt. If the attempt is denied, the game continues; this is inplace to prevent accidental misclicks. If the attempt is successful, you will be assigned a new target depending on the game mode.
+#### Eliminate Targets
 
-  #### Game Modes
-  ##### Classic
-  When you assassinate a target, your next target will be the target your target had.
+![lobby-started](docs/lobby-started.png?raw=true "Lobby Started")
+![leaderboard](docs/leaderboard.png?raw=true "Leaderboard")
 
-  ##### Shuffle
-  When a player assassinates a target, all players will recieve a new target from the remaining players alive.
+You will be assigned a target to assassinate, hence the name _assassins_. Once you assassinated your target, either by means of dart blasters, tag, projectile launchers, or any other method, click the **Assassinate** button.
+
+A notification will be send to the target just eliminated, the target will have option of confirming or denying the assassination attempt. If the attempt is denied, the game continues; this is in place to prevent accidental clicks. If the attempt is successful, you will be assigned a new target depending on the game mode.
+
+#### Game Modes
+
+##### Classic
+
+When you assassinate a target, your next target will be the target your target had.
+
+##### Shuffle
+
+When a player assassinates a target, all players will receive a new target from the remaining players alive.
+
 </details>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* npm
-```sh
-npm install npm@latest -g
-```
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ### Installation
 
 1. Clone the repo
+
 ```sh
 git clone https://github.com/minhd-vu/assassins.git
 ```
+
 2. Install dependencies
+
 ```sh
 npm install
 ```
-3. Start the backend
+
+3. Run in development
+
 ```sh
 npm run dev
 ```
-4. Start the frontend
+
+4. Run in production
+
 ```sh
 npm start
 ```
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/minhd-vu/assassins/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -152,18 +164,20 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
+
 ## Contact
 
 Project Link: [https://github.com/minhd-vu/assassins](https://github.com/minhd-vu/assassins)
 
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
 
-* [Minh Vu](https://github.com/minhd-vu)
-* [Bisrat Mekonnen](https://github.com/bismek)
-
+- [Minh Vu](https://github.com/minhd-vu)
+- [Bisrat Mekonnen](https://github.com/bismek)
