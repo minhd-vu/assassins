@@ -4,8 +4,9 @@ import _ from "lodash";
 import LeaveParty from "./LeaveParty";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
+import StartGame from "./StartGame";
 
-export async function getParty() {
+async function getUser() {
   const session = await getServerSession();
   if (!session?.user?.email) {
     return;
@@ -24,12 +25,16 @@ export async function getParty() {
     },
   });
 
-  return user.party;
+  return user;
 }
 
 export default async function Party() {
-  const party = await getParty();
+  const user = await getUser();
+  if (!user) {
+    return;
+  }
 
+  const party = user.party;
   if (!party) {
     return (
       <>
@@ -49,7 +54,7 @@ export default async function Party() {
         <h2>Players:</h2>
         <ul>
           {party.players.map((player) => (
-            <li className="">
+            <li key={player.id}>
               {player.name}
               {party.adminId === player.id && (
                 <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
@@ -59,6 +64,7 @@ export default async function Party() {
             </li>
           ))}
         </ul>
+        {party.adminId === user.id && <StartGame />}
         <LeaveParty />
       </div>
     </>
