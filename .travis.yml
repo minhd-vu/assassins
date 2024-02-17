@@ -1,4 +1,0 @@
-
-language: nodejs
-node_js:
-  - 15
