@@ -7,6 +7,9 @@ import JoinParty from "./JoinParty";
 import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
 import AdminBadge from "./AdminBadge";
+import PartyStarted from "./PartyStarted";
+
+export type User = Awaited<ReturnType<typeof getUser>>;
 
 async function getUser() {
   const session = await getServerSession();
@@ -24,6 +27,7 @@ async function getUser() {
           players: true,
         },
       },
+      target: true,
     },
   });
 
@@ -46,6 +50,10 @@ export default async function Party() {
     );
   }
 
+  if (party.started) {
+    return <PartyStarted user={user} />;
+  }
+
   const players = party.players.map((player) => (
     <li key={player.id}>
       {player.name}
@@ -54,17 +62,15 @@ export default async function Party() {
   ));
 
   return (
-    <>
-      <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Code: {party.code.toUpperCase()}
-        </h1>
-        <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
-        <h2>Players:</h2>
-        <ul>{players}</ul>
-        {party.adminId === user.id && <StartGame />}
-        <LeaveParty />
-      </div>
-    </>
+    <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Code: {party.code.toUpperCase()}
+      </h1>
+      <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
+      <h2>Players:</h2>
+      <ul>{players}</ul>
+      {party.adminId === user.id && <StartGame />}
+      <LeaveParty />
+    </div>
   );
 }
