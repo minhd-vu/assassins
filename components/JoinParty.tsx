@@ -1,59 +1,27 @@
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache";
+"use client";
+
+import { FormEvent } from "react";
 
 export default function JoinParty() {
-  async function joinParty(form: FormData) {
-    "use server";
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    const session = await getServerSession();
-    if (!session?.user?.email) {
-      return Response.json(null, { status: 401 });
-    }
-
-    const code = form.get("code")?.toString().toLowerCase();
-
-    let party = await prisma.party.findUnique({
-      where: {
-        code,
+    const data = new FormData(event.currentTarget);
+    const res = await fetch("/api/party/join", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
       },
+      body: JSON.stringify({ code: data.get("code") }),
     });
 
-    if (!party) {
-      return Response.json(`Failed to find party with code ${code}`, {
-        status: 400,
-      });
+    if (!res.ok) {
+      throw new Error(await res.json());
     }
-
-    if (party.started) {
-      return Response.json(`Cannot join party that has already started`, {
-        status: 403,
-      });
-    }
-
-    await prisma.user.update({
-      where: {
-        email: session.user.email,
-      },
-      data: {
-        partyId: party.id,
-      },
-    });
-
-    party = await prisma.party.findUnique({
-      where: {
-        code,
-      },
-      include: {
-        players: true,
-      },
-    });
-
-    revalidatePath("/");
   }
 
   return (
-    <form action={joinParty}>
+    <form onSubmit={onSubmit}>
       <label htmlFor="code">Party Code:</label>
       <input
         type="text"

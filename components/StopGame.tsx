@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function StopGame() {
-  const router = useRouter();
-
   async function stopGame() {
     const res = await fetch("/api/party/stop", {
       method: "POST",
@@ -15,8 +11,6 @@ export default function StopGame() {
     }
 
     console.log(await res.json());
-
-    router.refresh();
   }
 
   return (

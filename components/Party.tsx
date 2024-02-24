@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+"use client";
+
 import _ from "lodash";
 import LeaveParty from "./LeaveParty";
 import CreateParty from "./CreateParty";
@@ -8,34 +8,23 @@ import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
 import AdminBadge from "./AdminBadge";
 import PartyStarted from "./PartyStarted";
+import useSWR, { Fetcher } from "swr";
+import { User } from "@/app/api/user/route";
+import Spinner from "./Spinner";
 
-export type User = Awaited<ReturnType<typeof getUser>>;
+export default function Party() {
+  const fetcher: Fetcher<User, string> = (url) =>
+    fetch(url).then((res) => res.json());
 
-async function getUser() {
-  const session = await getServerSession();
-  if (!session?.user?.email) {
-    return;
-  }
-
-  const user = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: session.user.email,
-    },
-    include: {
-      party: {
-        include: {
-          players: true,
-        },
-      },
-      target: true,
-    },
+  const { data, error, isLoading } = useSWR("/api/user", fetcher, {
+    refreshInterval: 500,
   });
 
-  return user;
-}
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-export default async function Party() {
-  const user = await getUser();
+  const user = data;
   if (!user) {
     return;
   }

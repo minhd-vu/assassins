@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function StartGame() {
-  const router = useRouter();
-
   async function startGame() {
     const res = await fetch("/api/party/start", {
       method: "POST",
@@ -15,8 +11,6 @@ export default function StartGame() {
     }
 
     console.log(await res.json());
-
-    router.refresh();
   }
 
   return (

@@ -7,8 +7,8 @@ export async function POST(req: Request) {
     return Response.json(null, { status: 401 });
   }
 
-  const form = await req.formData();
-  const code = form.get("code")?.toString().toLowerCase();
+  const data = await req.json();
+  const code = data.code;
 
   let party = await prisma.party.findUnique({
     where: {

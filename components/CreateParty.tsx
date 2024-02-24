@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function CreateParty() {
-  const router = useRouter();
-
   async function createParty() {
     const res = await fetch("/api/party", {
       method: "POST",
@@ -13,8 +9,6 @@ export default function CreateParty() {
     if (!res.ok) {
       throw new Error(await res.json());
     }
-
-    router.refresh();
   }
 
   return (

@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function LeaveParty() {
-  const router = useRouter();
-
   async function leaveParty() {
     const res = await fetch("/api/party/leave", {
       method: "POST",
@@ -13,8 +9,6 @@ export default function LeaveParty() {
     if (!res.ok) {
       throw new Error(await res.json());
     }
-
-    router.refresh();
   }
 
   return (

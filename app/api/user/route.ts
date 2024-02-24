@@ -1,15 +1,10 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 
-export async function GET() {
-  const session = await getServerSession();
-  if (!session?.user?.email) {
-    return Response.json(null, { status: 401 });
-  }
-
-  const user = await prisma.user.findUniqueOrThrow({
+async function getUser(email: string) {
+  return await prisma.user.findUniqueOrThrow({
     where: {
-      email: session.user.email,
+      email,
     },
     include: {
       target: true,
@@ -20,6 +15,16 @@ export async function GET() {
       },
     },
   });
+}
 
+export type User = Awaited<ReturnType<typeof getUser>>;
+
+export async function GET() {
+  const session = await getServerSession();
+  if (!session?.user?.email) {
+    return Response.json(null, { status: 401 });
+  }
+
+  const user = await getUser(session.user.email);
   return Response.json(user);
 }

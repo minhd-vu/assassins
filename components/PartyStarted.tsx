@@ -1,7 +1,7 @@
 import _ from "lodash";
 import LeaveParty from "./LeaveParty";
-import { User } from "./Party";
 import StopGame from "./StopGame";
+import { User } from "@/app/api/user/route";
 
 export default function PartyStarted({ user }: { user: User }) {
   if (!user) {
