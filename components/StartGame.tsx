@@ -1,6 +1,10 @@
 "use client";
 
-export default function StartGame() {
+export default function StartGame({ visible }: { visible: boolean }) {
+  if (!visible) {
+    return;
+  }
+
   async function startGame() {
     const res = await fetch("/api/party/start", {
       method: "POST",

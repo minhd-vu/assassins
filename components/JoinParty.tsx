@@ -1,8 +1,11 @@
 "use client";
 
 import { FormEvent } from "react";
+import { useSWRConfig } from "swr";
 
 export default function JoinParty() {
+  const { mutate } = useSWRConfig();
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -18,6 +21,8 @@ export default function JoinParty() {
     if (!res.ok) {
       throw new Error(await res.json());
     }
+
+    mutate("/api/user");
   }
 
   return (

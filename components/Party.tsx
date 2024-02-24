@@ -58,7 +58,7 @@ export default function Party() {
       <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
       <h2>Players:</h2>
       <ul>{players}</ul>
-      {party.adminId === user.id && <StartGame />}
+      <StartGame visible={party.adminId === user.id} />
       <LeaveParty />
     </div>
   );

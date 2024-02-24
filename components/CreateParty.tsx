@@ -1,6 +1,10 @@
 "use client";
 
+import { useSWRConfig } from "swr";
+
 export default function CreateParty() {
+  const { mutate } = useSWRConfig();
+
   async function createParty() {
     const res = await fetch("/api/party", {
       method: "POST",
@@ -9,6 +13,8 @@ export default function CreateParty() {
     if (!res.ok) {
       throw new Error(await res.json());
     }
+
+    mutate("/api/user");
   }
 
   return (
