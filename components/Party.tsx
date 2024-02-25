@@ -15,6 +15,7 @@ import Alert from "./Alert";
 import PromotePlayer from "./PromotePlayer";
 import RemovePlayer from "./RemovePlayer";
 import KillTarget from "./KillTarget";
+import PartyCard from "./PartyCard";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -34,16 +35,16 @@ export default function Party() {
 
   const user = data;
   if (!user) {
-    return;
+    return <Alert>User not found. Try logging in.</Alert>;
   }
 
   const party = user.party;
   if (!party) {
     return (
-      <div className="">
+      <>
         <JoinParty />
         <CreateParty />
-      </div>
+      </>
     );
   }
 
@@ -53,19 +54,14 @@ export default function Party() {
     }
 
     return (
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h1 className="card-title text-3xl">
-            Code: {party.code.toUpperCase()}
-          </h1>
-          <h2>Target: {user.target.name}</h2>
-          <div className="card-actions justify-center">
-            <KillTarget />
-            {party.adminId === user.id && <StopGame />}
-            <LeaveParty />
-          </div>
+      <PartyCard code={party.code}>
+        <h2>Target: {user.target.name}</h2>
+        <div className="card-actions justify-center">
+          <KillTarget />
+          {party.adminId === user.id && <StopGame />}
+          <LeaveParty />
         </div>
-      </div>
+      </PartyCard>
     );
   }
 
@@ -95,24 +91,19 @@ export default function Party() {
   });
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
-      <div className="card-body">
-        <h1 className="card-title text-3xl">
-          Code: {party.code.toUpperCase()}
-        </h1>
-        <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
-        {!isAdmin && (
-          <p className="text-sm">
-            Waiting for party leader to start the party...
-          </p>
-        )}
-        <h2>Players:</h2>
-        <ul className="space-y-2">{players}</ul>
-        <div className="card-actions justify-center">
-          {isAdmin && <StartGame />}
-          <LeaveParty />
-        </div>
+    <PartyCard code={party.code}>
+      <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
+      {!isAdmin && (
+        <p className="text-sm">
+          Waiting for party leader to start the party...
+        </p>
+      )}
+      <h2>Players:</h2>
+      <ul className="space-y-2">{players}</ul>
+      <div className="card-actions justify-center">
+        {isAdmin && <StartGame />}
+        <LeaveParty />
       </div>
-    </div>
+    </PartyCard>
   );
 }

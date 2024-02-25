@@ -1,16 +1,24 @@
 "use client";
 
+import { useContext } from "react";
+import { ErrorContext } from "./App";
+import { useSWRConfig } from "swr";
+
 export default function StartGame() {
+  const { setError } = useContext(ErrorContext);
+  const { mutate } = useSWRConfig();
+
   async function startGame() {
     const res = await fetch("/api/party/start", {
       method: "POST",
     });
 
     if (!res.ok) {
-      throw new Error(await res.json());
+      setError(await res.json());
+      return;
     }
 
-    console.log(await res.json());
+    mutate("/api/user");
   }
 
   return (
