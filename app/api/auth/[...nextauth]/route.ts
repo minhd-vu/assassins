@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -16,7 +17,11 @@ const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }: { user: any }) {
+    async signIn({ user }: { user: User | AdapterUser }) {
+      if (!user.email || !user.name) {
+        return false;
+      }
+
       try {
         let player = await prisma.user.findUnique({
           where: {
@@ -38,21 +43,6 @@ const options: NextAuthOptions = {
       }
 
       return true;
-    },
-    async session({ session }: { session: any }) {
-      if (session.user?.email) {
-        const user = await prisma.user.findUnique({
-          where: {
-            email: session.user.email,
-          },
-          include: {
-            party: true,
-          },
-        });
-        session.user = user;
-      }
-
-      return session;
     },
   },
 };
