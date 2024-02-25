@@ -10,11 +10,12 @@ export default function JoinParty() {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    let code = data.get("code");
-    if (code) {
-      code = code.toString().toLowerCase();
+    const value = data.get("code");
+    if (!value) {
+      throw new Error();
     }
 
+    const code = value.toString().toLowerCase();
     const res = await fetch("/api/party/join", {
       method: "POST",
       headers: {
