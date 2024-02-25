@@ -7,10 +7,11 @@ import JoinParty from "./JoinParty";
 import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
 import AdminBadge from "./AdminBadge";
-import PartyStarted from "./PartyStarted";
 import useSWR, { Fetcher } from "swr";
 import { User } from "@/app/api/user/route";
 import Spinner from "./Spinner";
+import StopGame from "./StopGame";
+import Alert from "./Alert";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -24,6 +25,10 @@ export default function Party() {
     return <Spinner />;
   }
 
+  if (error) {
+    return <Alert>{JSON.stringify(error)}</Alert>;
+  }
+
   const user = data;
   if (!user) {
     return;
@@ -32,34 +37,51 @@ export default function Party() {
   const party = user.party;
   if (!party) {
     return (
-      <>
+      <div className="">
         <JoinParty />
         <CreateParty />
-      </>
+      </div>
     );
   }
 
   if (party.started) {
-    return <PartyStarted user={user} />;
+    if (!user.target) {
+      throw new Error("User does not have a target");
+    }
+
+    return (
+      <div className="card w-96 bg-base-300 shadow-xl">
+        <div className="card-body">
+          <h1 className="card-title">Code: {party.code.toUpperCase()}</h1>
+          <h2>Target: {user.target.name}</h2>
+          {party.adminId === user.id && <StopGame />}
+          <LeaveParty />
+        </div>
+      </div>
+    );
   }
 
   const players = party.players.map((player) => (
     <li key={player.id}>
-      {player.name}
-      {party.adminId === player.id && <AdminBadge />}
+      <p>
+        {player.name}
+        {party.adminId === player.id && <AdminBadge />}
+      </p>
     </li>
   ));
 
   return (
-    <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Code: {party.code.toUpperCase()}
-      </h1>
-      <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
-      <h2>Players:</h2>
-      <ul>{players}</ul>
-      <StartGame visible={party.adminId === user.id} />
-      <LeaveParty />
+    <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card-body">
+        <h1 className="card-title">Code: {party.code.toUpperCase()}</h1>
+        <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
+        <h2>Players:</h2>
+        <ul>{players}</ul>
+        <div className="card-actions justify-center">
+          <StartGame visible={party.adminId === user.id} />
+          <LeaveParty />
+        </div>
+      </div>
     </div>
   );
 }
