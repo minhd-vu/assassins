@@ -10,12 +10,17 @@ export default function JoinParty() {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
+    let code = data.get("code");
+    if (code) {
+      code = code.toString().toLowerCase();
+    }
+
     const res = await fetch("/api/party/join", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ code: data.get("code") }),
+      body: JSON.stringify({ code }),
     });
 
     if (!res.ok) {

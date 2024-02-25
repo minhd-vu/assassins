@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useSWRConfig } from "swr";
 
 export default function KillTarget() {
-  const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   async function killTarget() {
     const res = await fetch("/api/kill", {
@@ -16,11 +16,11 @@ export default function KillTarget() {
 
     console.log(await res.json());
 
-    router.refresh();
+    mutate("/api/user");
   }
 
   return (
-    <button className="btn btn-warning" onClick={() => killTarget()}>
+    <button className="btn btn-accent" onClick={() => killTarget()}>
       Kill Target
     </button>
   );
