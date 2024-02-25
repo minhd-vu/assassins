@@ -63,10 +63,48 @@ export default function Party() {
 
   const players = party.players.map((player) => (
     <li key={player.id}>
-      <p>
-        {player.name}
-        {party.adminId === player.id && <AdminBadge />}
-      </p>
+      <div className="border rounded-lg px-3 py-2 flex justify-between items-center">
+        <div>
+          {player.name}
+          {party.adminId === player.id && <AdminBadge />}
+        </div>
+        <div className="flex space-x-1">
+          <button className="btn btn-square btn-xs btn-warning">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              transform="translate(0,-1)"
+            >
+              <path />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M18 13l-6-6-6 6M18 19l-6-6-6 6"
+              />
+            </svg>
+          </button>
+          <button className="btn btn-square btn-xs btn-error">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </li>
   ));
 
