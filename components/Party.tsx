@@ -73,7 +73,9 @@ export default function Party() {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
-        <h1 className="card-title">Code: {party.code.toUpperCase()}</h1>
+        <h1 className="card-title text-3xl">
+          Code: {party.code.toUpperCase()}
+        </h1>
         <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
         <h2>Players:</h2>
         <ul>{players}</ul>
