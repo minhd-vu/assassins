@@ -36,7 +36,7 @@ export default async function Leaderboard() {
   ));
 
   return (
-    <div className="overflow-x-auto bg-base-300">
+    <div className="overflow-x-auto bg-base-300 mx-4 rounded-xl">
       <table className="table">
         <thead>
           <tr>
