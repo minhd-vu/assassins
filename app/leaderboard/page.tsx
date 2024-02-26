@@ -1,8 +1,10 @@
+import LeaderboardRow from "@/components/LeaderboardRow";
 import prisma from "@/lib/prisma";
 
 async function getLeaderboardUsers() {
   return await prisma.user.findMany({
     select: {
+      id: true,
       name: true,
       kills: true,
       deaths: true,
@@ -26,13 +28,7 @@ export default async function Leaderboard() {
   const users = await getLeaderboardUsers();
 
   const rows = users.map((user, i) => (
-    <tr key={user.name} className="hover">
-      <th>{i + 1}</th>
-      <th>{user.name}</th>
-      <td>{user.kills}</td>
-      <td>{user.deaths}</td>
-      <td>{user.wins}</td>
-    </tr>
+    <LeaderboardRow user={user} rank={i + 1} />
   ));
 
   return (

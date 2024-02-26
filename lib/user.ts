@@ -18,3 +18,29 @@ export async function getUser(email: string) {
     },
   });
 }
+
+export type LeaderboardUsers = Awaited<ReturnType<typeof getLeaderboardUsers>>;
+export type LeaderboardUser = LeaderboardUsers[0];
+
+async function getLeaderboardUsers() {
+  return await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      kills: true,
+      deaths: true,
+      wins: true,
+    },
+    orderBy: [
+      {
+        wins: "desc",
+      },
+      {
+        kills: "desc",
+      },
+      {
+        deaths: "asc",
+      },
+    ],
+  });
+}
