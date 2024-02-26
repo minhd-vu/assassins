@@ -20,7 +20,7 @@ export default function JoinParty() {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code: code.toLowerCase() }),
     });
 
     if (!res.ok) {
