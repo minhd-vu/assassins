@@ -104,7 +104,7 @@ export default function Party() {
 
   return (
     <PartyCard code={party.code}>
-      {party.winner && <h2>Last Round's Winner: {party.winner.name}</h2>}
+      {party.winner && <h2>{`Last Round's Winner: ${party.winner.name}`}</h2>}
       <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
       {!isAdmin && (
         <p className="text-sm">
