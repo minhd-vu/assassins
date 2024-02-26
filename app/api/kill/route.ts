@@ -26,10 +26,17 @@ export async function POST() {
     where: {
       email: session.user.email,
     },
+    include: {
+      party: true,
+    },
   });
 
-  if (!user.partyId) {
+  if (!user.party) {
     return Response.json("User is not in a party", { status: 400 });
+  }
+
+  if (!user.party.started) {
+    return Response.json("Party has not started", { status: 400 });
   }
 
   if (!user.targetId) {

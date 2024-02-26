@@ -13,8 +13,17 @@ export async function POST() {
     },
     include: {
       targetedBy: true,
+      party: true,
     },
   });
+
+  if (!user.party) {
+    return Response.json("User is not in a party", { status: 400 });
+  }
+
+  if (!user.party.started) {
+    return Response.json("Party has not started", { status: 400 });
+  }
 
   if (!user.pending) {
     return Response.json("User must be pending in order to confirm", {
@@ -23,7 +32,7 @@ export async function POST() {
   }
 
   if (!user.targetedBy) {
-    return Response.json(user, { status: 500 });
+    return Response.json("User is not targetted by anyone", { status: 500 });
   }
 
   await prisma.user.update({
@@ -38,7 +47,7 @@ export async function POST() {
     },
   });
 
-  await prisma.user.update({
+  const { party } = await prisma.user.update({
     where: {
       id: user.id,
     },
@@ -50,7 +59,31 @@ export async function POST() {
         increment: 1,
       },
     },
+    include: {
+      party: {
+        include: {
+          players: true,
+        },
+      },
+    },
   });
+
+  if (!party) {
+    return Response.json("Party not found", { status: 500 });
+  }
+
+  const players = party.players.filter((e) => e.alive);
+  if (players.length < 2) {
+    await prisma.party.update({
+      where: {
+        id: party.id,
+      },
+      data: {
+        started: false,
+        winnerId: players[0].id,
+      },
+    });
+  }
 
   return Response.json(null);
 }

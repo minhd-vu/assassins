@@ -48,9 +48,26 @@ export async function removePlayer(email: string) {
     return Response.json(party);
   }
 
+  const players = party.players.filter((e) => e.alive);
+  if (party.started && players.length === 1) {
+    await prisma.party.update({
+      where: {
+        id: party.id,
+      },
+      data: {
+        started: false,
+        winnerId: players[0].id,
+      },
+    });
+  }
+
   if (party.started) {
-    if (!user.targetedBy || !user.targetId) {
-      return Response.json(null, { status: 500 });
+    if (!user.targetId) {
+      return Response.json("User has no target", { status: 500 });
+    }
+
+    if (!user.targetedBy) {
+      return Response.json("User is not targetted by anyone", { status: 500 });
     }
 
     await prisma.user.update({
