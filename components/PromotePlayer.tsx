@@ -1,13 +1,16 @@
 "use client";
 
+import { useContext } from "react";
 import { useSWRConfig } from "swr";
+import { ErrorContext } from "./App";
 
 export default function PromotePlayer({ playerId }: { playerId: string }) {
   const { mutate } = useSWRConfig();
+  const { setError } = useContext(ErrorContext);
 
-  async function promotePlayer() {
-    const res = await fetch("/api/user", {
-      // method: "POST",
+  async function onClick() {
+    const res = await fetch("/api/party/promote", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -15,7 +18,8 @@ export default function PromotePlayer({ playerId }: { playerId: string }) {
     });
 
     if (!res.ok) {
-      throw new Error(await res.json());
+      setError(await res.json());
+      return;
     }
 
     mutate("/api/user");
@@ -24,7 +28,7 @@ export default function PromotePlayer({ playerId }: { playerId: string }) {
   return (
     <button
       className="btn btn-square btn-xs btn-warning"
-      onClick={() => promotePlayer}
+      onClick={() => onClick()}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
