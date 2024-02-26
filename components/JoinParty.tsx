@@ -1,21 +1,20 @@
 "use client";
 
-import { FormEvent } from "react";
+import { useContext } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { ErrorContext } from "./App";
+
+type Inputs = {
+  code: string;
+};
 
 export default function JoinParty() {
   const { mutate } = useSWRConfig();
+  const { register, handleSubmit } = useForm<Inputs>();
+  const { setError } = useContext(ErrorContext);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const data = new FormData(event.currentTarget);
-    const value = data.get("code");
-    if (!value) {
-      throw new Error();
-    }
-
-    const code = value.toString().toLowerCase();
+  const onSubmit: SubmitHandler<Inputs> = async ({ code }) => {
     const res = await fetch("/api/party/join", {
       method: "POST",
       headers: {
@@ -25,18 +24,17 @@ export default function JoinParty() {
     });
 
     if (!res.ok) {
-      throw new Error(await res.json());
+      setError(await res.json());
+      return;
     }
 
     mutate("/api/user");
-  }
+  };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <input
-        type="text"
-        id="code"
-        name="code"
+        {...register("code")}
         className="input input-bordered"
         placeholder="Party Code"
         required
