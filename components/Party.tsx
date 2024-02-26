@@ -73,11 +73,9 @@ export default function Party() {
     return (
       <li key={player.id}>
         <div className="border rounded-lg px-3 py-2 flex justify-between items-center">
-          <span className="flex items-center">
-            {player.name}
-            {party.adminId === player.id && <AdminBadge />}
-          </span>
+          <p>{player.name}</p>
           <div className="flex space-x-1">
+            {party.adminId === player.id && <AdminBadge />}
             {isAdmin && !isUser && (
               <>
                 <PromotePlayer playerId={player.id} />
