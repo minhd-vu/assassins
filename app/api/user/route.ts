@@ -1,23 +1,5 @@
-import prisma from "@/lib/prisma";
+import { getUser } from "@/lib/user";
 import { getServerSession } from "next-auth";
-
-async function getUser(email: string) {
-  return await prisma.user.findUniqueOrThrow({
-    where: {
-      email,
-    },
-    include: {
-      target: true,
-      party: {
-        include: {
-          players: true,
-        },
-      },
-    },
-  });
-}
-
-export type User = Awaited<ReturnType<typeof getUser>>;
 
 export async function GET() {
   const session = await getServerSession();

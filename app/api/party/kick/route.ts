@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
-import { removePlayer } from "../leave/route";
+import { removePlayer } from "@/lib/party";
 
 type PartyKickBody = {
   playerId?: string;

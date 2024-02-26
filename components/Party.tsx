@@ -8,7 +8,6 @@ import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
 import AdminBadge from "./AdminBadge";
 import useSWR, { Fetcher } from "swr";
-import { User } from "@/app/api/user/route";
 import Spinner from "./Spinner";
 import StopGame from "./StopGame";
 import Alert from "./Alert";
@@ -16,6 +15,7 @@ import PromotePlayer from "./PromotePlayer";
 import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
 import KickPlayer from "./KickPlayer";
+import { User } from "@/lib/user";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
