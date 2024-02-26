@@ -83,6 +83,15 @@ export async function POST() {
         winnerId: players[0].id,
       },
     });
+
+    await prisma.user.update({
+      where: {
+        id: players[0].id,
+      },
+      data: {
+        wins: players[0].wins + 1,
+      },
+    });
   }
 
   return Response.json(null);

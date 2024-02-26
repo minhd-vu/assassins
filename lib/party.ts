@@ -59,6 +59,15 @@ export async function removePlayer(email: string) {
         winnerId: players[0].id,
       },
     });
+
+    await prisma.user.update({
+      where: {
+        id: players[0].id,
+      },
+      data: {
+        wins: players[0].wins + 1,
+      },
+    });
   }
 
   if (party.started) {
