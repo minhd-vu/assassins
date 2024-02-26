@@ -16,8 +16,14 @@ import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
 import KickPlayer from "./KickPlayer";
 import { User } from "@/lib/user";
+import ConfirmKill from "./ConfirmKill";
+import DenyKill from "./DenyKill";
+import { useContext } from "react";
+import { ErrorContext } from "./App";
 
 export default function Party() {
+  const { setError } = useContext(ErrorContext);
+
   const fetcher: Fetcher<User, string> = (url) =>
     fetch(url).then((res) => res.json());
 
@@ -50,14 +56,22 @@ export default function Party() {
 
   if (party.started) {
     if (!user.target) {
-      throw new Error("User does not have a target");
+      setError("User has no target");
+      return;
     }
 
     return (
       <PartyCard code={party.code}>
         <h2>Target: {user.target.name}</h2>
         <div className="card-actions justify-center">
-          <KillTarget />
+          {user.pending ? (
+            <>
+              <ConfirmKill />
+              <DenyKill />
+            </>
+          ) : (
+            <KillTarget pending={user.target.pending} />
+          )}
           {party.adminId === user.id && <StopGame />}
           <LeaveParty />
         </div>

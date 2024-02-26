@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { useSWRConfig } from "swr";
 import { ErrorContext } from "./App";
 
-export default function KillTarget({ pending }: { pending: boolean }) {
+export default function ConfirmKill() {
   const { mutate } = useSWRConfig();
   const { setError } = useContext(ErrorContext);
 
   async function onClick() {
-    const res = await fetch("/api/kill", {
+    const res = await fetch("/api/kill/confirm", {
       method: "POST",
     });
 
@@ -21,18 +21,9 @@ export default function KillTarget({ pending }: { pending: boolean }) {
     mutate("/api/user");
   }
 
-  if (pending) {
-    return (
-      <button className="btn btn-accent">
-        Pending
-        <span className="loading loading-dots loading-sm"></span>
-      </button>
-    );
-  }
-
   return (
-    <button className="btn btn-accent" onClick={() => onClick()}>
-      Kill Target
+    <button className="btn btn-success" onClick={() => onClick()}>
+      Confirm Kill
     </button>
   );
 }
