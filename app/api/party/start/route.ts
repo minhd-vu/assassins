@@ -28,13 +28,13 @@ export async function POST() {
   }
 
   if (user.id !== user.party.adminId) {
-    return Response.json("User must be admin to start the party", {
+    return Response.json("You must be the admin to start the game", {
       status: 403,
     });
   }
 
   if (user.party.players.length < 2) {
-    return Response.json("Need at least two players to start party", {
+    return Response.json("Need at least two players to start the game", {
       status: 400,
     });
   }
