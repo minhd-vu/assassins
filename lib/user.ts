@@ -12,6 +12,7 @@ export async function getUser(email: string) {
       party: {
         include: {
           players: true,
+          winner: true,
         },
       },
     },
