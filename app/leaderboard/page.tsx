@@ -28,7 +28,7 @@ export default async function Leaderboard() {
   const users = await getLeaderboardUsers();
 
   const rows = users.map((user, i) => (
-    <LeaderboardRow user={user} rank={i + 1} />
+    <LeaderboardRow key={i} user={user} rank={i + 1} />
   ));
 
   return (

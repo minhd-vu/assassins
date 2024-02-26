@@ -17,7 +17,7 @@ export default function LeaderboardRow({
   }
 
   return (
-    <tr key={user.name} className="hover" onClick={() => onClick()}>
+    <tr className="hover" onClick={() => onClick()}>
       <th>{rank}</th>
       <th>{user.name}</th>
       <td>{user.kills}</td>
