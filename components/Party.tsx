@@ -6,29 +6,23 @@ import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
 import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
-import AdminBadge from "./AdminBadge";
 import useSWR, { Fetcher } from "swr";
 import Spinner from "./Spinner";
 import StopGame from "./StopGame";
 import Alert from "./Alert";
-import PromotePlayer from "./PromotePlayer";
 import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
-import KickPlayer from "./KickPlayer";
 import { User } from "@/lib/user";
 import ConfirmKill from "./ConfirmKill";
 import DenyKill from "./DenyKill";
-import { useContext } from "react";
-import { ErrorContext } from "./App";
+import Player from "./Player";
 
 export default function Party() {
-  const { setError } = useContext(ErrorContext);
-
   const fetcher: Fetcher<User, string> = (url) =>
     fetch(url).then((res) => res.json());
 
   const { data, error, isLoading } = useSWR("/api/user", fetcher, {
-    refreshInterval: 500,
+    refreshInterval: 1000,
   });
 
   if (isLoading) {
@@ -54,10 +48,32 @@ export default function Party() {
     );
   }
 
+  const isAdmin = party.adminId === user.id;
+
   if (party.started) {
-    if (!user.target) {
-      setError("User has no target");
-      return;
+    if (!user.target || !user.alive) {
+      const players = party.players.map((player, i) => (
+        <Player
+          key={i}
+          player={player}
+          isAdmin={isAdmin}
+          userId={user.id}
+          party={party}
+        />
+      ));
+
+      return (
+        <PartyCard code={party.code}>
+          <p className="text-sm">
+            You have died, waiting for round to finish...
+          </p>
+          <ul className="space-y-2">{players}</ul>
+          <div className="card-actions justify-center">
+            {isAdmin && <StopGame />}
+            <LeaveParty />
+          </div>
+        </PartyCard>
+      );
     }
 
     return (
@@ -79,28 +95,15 @@ export default function Party() {
     );
   }
 
-  const isAdmin = party.adminId === user.id;
-
-  const players = party.players.map((player) => {
-    const isUser = user.id === player.id;
-
-    return (
-      <li key={player.id}>
-        <div className="border rounded-lg px-3 py-2 flex justify-between items-center">
-          <p>{player.name}</p>
-          <div className="flex space-x-1">
-            {party.adminId === player.id && <AdminBadge />}
-            {isAdmin && !isUser && (
-              <>
-                <PromotePlayer playerId={player.id} />
-                <KickPlayer playerId={player.id} />
-              </>
-            )}
-          </div>
-        </div>
-      </li>
-    );
-  });
+  const players = party.players.map((player, i) => (
+    <Player
+      key={i}
+      player={player}
+      isAdmin={isAdmin}
+      userId={user.id}
+      party={party}
+    />
+  ));
 
   return (
     <PartyCard code={party.code}>
