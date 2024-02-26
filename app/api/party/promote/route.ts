@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
-import { removePlayer } from "../leave/route";
 
-type PartyKickBody = {
+type PartyPromoteBody = {
   playerId?: string;
 };
 
@@ -12,7 +11,7 @@ export async function POST(req: Request) {
     return Response.json("User is not authenticated", { status: 401 });
   }
 
-  const body: PartyKickBody = await req.json();
+  const body: PartyPromoteBody = await req.json();
 
   if (!body.playerId) {
     return Response.json("Must provide playerId in request body", {
@@ -40,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   if (user.party.adminId !== user.id) {
-    return Response.json("You must be the party admin to kick a player", {
+    return Response.json("You must be the party admin to promote a player", {
       status: 403,
     });
   }
@@ -52,5 +51,14 @@ export async function POST(req: Request) {
     });
   }
 
-  return removePlayer(player.email);
+  const party = await prisma.party.update({
+    where: {
+      id: user.party.id,
+    },
+    data: {
+      adminId: body.playerId,
+    },
+  });
+
+  return Response.json(party);
 }
