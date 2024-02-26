@@ -10,13 +10,13 @@ async function getLeaderboardUsers() {
     },
     orderBy: [
       {
-        wins: "asc",
+        wins: "desc",
       },
       {
-        kills: "asc",
+        kills: "desc",
       },
       {
-        deaths: "desc",
+        deaths: "asc",
       },
     ],
   });
