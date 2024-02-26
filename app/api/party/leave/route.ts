@@ -2,15 +2,10 @@ import prisma from "@/lib/prisma";
 import _ from "lodash";
 import { getServerSession } from "next-auth";
 
-export async function POST() {
-  const session = await getServerSession();
-  if (!session?.user?.email) {
-    return Response.json(null, { status: 401 });
-  }
-
+export async function removePlayer(email: string) {
   const user = await prisma.user.findUniqueOrThrow({
     where: {
-      email: session.user.email,
+      email,
     },
     include: {
       party: {
@@ -96,4 +91,13 @@ export async function POST() {
   }
 
   return Response.json(party);
+}
+
+export async function POST() {
+  const session = await getServerSession();
+  if (!session?.user?.email) {
+    return Response.json(null, { status: 401 });
+  }
+
+  return removePlayer(session.user.email);
 }

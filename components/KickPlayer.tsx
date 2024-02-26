@@ -1,12 +1,15 @@
 "use client";
 
+import { useContext } from "react";
 import { useSWRConfig } from "swr";
+import { ErrorContext } from "./App";
 
-export default function RemovePlayer({ playerId }: { playerId: string }) {
+export default function KickPlayer({ playerId }: { playerId: string }) {
+  const { setError } = useContext(ErrorContext);
   const { mutate } = useSWRConfig();
 
-  async function removePlayer() {
-    const res = await fetch("/api/party/remove", {
+  async function onClick() {
+    const res = await fetch("/api/party/kick", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +18,8 @@ export default function RemovePlayer({ playerId }: { playerId: string }) {
     });
 
     if (!res.ok) {
-      throw new Error(await res.json());
+      setError(await res.json());
+      return;
     }
 
     mutate("/api/user");
@@ -24,7 +28,7 @@ export default function RemovePlayer({ playerId }: { playerId: string }) {
   return (
     <button
       className="btn btn-square btn-xs btn-error"
-      onClick={() => removePlayer}
+      onClick={() => onClick()}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

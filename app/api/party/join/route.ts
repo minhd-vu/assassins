@@ -1,14 +1,23 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 
+type PartyJoinBody = {
+  code?: string;
+};
+
 export async function POST(req: Request) {
   const session = await getServerSession();
   if (!session?.user?.email) {
     return Response.json(null, { status: 401 });
   }
 
-  const data = await req.json();
-  const code = data.code;
+  const body: PartyJoinBody = await req.json();
+  if (!body.code) {
+    return Response.json("No party code provided", {
+      status: 400,
+    });
+  }
+  const code = body.code;
 
   let party = await prisma.party.findUnique({
     where: {

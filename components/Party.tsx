@@ -13,9 +13,9 @@ import Spinner from "./Spinner";
 import StopGame from "./StopGame";
 import Alert from "./Alert";
 import PromotePlayer from "./PromotePlayer";
-import RemovePlayer from "./RemovePlayer";
 import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
+import KickPlayer from "./KickPlayer";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -81,7 +81,7 @@ export default function Party() {
             {isAdmin && !isUser && (
               <>
                 <PromotePlayer playerId={player.id} />
-                <RemovePlayer playerId={player.id} />
+                <KickPlayer playerId={player.id} />
               </>
             )}
           </div>
