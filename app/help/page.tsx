@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Help() {
   return (
-    <div className="prose mx-6">
+    <div className="prose m-6">
       <h2 id="how-to-play">How to Play</h2>
       <p>
         Assassins is a live action game that can be played almost anywhere, but
