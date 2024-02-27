@@ -46,10 +46,11 @@ export default function Party() {
   const party = user.party;
   if (!party) {
     return (
-      <>
+      <div className="text-center space-y-2">
         <JoinParty />
+        <p className="text-2xl font-bold">or</p>
         <CreateParty />
-      </>
+      </div>
     );
   }
 

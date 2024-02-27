@@ -31,22 +31,24 @@ export default function JoinParty() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="code"
-        control={control}
-        render={({ field }) => (
-          <input
-            {...field}
-            onChange={(e) => field.onChange(e.target.value.toUpperCase())}
-            className="input input-bordered"
-            placeholder="Party Code"
-            required
-          />
-        )}
-      />
-      {errors.code?.message}
-      <button className="btn btn-primary">Join Party</button>
+    <form onSubmit={handleSubmit(onSubmit)} className="">
+      <div className="space-x-2">
+        <Controller
+          name="code"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              onChange={(e) => field.onChange(e.target.value.toUpperCase())}
+              className="input input-bordered"
+              placeholder="Party Code"
+              required
+            />
+          )}
+        />
+        <button className="btn btn-primary">Join Party</button>
+      </div>
+      <p className="text-sm text-error mt-1">{errors.code?.message}</p>
     </form>
   );
 }
