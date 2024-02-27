@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Help() {
   return (
-    <div className="flex justify-center my-6">
-      <div className="prose w-1/2">
+    <div className="flex justify-center m-6">
+      <div className="prose md:w-full lg:w-1/2">
         <h1 id="how-to-play">How to Play</h1>
         <h2 id="about">About</h2>
         <p>
