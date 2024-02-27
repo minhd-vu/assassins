@@ -7,7 +7,7 @@ export default function LeaveParty() {
   const [isLoading, setLoading] = useState(false);
   const { mutate } = useSWRConfig();
 
-  async function leaveParty() {
+  async function onClick() {
     setLoading(true);
 
     const res = await fetch("/api/party/leave", {
@@ -22,7 +22,7 @@ export default function LeaveParty() {
   }
 
   return (
-    <button className="btn btn-error" onClick={() => leaveParty()}>
+    <button className="btn btn-error" onClick={() => onClick()}>
       Leave Party
       {isLoading && <span className="loading loading-dots loading-sm"></span>}
     </button>

@@ -5,7 +5,7 @@ import { useSWRConfig } from "swr";
 export default function CreateParty() {
   const { mutate } = useSWRConfig();
 
-  async function createParty() {
+  async function onClick() {
     const res = await fetch("/api/party", {
       method: "POST",
     });
@@ -18,7 +18,7 @@ export default function CreateParty() {
   }
 
   return (
-    <button className="btn btn-primary" onClick={() => createParty()}>
+    <button className="btn btn-primary" onClick={() => onClick()}>
       Create Party
     </button>
   );
