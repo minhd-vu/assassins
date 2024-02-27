@@ -9,7 +9,7 @@ export default async function Leaderboard() {
   ));
 
   return (
-    <div className="overflow-x-auto bg-base-300 mx-4 rounded-xl">
+    <div className="overflow-x-auto bg-base-300 mx-4 my-5 rounded-lg">
       <table className="table">
         <thead>
           <tr>

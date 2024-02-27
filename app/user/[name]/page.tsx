@@ -14,7 +14,7 @@ export default async function UserById({
 
   return (
     <>
-      <h1 className="text-5xl font-bold text-center">{user.name}</h1>
+      <h1 className="text-5xl font-bold text-center mt-4">{user.name}</h1>
       <p className="text-sm font-light italic text-center">{user.id}</p>
       <div className="stats shadow bg-base-300 m-4">
         <div className="stat">
