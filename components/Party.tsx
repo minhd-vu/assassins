@@ -9,7 +9,6 @@ import { Party } from "@prisma/client";
 import useSWR, { Fetcher } from "swr";
 import Spinner from "./Spinner";
 import StopGame from "./StopGame";
-import Alert from "./Alert";
 import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
 import { User } from "@/lib/user";
@@ -17,10 +16,13 @@ import ConfirmKill from "./ConfirmKill";
 import DenyKill from "./DenyKill";
 import Player from "./Player";
 import NameForm from "./NameForm";
+import { useContext } from "react";
+import { ErrorContext } from "./App";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
     fetch(url).then((res) => res.json());
+  const { setError } = useContext(ErrorContext);
 
   const { data, error, isLoading } = useSWR("/api/user", fetcher, {
     refreshInterval: 1000,
@@ -31,12 +33,14 @@ export default function Party() {
   }
 
   if (error) {
-    return <Alert>{JSON.stringify(error)}</Alert>;
+    setError(error);
+    return;
   }
 
   const user = data;
   if (!user) {
-    return <Alert>User not found. Try logging in.</Alert>;
+    setError("User not found, try logging in again");
+    return;
   }
 
   if (!user.name) {

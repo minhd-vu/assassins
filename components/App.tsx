@@ -16,8 +16,12 @@ export default function App() {
 
   return (
     <ErrorContext.Provider value={{ error, setError }}>
-      {error && <Alert>{error}</Alert>}
-      <Party />
+      <div className="flex flex-col items-center">
+        <div className="h-20 flex items-center justfy-center">
+          {error && <Alert>{error}</Alert>}
+        </div>
+        <Party />
+      </div>
     </ErrorContext.Provider>
   );
 }

@@ -5,10 +5,14 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   const session = await getServerSession();
   if (!session?.user?.email) {
-    return Response.json(null, { status: 401 });
+    return Response.json("User is not authenticated", { status: 401 });
   }
 
   const user = await getUser(session.user.email);
+  if (!user) {
+    return Response.json("User could not be found", { status: 500 });
+  }
+
   return Response.json(user);
 }
 

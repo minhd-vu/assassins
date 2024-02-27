@@ -1,6 +1,6 @@
 import prisma from "./prisma";
 
-export type User = Awaited<ReturnType<typeof getUser>>;
+export type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
 export type Party = NonNullable<User["party"]>;
 
 export type UserBody = {
@@ -8,7 +8,7 @@ export type UserBody = {
 };
 
 export async function getUser(email: string) {
-  return await prisma.user.findUniqueOrThrow({
+  return await prisma.user.findUnique({
     where: {
       email,
     },
