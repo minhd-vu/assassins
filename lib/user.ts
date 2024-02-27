@@ -3,6 +3,10 @@ import prisma from "./prisma";
 export type User = Awaited<ReturnType<typeof getUser>>;
 export type Party = NonNullable<User["party"]>;
 
+export type UserBody = {
+  name?: string;
+};
+
 export async function getUser(email: string) {
   return await prisma.user.findUniqueOrThrow({
     where: {
@@ -23,10 +27,14 @@ export async function getUser(email: string) {
 export type LeaderboardUsers = Awaited<ReturnType<typeof getLeaderboardUsers>>;
 export type LeaderboardUser = LeaderboardUsers[0];
 
-async function getLeaderboardUsers() {
+export async function getLeaderboardUsers() {
   return await prisma.user.findMany({
+    where: {
+      name: {
+        not: null,
+      },
+    },
     select: {
-      id: true,
       name: true,
       kills: true,
       deaths: true,

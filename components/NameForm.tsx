@@ -4,20 +4,20 @@ import { useContext } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { ErrorContext } from "./App";
-import { PartyJoinBody } from "@/lib/party";
+import { UserBody } from "@/lib/user";
 
-export default function JoinParty() {
+export default function NameForm() {
   const { mutate } = useSWRConfig();
-  const { handleSubmit, control } = useForm<PartyJoinBody>();
+  const { handleSubmit, control } = useForm<UserBody>();
   const { setError } = useContext(ErrorContext);
 
-  const onSubmit: SubmitHandler<PartyJoinBody> = async ({ code }) => {
-    const res = await fetch("/api/party/join", {
+  const onSubmit: SubmitHandler<UserBody> = async ({ name }) => {
+    const res = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ code: code?.toLowerCase() }),
+      body: JSON.stringify({ name }),
     });
 
     if (!res.ok) {
@@ -30,20 +30,24 @@ export default function JoinParty() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-3xl">Set Username</h1>
+      <p className="text-center">
+        Please choose a username. You won't be able to change this in the
+        future.
+      </p>
       <Controller
-        name="code"
+        name="name"
         control={control}
         render={({ field }) => (
           <input
             {...field}
-            onChange={(e) => field.onChange(e.target.value.toUpperCase())}
             className="input input-bordered"
-            placeholder="Party Code"
+            placeholder="Username"
             required
           />
         )}
       />
-      <button className="btn btn-primary">Join Party</button>
+      <button className="btn btn-primary">Save</button>
     </form>
   );
 }

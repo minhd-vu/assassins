@@ -1,9 +1,6 @@
+import { PartyJoinBody } from "@/lib/party";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-
-type PartyJoinBody = {
-  code?: string;
-};
 
 export async function POST(req: Request) {
   const session = await getServerSession();

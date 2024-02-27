@@ -18,7 +18,7 @@ const options: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user }: { user: User | AdapterUser }) {
-      if (!user.email || !user.name) {
+      if (!user.email) {
         return false;
       }
 
@@ -33,7 +33,6 @@ const options: NextAuthOptions = {
           await prisma.user.create({
             data: {
               email: user.email,
-              name: user.name,
             },
           });
         }

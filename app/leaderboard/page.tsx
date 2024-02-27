@@ -1,28 +1,5 @@
 import LeaderboardRow from "@/components/LeaderboardRow";
-import prisma from "@/lib/prisma";
-
-async function getLeaderboardUsers() {
-  return await prisma.user.findMany({
-    select: {
-      id: true,
-      name: true,
-      kills: true,
-      deaths: true,
-      wins: true,
-    },
-    orderBy: [
-      {
-        wins: "desc",
-      },
-      {
-        kills: "desc",
-      },
-      {
-        deaths: "asc",
-      },
-    ],
-  });
-}
+import { getLeaderboardUsers } from "@/lib/user";
 
 export default async function Leaderboard() {
   const users = await getLeaderboardUsers();

@@ -24,7 +24,7 @@ export default async function Navbar() {
         <ul className="menu menu-horizontal px-2">
           {user && (
             <li>
-              <a href={`/user/${user.id}`}>Profile</a>
+              <a href={`/user/${user.name}`}>Profile</a>
             </li>
           )}
           <li>

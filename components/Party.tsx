@@ -16,6 +16,7 @@ import { User } from "@/lib/user";
 import ConfirmKill from "./ConfirmKill";
 import DenyKill from "./DenyKill";
 import Player from "./Player";
+import NameForm from "./NameForm";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -36,6 +37,10 @@ export default function Party() {
   const user = data;
   if (!user) {
     return <Alert>User not found. Try logging in.</Alert>;
+  }
+
+  if (!user.name) {
+    return <NameForm />;
   }
 
   const party = user.party;

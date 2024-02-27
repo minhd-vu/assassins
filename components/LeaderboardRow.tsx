@@ -13,7 +13,7 @@ export default function LeaderboardRow({
   const router = useRouter();
 
   async function onClick() {
-    router.push(`/user/${user.id}`);
+    router.push(`/user/${user.name}`);
   }
 
   return (

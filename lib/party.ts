@@ -1,6 +1,10 @@
 import _ from "lodash";
 import prisma from "./prisma";
 
+export type PartyJoinBody = {
+  code?: string;
+};
+
 export async function removePlayer(email: string) {
   const user = await prisma.user.findUniqueOrThrow({
     where: {
