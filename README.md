@@ -85,11 +85,6 @@ npm run dev
 npm start
 ```
 
-## Acknowledgements
-
-- [Minh Vu](https://github.com/minhd-vu)
-- [Bisrat Mekonnen](https://github.com/bismek)
-
 ## How to Play
 
 Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
@@ -140,3 +135,8 @@ When you assassinate a target, your next target will be the target your target h
 ##### Shuffle
 
 When a player assassinates a target, all players will receive a new target from the remaining players alive.
+
+## Acknowledgements
+
+- [Minh Vu](https://github.com/minhd-vu)
+- [Bisrat Mekonnen](https://github.com/bismek)
