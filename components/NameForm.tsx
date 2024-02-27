@@ -1,15 +1,17 @@
 "use client";
 
-import { useContext } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { ErrorContext } from "./App";
 import { UserBody } from "@/lib/user";
 
 export default function NameForm() {
   const { mutate } = useSWRConfig();
-  const { handleSubmit, control } = useForm<UserBody>();
-  const { setError } = useContext(ErrorContext);
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<UserBody>();
 
   const onSubmit: SubmitHandler<UserBody> = async ({ name }) => {
     const res = await fetch("/api/user", {
@@ -21,7 +23,7 @@ export default function NameForm() {
     });
 
     if (!res.ok) {
-      setError(await res.json());
+      setError("name", { message: await res.json() });
       return;
     }
 
@@ -31,10 +33,7 @@ export default function NameForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-3xl">Set Username</h1>
-      <p className="text-center">
-        Please choose a username. You won&apos;t be able to change this in the
-        future.
-      </p>
+      <p className="text-center">Please choose a username.</p>
       <Controller
         name="name"
         control={control}
@@ -47,6 +46,7 @@ export default function NameForm() {
           />
         )}
       />
+      <p>{errors.name?.message}</p>
       <button className="btn btn-primary">Save</button>
     </form>
   );

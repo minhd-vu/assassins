@@ -1,15 +1,17 @@
 "use client";
 
-import { useContext } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { ErrorContext } from "./App";
 import { PartyJoinBody } from "@/lib/party";
 
 export default function JoinParty() {
   const { mutate } = useSWRConfig();
-  const { handleSubmit, control } = useForm<PartyJoinBody>();
-  const { setError } = useContext(ErrorContext);
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<PartyJoinBody>();
 
   const onSubmit: SubmitHandler<PartyJoinBody> = async ({ code }) => {
     const res = await fetch("/api/party/join", {
@@ -21,7 +23,7 @@ export default function JoinParty() {
     });
 
     if (!res.ok) {
-      setError(await res.json());
+      setError("code", { message: await res.json() });
       return;
     }
 
@@ -43,6 +45,7 @@ export default function JoinParty() {
           />
         )}
       />
+      {errors.code?.message}
       <button className="btn btn-primary">Join Party</button>
     </form>
   );
