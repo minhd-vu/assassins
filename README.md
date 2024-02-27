@@ -49,10 +49,48 @@ This project is designed to easily facilitate the distribution of targets to pla
 - [Next.js](https://nextjs.org/)
 - [MongoDB](https://www.mongodb.com/)
 
-<details>
-  <summary><h2>How to Play</h2></summary>
-  
-### How to Play
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+### Installation
+
+1. Clone the repo
+
+```sh
+git clone https://github.com/minhd-vu/assassins.git
+```
+
+2. Install dependencies
+
+```sh
+npm install
+```
+
+3. Run in development
+
+```sh
+npm run dev
+```
+
+4. Run in production
+
+```sh
+npm start
+```
+
+## Acknowledgements
+
+- [Minh Vu](https://github.com/minhd-vu)
+- [Bisrat Mekonnen](https://github.com/bismek)
+
+## How to Play
 
 Assassins is a live action game that can be played almost anywhere, but best done in semi-crowded environments. The goal of the game is to be the last remaining person alive and to assassinate whomever you are assigned.
 
@@ -102,46 +140,3 @@ When you assassinate a target, your next target will be the target your target h
 ##### Shuffle
 
 When a player assassinates a target, all players will receive a new target from the remaining players alive.
-
-</details>
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-To get a local copy up and running follow these simple steps.
-
-### Prerequisites
-
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-### Installation
-
-1. Clone the repo
-
-```sh
-git clone https://github.com/minhd-vu/assassins.git
-```
-
-2. Install dependencies
-
-```sh
-npm install
-```
-
-3. Run in development
-
-```sh
-npm run dev
-```
-
-4. Run in production
-
-```sh
-npm start
-```
-
-## Acknowledgements
-
-- [Minh Vu](https://github.com/minhd-vu)
-- [Bisrat Mekonnen](https://github.com/bismek)
