@@ -31,6 +31,9 @@ export default async function Navbar() {
             <a href="/leaderboard">Leaderboard</a>
           </li>
           <li>
+            <a href="/help">Help</a>
+          </li>
+          <li>
             <LoginButton />
           </li>
         </ul>
