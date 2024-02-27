@@ -32,7 +32,7 @@ export default function NameForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-3xl">Set Username</h1>
       <p className="text-center">
-        Please choose a username. You won't be able to change this in the
+        Please choose a username. You won&apos;t be able to change this in the
         future.
       </p>
       <Controller
