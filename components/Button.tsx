@@ -8,12 +8,14 @@ export function Button({
   className,
   body,
   spinnerSize = "sm",
+  tooltip,
 }: {
   route: string;
   children: ReactNode;
   className?: string;
   body?: string;
   spinnerSize?: string;
+  tooltip?: string;
 }) {
   "use client";
 
@@ -40,14 +42,16 @@ export function Button({
   }
 
   return (
-    <button className={`btn ${className}`} onClick={() => onClick()}>
-      <span className={isLoading ? "invisible" : "visible"}>{children}</span>
-      {isLoading && (
-        <span
-          className={`loading loading-spinner loading-${spinnerSize} absolute`}
-        />
-      )}
-    </button>
+    <div className="tooltip" data-tip={tooltip}>
+      <button className={`btn ${className}`} onClick={() => onClick()}>
+        <span className={isLoading ? "invisible" : "visible"}>{children}</span>
+        {isLoading && (
+          <span
+            className={`loading loading-spinner loading-${spinnerSize} absolute`}
+          />
+        )}
+      </button>
+    </div>
   );
 }
 

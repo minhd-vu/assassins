@@ -9,6 +9,7 @@ export default function PromotePlayer({ playerId }: { playerId: string }) {
       className="btn-square btn-xs btn-warning"
       spinnerSize="xs"
       body={JSON.stringify({ playerId })}
+      tooltip="Promote"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

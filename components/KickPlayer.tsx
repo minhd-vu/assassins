@@ -9,6 +9,7 @@ export default function KickPlayer({ playerId }: { playerId: string }) {
       className="btn-square btn-xs btn-error"
       spinnerSize="xs"
       body={JSON.stringify({ playerId })}
+      tooltip="Kick"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
