@@ -15,34 +15,10 @@ export default async function UserById({
   return (
     <>
       <h1 className="text-5xl font-bold text-center mt-4">{user.name}</h1>
-      <p className="text-sm font-light italic text-center">{user.id}</p>
+      <p className="text-sm font-light italic text-center">
+        Date Joined: {user.createdAt.toLocaleDateString()}
+      </p>
       <div className="stats shadow bg-base-300 m-4">
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="inline-block w-8 h-8 stroke-current"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M6.5 7h11" />
-              <path d="M6.5 17h11" />
-              <path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1z" />
-              <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z" />
-            </svg>
-          </div>
-          <div className="stat-title">Date Joined</div>
-          <div className="stat-value">
-            {user.createdAt.toLocaleDateString()}
-          </div>
-        </div>
         <div className="stat">
           <div className="stat-figure text-secondary">
             <svg
