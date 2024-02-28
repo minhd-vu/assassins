@@ -77,3 +77,53 @@ export async function POST() {
 
   return Response.json(res);
 }
+
+type PartyPatchBody = {
+  mode?: Mode;
+};
+
+export async function PATCH(req: Request) {
+  const session = await getServerSession();
+  if (!session?.user?.email) {
+    return Response.json("User is not authenticated", { status: 401 });
+  }
+
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: session.user.email,
+    },
+    include: {
+      party: true,
+    },
+  });
+
+  if (!user.party) {
+    return Response.json("User is not in a party", {
+      status: 400,
+    });
+  }
+
+  if (user.party.adminId !== user.id) {
+    return Response.json("User must be the admin to adjust party settings", {
+      status: 403,
+    });
+  }
+
+  const body: PartyPatchBody = await req.json();
+  if (!body.mode) {
+    return Response.json("Party mode is required", {
+      status: 400,
+    });
+  }
+
+  const party = await prisma.party.update({
+    where: {
+      id: user.party.id,
+    },
+    data: {
+      mode: body.mode,
+    },
+  });
+
+  return Response.json(party);
+}

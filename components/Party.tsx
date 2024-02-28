@@ -19,6 +19,7 @@ import {
   StartGame,
   StopGame,
 } from "./Button";
+import SelectMode from "./SelectMode";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -119,7 +120,11 @@ export default function Party() {
   return (
     <PartyCard code={party.code}>
       {party.winner && <h2>{`Last Round's Winner: ${party.winner.name}`}</h2>}
-      <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
+      {isAdmin ? (
+        <SelectMode mode={party.mode} />
+      ) : (
+        <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
+      )}
       {!isAdmin && (
         <p className="text-sm italic">
           Waiting for party leader to start the party{" "}
