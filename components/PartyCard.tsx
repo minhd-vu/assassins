@@ -60,8 +60,8 @@ export default function PartyCard({
             )}
           </button>
         </div>
+        {children}
       </div>
-      {children}
     </div>
   );
 }
