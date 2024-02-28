@@ -6,7 +6,7 @@ export type PartyJoinBody = {
 };
 
 export async function removePlayer(email: string) {
-  const user = await prisma.user.findUniqueOrThrow({
+  const user = await prisma.user.findUnique({
     where: {
       email,
     },
@@ -19,6 +19,12 @@ export async function removePlayer(email: string) {
       targetedBy: true,
     },
   });
+
+  if (!user) {
+    return Response.json("User not found, try logging in again", {
+      status: 401,
+    });
+  }
 
   if (!user.party) {
     return Response.json("User is not currently part of a party", {
@@ -111,7 +117,7 @@ export async function removePlayer(email: string) {
       },
       data: {
         adminId: random.id,
-        started: party.players.length > 0 ? party.started : false,
+        started: party.players.length > 1 ? party.started : false,
       },
       include: {
         players: true,
