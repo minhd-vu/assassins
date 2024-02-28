@@ -68,9 +68,9 @@ export default function Party() {
         <Player
           key={i}
           player={player}
-          isAdmin={isAdmin}
-          userId={user.id}
           party={party}
+          userId={user.id}
+          isAdmin={isAdmin}
         />
       ));
 
@@ -111,9 +111,9 @@ export default function Party() {
     <Player
       key={i}
       player={player}
-      isAdmin={isAdmin}
       userId={user.id}
       party={party}
+      isAdmin={isAdmin}
     />
   ));
 
