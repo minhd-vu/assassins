@@ -47,7 +47,7 @@ export default function Alert({ children }: { children: ReactNode }) {
   );
 }
 
-function toSentence(children: ReactNode) {
+export function toSentence(children: ReactNode) {
   if (!children) {
     return;
   }
