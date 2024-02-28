@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import PromotePlayer from "./PromotePlayer";
 import KickPlayer from "./KickPlayer";
 import { Party } from "@/lib/user";
+import Link from "next/link";
 
 export function AdminIcon() {
   return (
@@ -90,7 +91,10 @@ export default function Player({
 }) {
   return (
     <li>
-      <div className="border rounded-lg px-3 py-2 flex justify-between items-center">
+      <Link
+        href={`/user/${player.name}`}
+        className="btn-outline border rounded-lg px-3 py-2 flex justify-between items-center"
+      >
         <p>{player.name}</p>
         <div className="flex space-x-1 items-center">
           {party.adminId === player.id && <AdminIcon />}
@@ -102,7 +106,7 @@ export default function Player({
             </>
           )}
         </div>
-      </div>
+      </Link>
     </li>
   );
 }

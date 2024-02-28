@@ -3,6 +3,7 @@ import LoginButton from "./LoginButton";
 import ThemeController from "./ThemeController";
 import prisma from "@/lib/prisma";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 export default async function Navbar() {
   const session = await getServerSession();
@@ -16,22 +17,22 @@ export default async function Navbar() {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl" href="/">
+        <Link className="btn btn-ghost text-xl" href="/">
           Assassins
-        </a>
+        </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-2">
           {user && (
             <li>
-              <a href={`/user/${user.name}`}>Profile</a>
+              <Link href={`/user/${user.name}`}>Profile</Link>
             </li>
           )}
           <li>
-            <a href="/leaderboard">Leaderboard</a>
+            <Link href="/leaderboard">Leaderboard</Link>
           </li>
           <li>
-            <a href="/help">Help</a>
+            <Link href="/help">Help</Link>
           </li>
           <li>
             <LoginButton />
