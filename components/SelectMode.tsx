@@ -39,7 +39,7 @@ export default function SelectMode({ mode }: { mode: Mode }) {
         className="select select-bordered select-sm w-full"
       >
         {modes.map((m) => (
-          <option>{m}</option>
+          <option key={m}>{m}</option>
         ))}
       </select>
     </div>
