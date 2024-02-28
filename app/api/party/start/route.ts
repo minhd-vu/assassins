@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import _ from "lodash";
+import { setPlayerTargets } from "@/lib/party";
 
 export async function POST() {
   const session = await getServerSession();
@@ -51,27 +52,7 @@ export async function POST() {
     },
   });
 
-  const players = _.shuffle(party.players);
-
-  for (let i = 0; i < players.length; i++) {
-    let targetId: string;
-    if (i === players.length - 1) {
-      targetId = players[0].id;
-    } else {
-      targetId = players[i + 1].id;
-    }
-
-    await prisma.user.update({
-      where: {
-        id: players[i].id,
-      },
-      data: {
-        alive: true,
-        pending: false,
-        targetId,
-      },
-    });
-  }
+  await setPlayerTargets(party.players);
 
   return Response.json(null);
 }

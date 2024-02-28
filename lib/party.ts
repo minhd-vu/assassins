@@ -166,3 +166,29 @@ async function updateTarget(user: User) {
 
   return Response.json(null);
 }
+
+type Players = Party["players"];
+
+export async function setPlayerTargets(players: Players) {
+  players = _.shuffle(players);
+
+  for (let i = 0; i < players.length; i++) {
+    let targetId: string;
+    if (i === players.length - 1) {
+      targetId = players[0].id;
+    } else {
+      targetId = players[i + 1].id;
+    }
+
+    await prisma.user.update({
+      where: {
+        id: players[i].id,
+      },
+      data: {
+        alive: true,
+        pending: false,
+        targetId,
+      },
+    });
+  }
+}
