@@ -103,6 +103,12 @@ export async function PATCH(req: Request) {
     });
   }
 
+  if (user.party.started) {
+    return Response.json("Cannot update mode of started parties", {
+      status: 400,
+    });
+  }
+
   if (user.party.adminId !== user.id) {
     return Response.json("User must be the admin to adjust party settings", {
       status: 403,
