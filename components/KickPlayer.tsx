@@ -1,34 +1,14 @@
 "use client";
 
-import { useContext } from "react";
-import { useSWRConfig } from "swr";
-import { ErrorContext } from "./App";
+import { Button } from "./Button";
 
 export default function KickPlayer({ playerId }: { playerId: string }) {
-  const { setError } = useContext(ErrorContext);
-  const { mutate } = useSWRConfig();
-
-  async function onClick() {
-    const res = await fetch("/api/party/kick", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ playerId }),
-    });
-
-    if (!res.ok) {
-      setError(await res.json());
-      return;
-    }
-
-    mutate("/api/user");
-  }
-
   return (
-    <button
-      className="btn btn-square btn-xs btn-error"
-      onClick={() => onClick()}
+    <Button
+      route="/api/party/kick"
+      className="btn-square btn-xs btn-error"
+      spinnerSize="xs"
+      body={JSON.stringify({ playerId })}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +24,6 @@ export default function KickPlayer({ playerId }: { playerId: string }) {
           d="M6 18L18 6M6 6l12 12"
         />
       </svg>
-    </button>
+    </Button>
   );
 }

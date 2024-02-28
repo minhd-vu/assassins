@@ -4,8 +4,10 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { PartyJoinBody } from "@/lib/party";
 import { toSentence } from "./Alert";
+import { useState } from "react";
 
 export default function JoinParty() {
+  const [isLoading, setLoading] = useState(false);
   const { mutate } = useSWRConfig();
   const {
     handleSubmit,
@@ -15,6 +17,8 @@ export default function JoinParty() {
   } = useForm<PartyJoinBody>();
 
   const onSubmit: SubmitHandler<PartyJoinBody> = async ({ code }) => {
+    setLoading(true);
+
     const res = await fetch("/api/party/join", {
       method: "POST",
       headers: {
@@ -25,6 +29,7 @@ export default function JoinParty() {
 
     if (!res.ok) {
       setError("code", { message: await res.json() });
+      setLoading(false);
       return;
     }
 
@@ -73,7 +78,14 @@ export default function JoinParty() {
             </label>
           )}
         />
-        <button className="btn btn-primary">Join Party</button>
+        <button className="btn btn-primary">
+          <span className={isLoading ? "invisible" : "visible"}>
+            Join Party
+          </span>
+          {isLoading && (
+            <span className="loading loading-spinner loading-sm absolute" />
+          )}
+        </button>
       </div>
       <p className="text-sm text-error mt-1">
         {toSentence(errors.code?.message)}

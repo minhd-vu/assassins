@@ -1,23 +1,24 @@
 "use client";
 
 import _ from "lodash";
-import LeaveParty from "./LeaveParty";
-import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
-import StartGame from "./StartGame";
 import { Party } from "@prisma/client";
 import useSWR, { Fetcher } from "swr";
-import Spinner from "./Spinner";
-import StopGame from "./StopGame";
-import KillTarget from "./KillTarget";
 import PartyCard from "./PartyCard";
 import { User } from "@/lib/user";
-import ConfirmKill from "./ConfirmKill";
-import DenyKill from "./DenyKill";
 import Player from "./Player";
 import NameForm from "./NameForm";
 import { useContext } from "react";
 import { ErrorContext } from "./App";
+import {
+  ConfirmKill,
+  CreateParty,
+  DenyKill,
+  KillTarget,
+  LeaveParty,
+  StartGame,
+  StopGame,
+} from "./Button";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
@@ -29,7 +30,7 @@ export default function Party() {
   });
 
   if (isLoading) {
-    return <Spinner />;
+    return <span className="loading loading-spinner loading-lg" />;
   }
 
   if (error) {
@@ -120,8 +121,9 @@ export default function Party() {
       {party.winner && <h2>{`Last Round's Winner: ${party.winner.name}`}</h2>}
       <h2>Mode: {_.startCase(_.toLower(party.mode))}</h2>
       {!isAdmin && (
-        <p className="text-sm">
-          Waiting for party leader to start the party...
+        <p className="text-sm italic">
+          Waiting for party leader to start the party{" "}
+          <span className="loading loading-dots loading-xs align-bottom" />
         </p>
       )}
       <h2>Players:</h2>

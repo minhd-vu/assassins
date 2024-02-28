@@ -1,34 +1,14 @@
 "use client";
 
-import { useContext } from "react";
-import { useSWRConfig } from "swr";
-import { ErrorContext } from "./App";
+import { Button } from "./Button";
 
 export default function PromotePlayer({ playerId }: { playerId: string }) {
-  const { mutate } = useSWRConfig();
-  const { setError } = useContext(ErrorContext);
-
-  async function onClick() {
-    const res = await fetch("/api/party/promote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ playerId }),
-    });
-
-    if (!res.ok) {
-      setError(await res.json());
-      return;
-    }
-
-    mutate("/api/user");
-  }
-
   return (
-    <button
-      className="btn btn-square btn-xs btn-warning"
-      onClick={() => onClick()}
+    <Button
+      route="/api/party/promote"
+      className="btn-square btn-xs btn-warning"
+      spinnerSize="xs"
+      body={JSON.stringify({ playerId })}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -46,6 +26,6 @@ export default function PromotePlayer({ playerId }: { playerId: string }) {
           d="M18 13l-6-6-6 6M18 19l-6-6-6 6"
         />
       </svg>
-    </button>
+    </Button>
   );
 }

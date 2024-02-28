@@ -4,8 +4,10 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { UserBody } from "@/lib/user";
 import { toSentence } from "./Alert";
+import { useState } from "react";
 
 export default function NameForm() {
+  const [isLoading, setLoading] = useState(false);
   const { mutate } = useSWRConfig();
   const {
     handleSubmit,
@@ -15,6 +17,8 @@ export default function NameForm() {
   } = useForm<UserBody>();
 
   const onSubmit: SubmitHandler<UserBody> = async ({ name }) => {
+    setLoading(true);
+
     const res = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -25,6 +29,7 @@ export default function NameForm() {
 
     if (!res.ok) {
       setError("name", { message: await res.json() });
+      setLoading(false);
       return;
     }
 
@@ -65,7 +70,12 @@ export default function NameForm() {
             </label>
           )}
         />
-        <button className="btn btn-primary">Save</button>
+        <button className="btn btn-primary">
+          <span className={isLoading ? "invisible" : "visible"}>Save</span>
+          {isLoading && (
+            <span className="loading loading-spinner loading-sm absolute" />
+          )}
+        </button>
       </div>
       <p className="text-sm text-error">{toSentence(errors.name?.message)}</p>
     </form>
