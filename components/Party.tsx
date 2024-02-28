@@ -131,7 +131,7 @@ export default function Party() {
           <span className="loading loading-dots loading-xs align-bottom" />
         </p>
       )}
-      <h2>Players:</h2>
+      <h2 className="font-bold text-xl">Players:</h2>
       <ul className="space-y-2">{players}</ul>
       <div className="card-actions justify-center">
         {isAdmin && <StartGame />}
