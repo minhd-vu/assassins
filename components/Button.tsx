@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useState } from "react";
+import { MouseEvent, ReactNode, useContext, useState } from "react";
 import { useSWRConfig } from "swr";
 import { ErrorContext } from "./App";
 
@@ -23,7 +23,12 @@ export function Button({
   const { mutate } = useSWRConfig();
   const { setError } = useContext(ErrorContext);
 
-  async function onClick() {
+  async function onClick(
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+  ) {
+    e.stopPropagation();
+    e.preventDefault();
+
     setLoading(true);
 
     const res = await fetch(route, {
@@ -43,7 +48,7 @@ export function Button({
 
   return (
     <div className="tooltip" data-tip={tooltip}>
-      <button className={`btn ${className}`} onClick={() => onClick()}>
+      <button className={`btn ${className}`} onClick={(e) => onClick(e)}>
         <span className={isLoading ? "invisible" : "visible"}>{children}</span>
         {isLoading && (
           <span
