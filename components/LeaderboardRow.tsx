@@ -13,12 +13,12 @@ export default function LeaderboardRow({
 }) {
   const router = useRouter();
 
-  async function onClick() {
+  function onClick() {
     router.push(`/user/${user.name}`);
   }
 
   return (
-    <tr className="hover" onClick={() => onClick()}>
+    <tr className="hover cursor-pointer" onClick={() => onClick()}>
       <td>{rank}</td>
       <td>
         <Link className="link link-primary" href={`/user/${user.name}`}>
