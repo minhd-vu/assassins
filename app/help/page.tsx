@@ -10,7 +10,7 @@ export default function Help() {
           Welcome to Assassins, a thrilling live-action game designed for play
           in semi-crowded environments. The ultimate objective is to emerge as
           the last surviving player while successfully assassinating your
-          assigned targets. Here's a step-by-step guide to get you started:
+          assigned targets. Here&apos;s a step-by-step guide to get you started:
         </p>
         <h2 id="login">Login</h2>
         <p>
