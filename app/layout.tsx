@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Assassins",
   description: "Assassins Live Action Game",
+  verification: {
+    google: "tuzr6XtiN8FWYcTN54Uj0ZBeWEbU1F5_c8F3A3uDdfo",
+  },
 };
 
 export default async function RootLayout({
