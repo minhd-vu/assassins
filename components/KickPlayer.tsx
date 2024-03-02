@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "./Button";
 
 export default function KickPlayer({ playerId }: { playerId: string }) {

@@ -20,11 +20,13 @@ import {
   StopGame,
 } from "./Button";
 import SelectMode from "./SelectMode";
+import { UserContext } from "./UserProvider";
 
 export default function Party() {
   const fetcher: Fetcher<User, string> = (url) =>
     fetch(url).then((res) => res.json());
   const { setError } = useContext(ErrorContext);
+  const { setUser } = useContext(UserContext);
 
   const { data, error, isLoading } = useSWR("/api/user", fetcher, {
     refreshInterval: 1000,
@@ -48,6 +50,8 @@ export default function Party() {
   if (!user.name) {
     return <NameForm />;
   }
+
+  setUser(user);
 
   const party = user.party;
   if (!party) {
