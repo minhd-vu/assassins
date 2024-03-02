@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
 
 export default async function UserById({
   params,
@@ -9,7 +10,7 @@ export default async function UserById({
   const user = await prisma.user.findUnique({ where: { name } });
 
   if (!user) {
-    return <p>No user found with name {name}</p>;
+    return notFound();
   }
 
   return (
