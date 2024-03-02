@@ -4,6 +4,7 @@ import { Mode } from "@prisma/client";
 import { useContext } from "react";
 import { ErrorContext } from "./App";
 import { useSWRConfig } from "swr";
+import ModeInfo from "./ModeInfo";
 
 export default function SelectMode({ mode }: { mode: Mode }) {
   const modes = Object.values(Mode);
@@ -32,9 +33,13 @@ export default function SelectMode({ mode }: { mode: Mode }) {
   }
 
   return (
-    <div className="inline-flex items-baseline space-x-2">
-      <span>Mode:</span>
+    <div className="inline-flex items-center">
+      <ModeInfo />
+      <label htmlFor="mode-select" className="ml-1 mr-2">
+        Mode:
+      </label>
       <select
+        id="mode-select"
         onChange={(e) => onChange(e)}
         className="select select-bordered select-sm w-full"
       >
