@@ -13,12 +13,12 @@ export default async function UserById({
   }
 
   return (
-    <>
-      <h1 className="text-5xl font-bold text-center mt-4">{user.name}</h1>
+    <div className="flex flex-col items-center m-4">
+      <h1 className="text-5xl font-bold text-center">{user.name}</h1>
       <p className="text-sm font-light italic text-center">
         Date Joined: {user.createdAt.toLocaleDateString()}
       </p>
-      <div className="stats shadow bg-base-300 m-4">
+      <div className="stats shadow bg-base-300 mt-4 md:w-3/4 lg:w-2/3 xl:w-1/2">
         <div className="stat">
           <div className="stat-figure text-secondary">
             <svg
@@ -95,6 +95,6 @@ export default async function UserById({
           <div className="stat-value">{user.deaths}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
