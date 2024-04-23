@@ -2,7 +2,6 @@
 
 import _ from "lodash";
 import JoinParty from "./JoinParty";
-import { Party } from "@prisma/client";
 import useSWR, { Fetcher } from "swr";
 import PartyCard from "./PartyCard";
 import { User } from "@/lib/user";
