@@ -1,9 +1,7 @@
 import prisma from "@/lib/prisma";
 
-export async function GET(
-  _: Request,
-  { params }: { params: { name: string } },
-) {
+export async function GET(_: Request, props: { params: Promise<{ name: string }> }) {
+  const params = await props.params;
   const users = await prisma.user.findMany({
     where: {
       name: {
