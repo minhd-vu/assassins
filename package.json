@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "prebuild": "npx prisma generate",
     "build": "next build",
     "start": "next start",
@@ -13,11 +13,11 @@
     "@prisma/client": "^6.0.0",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.5",
-    "next": "^14.2.12",
+    "next": "15.0.3",
     "next-auth": "^4.24.10",
     "next-themes": "^0.3.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-hook-form": "^7.51.3",
     "swr": "^2.2.5"
   },
@@ -25,8 +25,8 @@
     "@tailwindcss/typography": "^0.5.13",
     "@types/lodash": "^4.17.6",
     "@types/node": "^22",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.12.10",
     "eslint": "^8",
@@ -48,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }

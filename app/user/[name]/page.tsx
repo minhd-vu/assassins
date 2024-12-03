@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function UserById({
-  params,
-}: {
-  params: { name: string };
-}) {
+export default async function UserById(
+  props: {
+    params: Promise<{ name: string }>;
+  }
+) {
+  const params = await props.params;
   const name = params.name;
   const user = await prisma.user.findUnique({ where: { name } });
 
