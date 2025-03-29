@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 export default async function UserById({
   params,
 }: {
-  params: { name: string };
+  params: Promise<{ name: string }>;
 }) {
-  const name = params.name;
+  const { name } = await params;
   const user = await prisma.user.findUnique({ where: { name } });
 
   if (!user) {

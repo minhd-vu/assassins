@@ -2,12 +2,13 @@ import prisma from "@/lib/prisma";
 
 export async function GET(
   _: Request,
-  { params }: { params: { name: string } },
+  { params }: { params: Promise<{ name: string }> },
 ) {
+  const { name } = await params;
   const users = await prisma.user.findMany({
     where: {
       name: {
-        equals: params.name,
+        equals: name,
         mode: "insensitive",
       },
     },
@@ -20,13 +21,13 @@ export async function GET(
   });
 
   if (users.length > 1) {
-    return Response.json(`More than one user with name ${params.name} found`, {
+    return Response.json(`More than one user with name ${name} found`, {
       status: 500,
     });
   }
 
   if (users.length === 0) {
-    return Response.json(`Could not find user with name ${params.name}`, {
+    return Response.json(`Could not find user with name ${name}`, {
       status: 400,
     });
   }
