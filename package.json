@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0",
+    "@prisma/client": "^6.8.2",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.5",
     "next": "^15.3.1",
