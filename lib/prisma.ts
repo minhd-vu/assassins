@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient({
-    datasourceUrl: process.env.MONGODB_URI,
-  });
+  return new PrismaClient();
 };
 
 declare global {
